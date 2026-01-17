@@ -1,0 +1,201 @@
+# Command API
+
+> **Apply Intelligently** - AI command API reference for Percepta.
+
+## Overview
+
+The Command API is the **only way AI interacts with Percepta**. AI never writes code directly—it sends commands.
+
+## Command Categories
+
+### 1. Entity Commands
+
+CRUD operations on domain entities.
+
+```typescript
+// Create entity
+entity.create({
+  type: "Book",
+  data: {
+    title: "Atomic Habits",
+    author: "James Clear",
+    totalPages: 320
+  }
+})
+// Returns: { id: "book-123", ...data }
+
+// Update entity
+entity.update({
+  id: "book-123",
+  data: { currentPage: 150 }
+})
+
+// Delete entity
+entity.delete({
+  id: "book-123"
+})
+```
+
+### 2. Query Commands
+
+Read operations.
+
+```typescript
+// Get single value
+query.get("streak")
+// Returns: { value: 7, unit: "days" }
+
+// List entities with filters
+query.list("Book", {
+  filters: { status: "reading" },
+  sort: { field: "updatedAt", order: "desc" },
+  limit: 10
+})
+// Returns: { items: [...], total: 42 }
+
+// Custom query
+query.custom("weeklyProgress", { week: "2026-W02" })
+```
+
+### 3. View Commands
+
+UI manipulation.
+
+```typescript
+// Switch active view
+view.switch("reading-stats")
+
+// Modify view configuration
+view.modify({
+  id: "reading-list",
+  changes: {
+    template: "checklist",
+    showProgress: true
+  }
+})
+
+// Create new view
+view.create({
+  template: "calendar",
+  config: {
+    period: "week",
+    entity: "ReadingSession"
+  }
+})
+
+// Add widget to view
+view.addWidget({
+  viewId: "dashboard",
+  widget: "streak-counter",
+  position: { row: 1, col: 2 }
+})
+```
+
+### 4. Rule Commands
+
+Business logic automation.
+
+```typescript
+// Create rule
+rule.create({
+  id: "daily-streak",
+  trigger: "daily",
+  condition: "pagesRead > 0",
+  action: "incrementStreak"
+})
+
+// Modify rule
+rule.modify({
+  id: "daily-streak",
+  changes: { condition: "pagesRead >= 10" }
+})
+
+// Delete rule
+rule.delete({ id: "daily-streak" })
+```
+
+### 5. UI Commands
+
+User interface interactions.
+
+```typescript
+// Show notification
+ui.notify({
+  message: "Book added to your list!",
+  type: "success",  // success | error | warning | info
+  duration: 3000
+})
+
+// Navigate
+ui.navigate({ to: "/book/123" })
+
+// Open panel
+ui.openPanel({
+  type: "book-details",
+  data: { bookId: "123" }
+})
+
+// Close panel
+ui.closePanel()
+```
+
+## Command Response Format
+
+### Success
+
+```typescript
+{
+  success: true,
+  data: { /* result */ },
+  meta: { /* additional info */ }
+}
+```
+
+### Error
+
+```typescript
+{
+  success: false,
+  error: {
+    code: "VALIDATION_ERROR",
+    message: "Title is required",
+    details: { field: "title" }
+  }
+}
+```
+
+## Interaction Modes
+
+### Use Mode
+
+AI operates the app on behalf of the user.
+
+| User Intent | Command |
+|-------------|---------|
+| Add a book | `entity.create({ type: "Book", ... })` |
+| Check progress | `query.get("progress")` |
+| Mark complete | `entity.update({ status: "completed" })` |
+
+### Evolve Mode
+
+AI modifies the app's configuration.
+
+| User Intent | Command |
+|-------------|---------|
+| Change layout | `view.modify({ template: "..." })` |
+| Add automation | `rule.create({ ... })` |
+| Create new view | `view.create({ ... })` |
+
+## Security
+
+Commands are validated and sandboxed:
+
+- Only allowed command types can be executed
+- Data validation before processing
+- Rate limiting per user
+- Audit logging of all commands
+
+## Related Files
+
+- Percepta overview: [percepta.mdc](./percepta.mdc)
+- Domain specs: [domains/percepta/command-api.md](../../../domains/percepta/command-api.md)

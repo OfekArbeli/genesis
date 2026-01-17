@@ -1,0 +1,127 @@
+# /validate
+
+Run type, lint, and test checks.
+
+## Usage
+
+```
+/validate                    # Run all checks
+/validate --types            # Type check only
+/validate --lint             # Lint only
+/validate --test             # Tests only
+```
+
+## What It Does
+
+1. Runs TypeScript type checking
+2. Runs ESLint
+3. Runs test suite
+4. Reports results
+5. Suggests fixes if failures
+
+## Checks Performed
+
+### Type Check
+
+```bash
+tsc --noEmit
+```
+
+Catches:
+- Type errors
+- Missing imports
+- Incorrect function signatures
+
+### Lint Check
+
+```bash
+eslint . --ext .ts,.tsx
+```
+
+Catches:
+- Code style violations
+- Potential bugs
+- Unused variables
+
+### Test Check
+
+```bash
+npm test
+```
+
+Runs:
+- Unit tests
+- Integration tests
+- Coverage report
+
+## Output Format
+
+### All Passing
+
+```
+✅ Types: Pass
+✅ Lint: Pass
+✅ Tests: Pass (42 tests, 95% coverage)
+
+✅ Validation complete
+📍 Next recommended: /commit
+```
+
+### With Failures
+
+```
+✅ Types: Pass
+❌ Lint: 2 errors
+  - src/components/Button.tsx:15 - Unexpected any
+  - src/utils/format.ts:8 - Missing return type
+✅ Tests: Pass
+
+❌ Validation failed
+📍 Fix lint errors and run /validate again
+```
+
+## Failure Handling
+
+| Check | On Failure |
+|-------|------------|
+| Types | Fix types, don't use `any` |
+| Lint | Fix code, don't disable rules |
+| Tests | Fix code or update test |
+
+## Dependencies
+
+- **Mode**: Agent
+- **Depends on**: Code changes (from /implement)
+- **Produces**: Validation report
+
+## Example
+
+```
+> /validate
+
+Running validation...
+
+Type checking...
+✅ Types: Pass (0 errors)
+
+Linting...
+✅ Lint: Pass (0 warnings)
+
+Testing...
+Running 42 tests...
+✅ Tests: Pass
+  - 42 passed
+  - 0 failed
+  - Coverage: 95%
+
+✅ Validation complete
+📍 Next recommended: /commit
+```
+
+## Pre-commit Checklist
+
+Before proceeding to commit:
+- [ ] All checks pass
+- [ ] No `// @ts-ignore` without explanation
+- [ ] No `eslint-disable` without justification
+- [ ] No console.log in production code

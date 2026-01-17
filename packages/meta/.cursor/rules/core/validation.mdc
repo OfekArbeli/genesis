@@ -1,0 +1,112 @@
+# Wegoby Validation
+
+> **Always Apply** - Quality gates before marking any task complete.
+
+## Pre-Completion Checklist
+
+Before marking any task as complete, verify:
+
+### Code Quality
+- [ ] All tests pass (unit, integration, e2e as appropriate)
+- [ ] Code follows project's linting rules
+- [ ] No TypeScript/type errors
+- [ ] No console errors or warnings
+- [ ] Code follows established patterns in the project
+
+### Functionality
+- [ ] Feature works as specified in task scope
+- [ ] Edge cases are handled
+- [ ] Error states are handled gracefully
+- [ ] Loading states are implemented
+- [ ] No regression in existing functionality
+
+### Documentation
+- [ ] Public APIs documented (if changed)
+- [ ] Complex business logic explained in comments
+- [ ] Breaking changes noted
+- [ ] Task artifacts updated (context.md, plan.md)
+
+### Standards
+- [ ] Naming follows Wegoby conventions
+- [ ] File organization matches project structure
+- [ ] Commit messages follow format guidelines
+
+## Validation Commands
+
+### `/validate` Checks
+
+1. **Type Check**: `tsc --noEmit`
+2. **Lint Check**: `eslint .`
+3. **Test Check**: `npm test`
+4. **Build Check**: `npm run build` (if applicable)
+
+### Failure Handling
+
+| Check | On Failure |
+|-------|------------|
+| Type errors | Fix types, do not use `any` to bypass |
+| Lint errors | Fix code, do not disable rules without justification |
+| Test failures | Fix code or update test if behavior intentionally changed |
+| Build failures | Fix build, check dependencies |
+
+## Quality Tiers
+
+### Tier 1: Critical (Must Pass)
+- Type check
+- Lint check
+- Unit tests
+- No console errors
+
+### Tier 2: Important (Should Pass)
+- Integration tests
+- Build succeeds
+- No TypeScript strict mode violations
+
+### Tier 3: Nice to Have
+- 80%+ test coverage
+- All TODO comments addressed
+- Performance benchmarks met
+
+## Anti-Patterns to Catch
+
+### ❌ Never Allow
+
+- `// @ts-ignore` without explanation
+- `eslint-disable` without justification
+- Empty catch blocks
+- Commented-out code committed
+- Console.log left in production code
+- Hardcoded credentials or secrets
+
+### ❌ Flag for Review
+
+- Functions over 50 lines
+- Files over 300 lines
+- More than 3 levels of nesting
+- Circular dependencies
+- Direct DOM manipulation in React
+
+## Automated Validation
+
+Pre-commit hooks should run:
+1. Lint staged files
+2. Type check affected files
+3. Run related tests
+
+Pre-push hooks should run:
+1. Full lint
+2. Full type check
+3. All tests
+
+## Manual Validation
+
+For UI changes:
+- [ ] Works on mobile viewport
+- [ ] Works on desktop viewport
+- [ ] Keyboard navigation works
+- [ ] Screen reader friendly (if applicable)
+
+For API changes:
+- [ ] Backward compatible (or migration provided)
+- [ ] Error responses are consistent
+- [ ] Rate limiting considered

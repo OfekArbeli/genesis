@@ -1,0 +1,191 @@
+# Testing Instructions
+
+> **Apply Intelligently** - TDD approach and test patterns for Wegoby projects.
+
+## Scope
+
+**In scope**: Test strategy, TDD, test naming, mocking
+**Not in scope**: Production code patterns (→ dev.mdc)
+
+## TDD Cycle
+
+### Red-Green-Refactor
+
+1. **RED**: Write a failing test that captures desired behavior
+2. **GREEN**: Write minimal code to make the test pass
+3. **REFACTOR**: Improve code while keeping tests green
+
+### Example
+
+```typescript
+// 1. RED: Write failing test
+describe('calculateReadingProgress', () => {
+  it('should return percentage of pages read', () => {
+    const book = { currentPage: 50, totalPages: 200 };
+    expect(calculateReadingProgress(book)).toBe(25);
+  });
+});
+
+// 2. GREEN: Minimal implementation
+function calculateReadingProgress(book: Book): number {
+  return (book.currentPage / book.totalPages) * 100;
+}
+
+// 3. REFACTOR: Improve if needed
+function calculateReadingProgress(book: Book): number {
+  if (book.totalPages === 0) return 0;
+  return Math.round((book.currentPage / book.totalPages) * 100);
+}
+```
+
+## Test Naming
+
+### Format
+
+```typescript
+describe('[Unit Under Test]', () => {
+  it('should [expected behavior] when [condition]', () => {});
+});
+```
+
+### Examples
+
+```typescript
+// ✅ Good: Reads like specification
+describe('UserService', () => {
+  it('should return user when valid ID is provided', () => {});
+  it('should throw NotFoundError when user does not exist', () => {});
+  it('should hash password before saving', () => {});
+});
+
+// ❌ Bad: Implementation-focused
+describe('UserService', () => {
+  it('should call findById', () => {});
+  it('should return null', () => {});
+});
+```
+
+## Test Structure
+
+### Arrange-Act-Assert (AAA)
+
+```typescript
+it('should calculate total price with discount', () => {
+  // Arrange
+  const items = [
+    { name: 'Book', price: 20 },
+    { name: 'Pen', price: 5 },
+  ];
+  const discount = 0.1;
+
+  // Act
+  const total = calculateTotal(items, discount);
+
+  // Assert
+  expect(total).toBe(22.5);
+});
+```
+
+## Test Types
+
+### Unit Tests
+
+- Test single functions/methods in isolation
+- Mock all dependencies
+- Fast execution (<100ms per test)
+
+```typescript
+describe('validateEmail', () => {
+  it('should return true for valid email', () => {
+    expect(validateEmail('test@example.com')).toBe(true);
+  });
+
+  it('should return false for invalid email', () => {
+    expect(validateEmail('invalid')).toBe(false);
+  });
+});
+```
+
+### Integration Tests
+
+- Test multiple units working together
+- May use real dependencies (database, API)
+- Test realistic scenarios
+
+```typescript
+describe('UserRegistration', () => {
+  it('should create user and send welcome email', async () => {
+    const result = await registerUser({
+      email: 'new@example.com',
+      password: 'secure123',
+    });
+
+    expect(result.user).toBeDefined();
+    expect(emailService.send).toHaveBeenCalledWith(
+      'new@example.com',
+      'welcome'
+    );
+  });
+});
+```
+
+### E2E Tests
+
+- Test complete user flows
+- Use real browser/app
+- Test critical paths only
+
+## Mocking
+
+### When to Mock
+
+- External services (APIs, databases)
+- Time-dependent operations
+- Random values
+- Side effects (email, payments)
+
+### Mock Patterns
+
+```typescript
+// Mock module
+jest.mock('@wegoby/email-service');
+
+// Mock implementation
+const mockSend = jest.fn().mockResolvedValue({ sent: true });
+emailService.send = mockSend;
+
+// Verify mock called
+expect(mockSend).toHaveBeenCalledWith('test@example.com', 'welcome');
+```
+
+## Test Data
+
+### Use Factories
+
+```typescript
+// test/factories/user.factory.ts
+export function createTestUser(overrides: Partial<User> = {}): User {
+  return {
+    id: 'test-id',
+    email: 'test@example.com',
+    name: 'Test User',
+    createdAt: new Date(),
+    ...overrides,
+  };
+}
+
+// Usage
+const user = createTestUser({ email: 'custom@example.com' });
+```
+
+## Coverage Goals
+
+| Type | Target |
+|------|--------|
+| Unit tests | 80%+ |
+| Integration tests | Critical paths |
+| E2E tests | Happy paths |
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

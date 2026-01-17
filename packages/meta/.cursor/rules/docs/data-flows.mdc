@@ -1,0 +1,189 @@
+# Data Flows
+
+> **Apply Intelligently** - How data moves across the Wegoby system.
+
+## System Overview
+
+```
+┌─────────────┐     ┌─────────────┐     ┌─────────────┐
+│   User      │────▶│  Percepta   │────▶│  Sensetree  │
+│ (Browser)   │◀────│  (Runtime)  │◀────│  (Persona)  │
+└─────────────┘     └─────────────┘     └─────────────┘
+                           │
+                           ▼
+                    ┌─────────────┐
+                    │  Miniapp    │
+                    │  (Config)   │
+                    └─────────────┘
+                           │
+                           ▼
+                    ┌─────────────┐
+                    │  Backend    │
+                    │  (Server)   │
+                    └─────────────┘
+```
+
+## User Interaction Flow
+
+```
+User Action (click, type, etc.)
+        ↓
+Percepta captures event
+        ↓
+Event processed by miniapp rules
+        ↓
+Command API executed
+        ↓
+State updated
+        ↓
+Sensetree notified (persona update)
+        ↓
+UI re-rendered with new state
+```
+
+## Persona Flow
+
+```
+User Registration
+        ↓
+Onboarding questions (from miniapp)
+        ↓
+Sensetree processes answers
+        ↓
+Initial persona created
+        ↓
+Stored in user profile
+        ↓
+Available to Percepta for theming
+```
+
+## Adaptation Flow
+
+```
+User Interaction
+        ↓
+Interaction logged
+        ↓
+Sensetree analyzes patterns
+        ↓
+Persona dimensions updated
+        ↓
+Percepta receives new preferences
+        ↓
+UI adapts (theme, pace, layout)
+```
+
+## Data Storage
+
+### User Data
+
+| Data Type | Storage | Ownership |
+|-----------|---------|-----------|
+| Persona | Database | User |
+| Preferences | Database | User |
+| Content | Database | User |
+| Sessions | Temporary | System |
+
+### App Data
+
+| Data Type | Storage | Ownership |
+|-----------|---------|-----------|
+| Miniapp configs | File system | Wegoby |
+| Entity definitions | File system | Wegoby |
+| View templates | File system | Wegoby |
+
+## API Flows
+
+### Read Flow
+
+```
+UI Component
+    ↓ useQuery
+API Client
+    ↓ HTTP GET
+API Server
+    ↓ Service call
+Service Layer
+    ↓ Repository
+Database
+    ↓ Response
+UI Component (re-render)
+```
+
+### Write Flow
+
+```
+UI Component
+    ↓ useMutation
+API Client
+    ↓ HTTP POST/PUT
+API Server
+    ↓ Validation
+Service Layer
+    ↓ Business logic
+Database
+    ↓ Sensetree notification
+Response
+```
+
+## Real-time Updates
+
+### WebSocket Flow
+
+```
+Client connects
+        ↓
+Server authenticates
+        ↓
+Client subscribes to channels
+        ↓
+Server pushes updates
+        ↓
+Client state updated
+        ↓
+UI re-renders
+```
+
+## Caching Strategy
+
+| Layer | Cache | TTL |
+|-------|-------|-----|
+| Browser | Service Worker | 1 day |
+| API | Redis | 5 min |
+| Database | Query cache | 1 min |
+
+## Error Flow
+
+```
+Error occurs
+        ↓
+Caught by error boundary / handler
+        ↓
+Logged to monitoring
+        ↓
+User-friendly message shown
+        ↓
+Recovery options presented
+```
+
+## Security Flow
+
+```
+Request received
+        ↓
+Authentication check (JWT)
+        ↓
+Authorization check (permissions)
+        ↓
+Rate limiting check
+        ↓
+Request processed
+        ↓
+Audit logged
+```
+
+## Related Files
+
+- Architecture: [instructions/architecture.mdc](../instructions/architecture.mdc)
+- Percepta: [percepta.mdc](./percepta.mdc)
+- Sensetree: [sensetree.mdc](./sensetree.mdc)

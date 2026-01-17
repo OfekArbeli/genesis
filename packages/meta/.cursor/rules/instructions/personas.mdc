@@ -1,0 +1,248 @@
+# Personas Instructions
+
+> **Apply Intelligently** - How to create, evolve, and use user personas.
+
+## Scope
+
+**In scope**: Creating personas, empathy mapping, user modeling, persona evolution
+**Not in scope**: User research methods (→ research.mdc), UX design (→ ux.mdc)
+
+## What is a Persona?
+
+A persona is a fictional but realistic representation of a target user. It's not a demographic profile—it's a tool for empathy and decision-making.
+
+### Persona vs Demographic
+
+| Demographic | Persona |
+|-------------|---------|
+| Age: 28 | Goals: Stay consistent with reading |
+| Location: Tel Aviv | Frustrations: Loses track of books |
+| Job: Developer | Context: Reads on commute |
+| Income: $X | Motivations: Self-improvement |
+
+## Persona Structure
+
+### Standard Persona Template
+
+```markdown
+# Persona: {Name}
+
+## Quick Profile
+- **Name**: {Realistic name}
+- **Age**: {Age range}
+- **Occupation**: {Job/role}
+- **Quote**: "{Something they would say}"
+
+## Goals
+What does this person want to achieve?
+1. [Primary goal]
+2. [Secondary goal]
+3. [Tertiary goal]
+
+## Frustrations
+What gets in their way?
+1. [Pain point 1]
+2. [Pain point 2]
+3. [Pain point 3]
+
+## Context
+When and where do they use the product?
+- **Environment**: [Where they use it]
+- **Time**: [When they use it]
+- **Devices**: [What they use]
+- **Frequency**: [How often]
+
+## Behaviors
+How do they typically behave?
+- [Behavior pattern 1]
+- [Behavior pattern 2]
+
+## Skills & Experience
+- **Tech savviness**: [Low/Medium/High]
+- **Domain expertise**: [Low/Medium/High]
+- **Product familiarity**: [New/Returning/Power user]
+
+## Needs
+What do they need from the product?
+1. [Functional need]
+2. [Emotional need]
+3. [Social need]
+```
+
+## Creating Personas
+
+### Step 1: Gather Data
+
+Sources for persona data:
+- User interviews
+- Analytics data
+- Support tickets
+- Survey responses
+- Market research
+- Team assumptions (validated later)
+
+### Step 2: Identify Patterns
+
+Group users by:
+- **Goals**: What they're trying to achieve
+- **Behaviors**: How they act
+- **Context**: When/where they use product
+- **Attitudes**: How they feel about the domain
+
+### Step 3: Create Persona
+
+1. Choose a representative user pattern
+2. Give them a name and photo
+3. Fill in the template
+4. Add a memorable quote
+5. Validate with team and data
+
+### Step 4: Socialize
+
+- Present to the team
+- Post in visible locations
+- Reference in discussions
+- Use in design reviews
+
+## Empathy Mapping
+
+A tool to deepen understanding of a persona.
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                         SAYS                             │
+│   "I want to read more but never find the time"         │
+├──────────────────────────┬──────────────────────────────┤
+│          THINKS          │            DOES               │
+│                          │                               │
+│ "Everyone reads more     │ Opens app, sees backlog,     │
+│  than me"                │ feels overwhelmed             │
+│                          │                               │
+│ "I should be reading     │ Browses social media instead │
+│  instead of scrolling"   │                               │
+├──────────────────────────┼──────────────────────────────┤
+│          FEELS           │                               │
+│                          │                               │
+│ Guilty about not reading │                               │
+│ Excited when starting    │                               │
+│ Frustrated by slow pace  │                               │
+└──────────────────────────┴──────────────────────────────┘
+```
+
+### Empathy Map Questions
+
+| Quadrant | Questions |
+|----------|-----------|
+| **Says** | What do they literally say? Quotes from interviews? |
+| **Thinks** | What occupies their thoughts? Worries? Aspirations? |
+| **Does** | What actions do they take? Observable behaviors? |
+| **Feels** | What emotions do they experience? What matters to them? |
+
+## Persona Types
+
+### Primary Persona
+
+The main target user. Design for them first.
+- Represents the largest or most important user segment
+- All features should serve this persona
+- Conflicts resolved in their favor
+
+### Secondary Persona
+
+Important but not primary. Accommodate when possible.
+- Features shouldn't harm their experience
+- Nice-to-have features may serve them
+- Don't design primarily for them
+
+### Negative Persona
+
+Who you're NOT building for. Explicitly exclude.
+- Helps say "no" to feature requests
+- Clarifies focus
+- Example: "Power users who want Excel-like complexity"
+
+## Persona Evolution
+
+Personas aren't static. Update them as you learn.
+
+### When to Update
+
+- New user research findings
+- Significant product pivot
+- Market changes
+- Analytics reveal new patterns
+
+### Evolution Process
+
+1. Review existing persona
+2. Compare against new data
+3. Highlight changes
+4. Update document
+5. Communicate to team
+
+## Using Personas
+
+### In Design Decisions
+
+```
+"Would Sarah understand this?"
+"Does this help Marcus achieve his goal?"
+"Is this frustration we're creating for Alex?"
+```
+
+### In Prioritization
+
+```
+"This feature serves our primary persona directly"
+"This is for a secondary persona - nice to have"
+"This serves our negative persona - don't build"
+```
+
+### In Communication
+
+```
+"For readers like Sarah who struggle with consistency..."
+"Marcus told us in interviews that..."
+"This addresses Alex's main frustration..."
+```
+
+## Anti-Patterns
+
+### Avoid
+
+- **Generic personas**: "Young professional" without specifics
+- **Demographic-only**: Age/income without goals/frustrations
+- **Wishful thinking**: Describing ideal user, not real user
+- **Too many personas**: More than 3-4 dilutes focus
+- **Static personas**: Never updated with new learnings
+- **Shelf personas**: Created but never used
+
+### Warning Signs
+
+- Team doesn't know persona names
+- Personas not referenced in discussions
+- Features don't map to persona needs
+- Everyone interprets personas differently
+
+## Persona Quality Checklist
+
+### Good Persona
+
+- ✅ Based on real user data
+- ✅ Has specific, memorable details
+- ✅ Goals and frustrations are clear
+- ✅ Team can make decisions using it
+- ✅ Updated regularly
+- ✅ Referenced in discussions
+
+### Weak Persona
+
+- ❌ Based on assumptions only
+- ❌ Generic, could be anyone
+- ❌ Demographics without behaviors
+- ❌ Not used in decision-making
+- ❌ Created once, never updated
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

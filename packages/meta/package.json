@@ -1,0 +1,27 @@
+{
+  "name": "@genesis/meta",
+  "version": "0.1.0",
+  "description": "Meta layer - defines HOW to work (workflows, rules, commands)",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./templates/*": "./templates/*",
+    "./linters/*": "./linters/*"
+  },
+  "files": [
+    ".cursor",
+    "templates",
+    "linters",
+    "README.md"
+  ],
+  "keywords": [
+    "genesis",
+    "meta",
+    "workflows",
+    "rules",
+    "commands"
+  ],
+  "author": "",
+  "license": "MIT"
+}

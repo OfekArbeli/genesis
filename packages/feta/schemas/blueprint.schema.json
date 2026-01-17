@@ -1,0 +1,90 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://genesis.dev/schemas/blueprint.schema.json",
+  "title": "Blueprint Schema",
+  "description": "Schema for validating product blueprint structure",
+  "type": "object",
+  "required": ["structure"],
+  "properties": {
+    "structure": {
+      "type": "object",
+      "description": "Required folders and files in a blueprint",
+      "required": ["branding", "domains", "identity", "backlog", "specs", "stack.json", "README.md"],
+      "properties": {
+        "branding": {
+          "type": "object",
+          "description": "Visual identity folder",
+          "required": ["colors.json", "typography.json"],
+          "properties": {
+            "assets": {
+              "type": "object",
+              "description": "Logo, favicon, and image assets"
+            },
+            "colors.json": {
+              "type": "boolean",
+              "const": true
+            },
+            "typography.json": {
+              "type": "boolean",
+              "const": true
+            },
+            "gradients.json": {
+              "type": "boolean"
+            },
+            "images.json": {
+              "type": "boolean"
+            },
+            "i18n.json": {
+              "type": "boolean"
+            },
+            "identity.json": {
+              "type": "boolean"
+            }
+          }
+        },
+        "domains": {
+          "type": "object",
+          "description": "Domain specifications folder",
+          "properties": {
+            "schemas": {
+              "type": "object",
+              "description": "Shared data schemas"
+            }
+          }
+        },
+        "identity": {
+          "type": "object",
+          "description": "Product identity folder"
+        },
+        "backlog": {
+          "type": "object",
+          "description": "Work items folder",
+          "properties": {
+            "features": { "type": "object" },
+            "bugs": { "type": "object" },
+            "improvements": { "type": "object" },
+            "archive": { "type": "object" }
+          }
+        },
+        "specs": {
+          "type": "object",
+          "description": "Product specifications folder"
+        },
+        "research": {
+          "type": "object",
+          "description": "Research findings folder"
+        },
+        "stack.json": {
+          "type": "boolean",
+          "const": true,
+          "description": "Technology stack definition"
+        },
+        "README.md": {
+          "type": "boolean",
+          "const": true,
+          "description": "Blueprint documentation"
+        }
+      }
+    }
+  }
+}

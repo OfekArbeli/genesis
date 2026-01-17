@@ -1,0 +1,122 @@
+# Reflection Instructions
+
+> **Apply Intelligently** - How to reflect on completed work and extract learnings.
+
+## Scope
+
+**In scope**: Comparing outcomes, extracting learnings
+**Not in scope**: Writing learnings (→ /contribute appends to relevant rule)
+
+## Reflection Process
+
+After completing a task, run `/reflect` to:
+
+1. Compare plan vs actual outcome
+2. Identify divergences
+3. Extract learning candidates
+4. Propose where to add learnings
+
+## What to Compare
+
+### Plan vs Reality
+
+| Aspect | Questions |
+|--------|-----------|
+| **Time** | Did it take longer/shorter than estimated? Why? |
+| **Steps** | Were steps added/removed/changed? |
+| **Approach** | Did the chosen approach work? |
+| **Risks** | Did identified risks materialize? New ones appear? |
+
+### Code Quality
+
+| Aspect | Questions |
+|--------|-----------|
+| **Patterns** | Did you discover a new pattern? |
+| **Pitfalls** | What traps did you encounter? |
+| **Shortcuts** | Any useful shortcuts learned? |
+| **Mistakes** | What would you do differently? |
+
+## Reflection Document
+
+Add to `journal.md` or create reflection entry:
+
+```markdown
+## Reflection: {date}
+
+### What Went Well
+- [Positive outcome 1]
+- [Positive outcome 2]
+
+### What Could Be Better
+- [Issue 1] - [Why it happened]
+- [Issue 2] - [Why it happened]
+
+### Learnings
+1. [Learning 1] - Applies to: [category]
+2. [Learning 2] - Applies to: [category]
+
+### Time Analysis
+- Estimated: X hours
+- Actual: Y hours
+- Variance: [explanation]
+```
+
+## Learning Categories
+
+Map learnings to instruction files:
+
+| Category | Target Rule |
+|----------|-------------|
+| Git workflow | `instructions/git.mdc` |
+| Code patterns | `instructions/dev.mdc` |
+| Testing insights | `instructions/testing.mdc` |
+| Task management | `instructions/task.mdc` |
+| Research methods | `instructions/research.mdc` |
+| Planning techniques | `instructions/planning.mdc` |
+| Shipping process | `instructions/shipping.mdc` |
+| Architecture | `instructions/architecture.mdc` |
+
+## Learning Quality
+
+### Good Learning
+
+- ✅ Specific and actionable
+- ✅ Explains why, not just what
+- ✅ Includes context of when it applies
+- ✅ Can help future tasks
+
+Example:
+```markdown
+### 2026-01-09: Commit message for refactors
+When committing refactors, include the motivation in the commit body,
+not just the description. This helps reviewers understand why the
+change was made, especially when there's no obvious bug being fixed.
+```
+
+### Bad Learning
+
+- ❌ Too vague ("be more careful")
+- ❌ Too specific to one case
+- ❌ No actionable insight
+- ❌ Obvious information
+
+## Reflection Triggers
+
+Run reflection when:
+- Task is completed
+- Significant pivot during implementation
+- Unexpected issues encountered
+- Time estimate was significantly off
+- New pattern discovered
+
+## Questions to Ask
+
+1. **What surprised me?**
+2. **What would I do differently?**
+3. **What pattern emerged?**
+4. **What should I remember for next time?**
+5. **What should others know?**
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

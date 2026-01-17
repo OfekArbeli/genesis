@@ -1,0 +1,131 @@
+# Task Instructions
+
+> **Apply Intelligently** - Task format and management in Wegoby.
+
+## Scope
+
+**In scope**: Task ID format, file structure, metadata
+**Not in scope**: Implementation planning (→ planning.mdc)
+
+## Task ID Format
+
+Format: `{uuid}-{short-name}`
+
+| Part | Format | Example |
+|------|--------|---------|
+| UUID | 8 character hex | `a1b2c3d4` |
+| Short name | kebab-case, 2-4 words | `add-book-generation` |
+| Full ID | Combined | `a1b2c3d4-add-book-generation` |
+
+### Generating UUID
+
+```bash
+# Generate 8 character hex
+uuidgen | cut -c1-8 | tr '[:upper:]' '[:lower:]'
+```
+
+## Task File Format
+
+Location: `backlog/{task-id}.md`
+
+```markdown
+# {task-id}
+
+## Goal
+What success looks like (1-2 sentences)
+
+## Context
+Why this matters, background info, relevant links
+
+## Scope
+- [ ] Specific deliverable 1
+- [ ] Specific deliverable 2
+- [ ] Specific deliverable 3
+
+## Meta
+- Priority: high | medium | low
+- Type: feature | bugfix | refactor | docs
+- Estimate: small | medium | large
+- Domains: [sensetree, percepta]
+- Projects: [to-read]
+```
+
+### Field Guidelines
+
+**Goal**: One clear sentence describing success. Not implementation details.
+- ✅ "Users can see their reading streak on the dashboard"
+- ❌ "Add a component that fetches data and displays it"
+
+**Context**: Why this matters. Link to related tasks, issues, discussions.
+
+**Scope**: Checkboxes for specific deliverables. Each should be independently verifiable.
+
+**Meta**:
+- **Priority**: `high` (this week), `medium` (this sprint), `low` (backlog)
+- **Type**: `feature`, `bugfix`, `refactor`, `docs`
+- **Estimate**: `small` (<2h), `medium` (2-8h), `large` (>8h)
+
+## Task Lifecycle
+
+```
+backlog/{id}.md → tasks/{id}/ → backlog/archive/{id}.md
+   (planned)       (active)         (completed)
+```
+
+### States
+
+| State | Location | Description |
+|-------|----------|-------------|
+| Planned | `backlog/` | Task defined, not started |
+| Active | `tasks/{id}/` | Currently being worked on |
+| Completed | `backlog/archive/` | Done and archived |
+
+## Active Task Workspace
+
+When a task becomes active, create `tasks/{id}/`:
+
+| File | Purpose |
+|------|---------|
+| `task.json` | Task metadata, current phase, history |
+| `context.md` | Research findings, gathered context |
+| `plan.md` | Implementation plan with steps |
+| `decisions.md` | Key decisions and rationale |
+| `journal.md` | Timestamped progress log |
+| `outcome/` | Final artifacts, summaries |
+| `metrics.json` | Time spent, iterations, learnings |
+
+### task.json Structure
+
+```json
+{
+  "id": "a1b2c3d4-add-book-generation",
+  "title": "Add book generation to to-read",
+  "phase": "implementing",
+  "workflowProfile": "full",
+  "artifacts": {
+    "context": "context.md",
+    "plan": "plan.md",
+    "decisions": "decisions.md"
+  },
+  "history": [
+    { "phase": "creating", "timestamp": "2026-01-09T10:00:00Z" },
+    { "phase": "researching", "timestamp": "2026-01-09T10:05:00Z" }
+  ],
+  "error": null,
+  "resumable": true
+}
+```
+
+## Backlog Organization
+
+```
+backlog/
+├── features/     # New functionality
+├── bugs/         # Bug reports  
+├── improvements/ # Tech debt, refactoring
+└── archive/      # Completed tasks
+```
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

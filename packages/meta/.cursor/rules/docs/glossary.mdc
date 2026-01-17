@@ -1,0 +1,195 @@
+# Glossary
+
+> **Apply Intelligently** - Core vocabulary and concepts.
+
+## Core Concepts
+
+### Sensetree
+
+Wegoby's empathic AI—trained on deep user personas to approximate inner experience.
+
+| Aspect | Description |
+|--------|-------------|
+| **What** | AI model/service that "experiences" like a user |
+| **Foundation** | Emotional Intelligence (EI) research |
+| **Approach** | "Becoming the user, not observing the user" |
+| **Output** | Experiential preferences guiding system behavior |
+
+### Percepta
+
+Wegoby's adaptive UI engine—the "doing" side.
+
+| Aspect | Description |
+|--------|-------------|
+| **What** | Runtime engine + AI operator + adaptive UI |
+| **Purpose** | Renders and adapts UI based on Sensetree data |
+| **Components** | Renderer, state store, event bus, widgets, templates |
+| **AI Role** | Master operator via Command API |
+
+### Emotional Intelligence (EI)
+
+The research foundation inside Sensetree. Focuses on how emotions emerge from perception, memory, context, and meaning.
+
+Not psychology as classification, but experience as a living process.
+
+### Meta Layer
+
+The coordination layer that manages complexity without performing work.
+
+| Role | Description |
+|------|-------------|
+| **Cognitive Scaffold** | Mental framework for developers |
+| **Context Guide** | Shared understanding for AI agents |
+| **Guardian** | Maintains conceptual integrity |
+
+### Miniapp
+
+A `to-*` product (e.g., to-read, to-eat). Not separate codebases—domain configurations that run on Percepta.
+
+### Persona
+
+Mathematical representation of a user across multiple levels:
+1. Sensorimotor & Virtual Homeostasis
+2. Affective Construction & Cultural Priors
+3. Conceptual World-Model & Social Affordances
+4. Attentional Schema & Metacognitive Strategy
+5. Identity & Plasticity (Wrapper)
+
+## Adaptive System Terms
+
+### Baseline
+
+Company defaults for Context—what Wegoby thinks is the best UX for most users.
+
+| Aspect | Description |
+|--------|-------------|
+| **Role** | Seeds each user's Context with sensible defaults |
+| **Evolution** | Updates over time via Baseline Evolution |
+| **Schema** | `feta/domains/schemas/baseline-schema.json` |
+
+### Context
+
+User's personalized UX state across 5 dimensions:
+
+| Dimension | Focus |
+|-----------|-------|
+| **Presentation** | Surface—how info is displayed (layout, theme, typography) |
+| **Cognition** | Density—how content is conveyed (detail, tone, load) |
+| **Autonomy** | Agency—who leads (user vs system, confirmations) |
+| **Continuity** | Temporal—time/history (memory, sessions, anticipation) |
+| **Intent** | Content matching—what's relevant (goals, interests) |
+
+Schema: `feta/domains/schemas/context-schema.json`
+
+### Structure
+
+View configuration—what UI components exist and how they're arranged.
+
+| Aspect | Description |
+|--------|-------------|
+| **Source** | Miniapp definition (views/*.json) |
+| **Modifiable** | Yes, via Evolve Mode |
+| **Scope** | App-specific, not personalized |
+
+### Use Mode
+
+Chat mode where AI operates the app **for** the user.
+
+| Aspect | Description |
+|--------|-------------|
+| **Actions** | Create entities, query data, navigate views |
+| **Output** | Interactions |
+| **Feedback** | Can update Context (learns preferences) |
+
+### Evolve Mode
+
+Chat mode where AI modifies the app's **configuration**.
+
+| Aspect | Description |
+|--------|-------------|
+| **Actions** | Change views, add widgets, create rules |
+| **Output** | Modifications |
+| **Feedback** | Updates Structure directly |
+
+### Baseline Evolution
+
+Process where aggregated user patterns update Baseline defaults.
+
+| Aspect | Description |
+|--------|-------------|
+| **Trigger** | >50% of users deviate from a Baseline value |
+| **Effect** | Baseline updates to reflect better default |
+| **Purpose** | Collective intelligence improves defaults for everyone |
+
+## Workflow Terms
+
+### Task
+
+A unit of work with ID format: `{uuid}-{short-name}`
+
+Example: `a1b2c3d4-add-book-generation`
+
+### Phases
+
+```
+creating → researching → planning → implementing → shipping → learning → done
+```
+
+### Workflow Profiles
+
+| Profile | Flow | Use For |
+|---------|------|---------|
+| Full | research → plan → implement → ship → learn | New features |
+| Focused | plan → implement → ship | Medium tasks |
+| Quick | implement → ship | Bug fixes |
+
+## Command Terms
+
+### Action
+
+Single, pure operation. Level 1 command.
+
+Examples: `/create-task`, `/validate`, `/commit`
+
+### Flow
+
+Orchestrates multiple actions. Level 2 command.
+
+Examples: `/prepare`, `/ship`, `/learn`
+
+### Pipeline
+
+End-to-end workflow. Level 3 command.
+
+Examples: `/do`
+
+## Technical Terms
+
+### Domain Layer
+
+Pure business logic, no UI or external dependencies.
+
+### Service Layer
+
+Orchestrates domain logic and external services.
+
+### Command API
+
+Restricted interface for AI to interact with Percepta.
+
+Categories: entity, view, rule, ui
+
+### Design Tokens
+
+Named values for colors, typography, spacing. Defined in branding/, consumed by projects.
+
+## Abbreviations
+
+| Abbrev | Full | Meaning |
+|--------|------|---------|
+| EI | Emotional Intelligence | Research foundation for Sensetree |
+| TDD | Test-Driven Development | Red-green-refactor cycle |
+| a11y | Accessibility | Making apps usable by everyone |
+| i18n | Internationalization | Multi-language support |
+| RTL | Right-to-Left | Hebrew text direction |
+| LTR | Left-to-Right | English text direction |

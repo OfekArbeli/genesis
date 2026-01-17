@@ -1,0 +1,96 @@
+{
+  "photography": {
+    "style": "Natural, authentic, human-centered",
+    "guidelines": [
+      "Focus on real people in genuine moments",
+      "Show technology enhancing human experience",
+      "Capture diversity and inclusivity",
+      "Avoid overly staged or stock-like imagery"
+    ],
+    "treatment": {
+      "filters": "Warm tones, soft contrast",
+      "saturation": "Slightly desaturated for calm feel",
+      "exposure": "Bright but not blown out"
+    },
+    "subjects": [
+      "People reading, creating, thinking",
+      "Nature and outdoor spaces",
+      "Technology blending into daily life",
+      "Moments of connection and discovery"
+    ]
+  },
+  "illustrations": {
+    "style": "Minimal, abstract, flowing",
+    "guidelines": [
+      "Use organic, curved shapes",
+      "Embrace negative space",
+      "Suggest rather than define",
+      "Create sense of movement and growth"
+    ],
+    "colors": {
+      "primary": "Use brand gradients (pastel palette)",
+      "background": "Subtle, muted tones",
+      "accents": "Pops of primary pink or accent colors"
+    },
+    "themes": [
+      "Growth and evolution",
+      "Connection and flow",
+      "Adaptation and change",
+      "Simplicity and clarity"
+    ]
+  },
+  "icons": {
+    "style": "Outlined, rounded corners",
+    "library": "Lucide",
+    "guidelines": [
+      "Consistent stroke width (2px)",
+      "Rounded line caps and joins",
+      "Simple, recognizable shapes",
+      "Uniform size (24x24 default)"
+    ],
+    "strokeWidth": 2,
+    "sizes": {
+      "xs": 16,
+      "sm": 20,
+      "md": 24,
+      "lg": 32,
+      "xl": 48
+    }
+  },
+  "logos": {
+    "primary": {
+      "url": "https://static.wixstatic.com/media/34f355_cabb63ec33ae40c492a450cfd83c45c1~mv2.png",
+      "usage": "Main brand representation",
+      "minSize": "32px height",
+      "clearSpace": "Height of 'w' character"
+    },
+    "mark": {
+      "usage": "Favicons, app icons, small spaces",
+      "minSize": "16px"
+    },
+    "variants": [
+      "Full color on light",
+      "Full color on dark",
+      "Monochrome light",
+      "Monochrome dark"
+    ]
+  },
+  "visualPatterns": {
+    "borderRadius": {
+      "pills": "rounded-full or rounded-[99px]",
+      "cards": "rounded-2xl or rounded-[2rem]",
+      "largeSections": "rounded-t-[3rem] or rounded-t-[5rem]",
+      "smallElements": "rounded-md, rounded-lg"
+    },
+    "glassmorphism": [
+      "bg-white/50 backdrop-blur-sm border border-white/60",
+      "bg-white/40 backdrop-blur-sm",
+      "bg-white/80 backdrop-blur-md"
+    ],
+    "spacing": {
+      "maxContainerWidth": "max-w-[120rem] or max-w-[100rem]",
+      "sectionPadding": "py-32 px-6 or py-24 px-8",
+      "cardPadding": "p-8 or p-10"
+    }
+  }
+}

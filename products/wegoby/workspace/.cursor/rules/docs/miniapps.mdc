@@ -1,0 +1,162 @@
+# Miniapps
+
+> **Apply Intelligently** - Miniapp structure and configuration schema.
+
+## What is a Miniapp?
+
+A miniapp is a `to-*` product (e.g., to-read, to-eat) that runs on Percepta.
+
+**Key insight**: Miniapps are NOT separate codebases—they're **domain configurations**.
+
+```
+Percepta Engine = Code (TypeScript, builds)
+Miniapps = Configuration (JSON, declarative)
+AI = Operator (commands, not code)
+```
+
+## Miniapp Structure
+
+```
+miniapps/{app-name}/
+├── domain.json          # Domain entities and relationships
+├── views/               # View configurations
+│   ├── list.json        # List template config
+│   ├── detail.json      # Detail template config
+│   └── stats.json       # Dashboard config
+├── rules/               # Business logic rules
+│   ├── scoring.json     # Scoring algorithm
+│   └── automation.json  # Automated actions
+├── questions.json       # Persona questions for this app
+├── i18n.json            # Language overrides (optional)
+├── theme.json           # Theme overrides (optional)
+└── config.json          # App metadata
+```
+
+## Domain Schema
+
+`domain.json` defines entities:
+
+```json
+{
+  "domain": "to-read",
+  "entities": {
+    "Book": {
+      "fields": [
+        { "name": "title", "type": "string", "required": true },
+        { "name": "author", "type": "string" },
+        { "name": "totalPages", "type": "number" },
+        { "name": "currentPage", "type": "number", "default": 0 },
+        { "name": "status", "type": "enum", "values": ["want", "reading", "completed"] }
+      ],
+      "computed": [
+        { "name": "progressPercent", "formula": "(currentPage / totalPages) * 100" }
+      ]
+    },
+    "ReadingSession": {
+      "fields": [
+        { "name": "bookId", "type": "reference", "to": "Book" },
+        { "name": "pagesRead", "type": "number" },
+        { "name": "date", "type": "date" }
+      ]
+    }
+  }
+}
+```
+
+## View Configuration
+
+`views/list.json` example:
+
+```json
+{
+  "id": "reading-list",
+  "template": "list",
+  "entity": "Book",
+  "config": {
+    "title": "My Reading List",
+    "filters": [
+      { "field": "status", "options": ["all", "reading", "completed"] }
+    ],
+    "sort": { "field": "updatedAt", "order": "desc" },
+    "itemTemplate": {
+      "title": "{{title}}",
+      "subtitle": "{{author}}",
+      "progress": "{{progressPercent}}%"
+    },
+    "actions": ["edit", "delete", "markComplete"]
+  }
+}
+```
+
+## Rules Configuration
+
+`rules/scoring.json` example:
+
+```json
+{
+  "id": "daily-score",
+  "trigger": "daily",
+  "condition": "readingSessions.today.length > 0",
+  "action": {
+    "type": "calculateScore",
+    "formula": "sum(readingSessions.today.pagesRead) * 10"
+  }
+}
+```
+
+## App Configuration
+
+`config.json`:
+
+```json
+{
+  "id": "to-read",
+  "name": "Reading",
+  "description": "Track your reading progress",
+  "icon": "book",
+  "defaultView": "reading-list",
+  "features": {
+    "streaks": true,
+    "goals": true,
+    "sharing": false
+  }
+}
+```
+
+## Persona Questions
+
+`questions.json`:
+
+```json
+{
+  "onboarding": [
+    {
+      "id": "reading-pace",
+      "question": "How many pages do you typically read per day?",
+      "type": "range",
+      "options": { "min": 0, "max": 100, "step": 10 }
+    },
+    {
+      "id": "preferred-genres",
+      "question": "What genres do you enjoy?",
+      "type": "multiselect",
+      "options": ["Fiction", "Non-fiction", "Sci-fi", "Biography", "Self-help"]
+    }
+  ]
+}
+```
+
+## Creating a New Miniapp
+
+1. Create folder: `miniapps/{app-name}/`
+2. Define domain entities in `domain.json`
+3. Create views in `views/`
+4. Add business rules in `rules/`
+5. Define persona questions in `questions.json`
+6. Configure app in `config.json`
+
+## Related Files
+
+- Miniapps folder: [miniapps/](../../../miniapps/)
+- Percepta docs: [percepta.mdc](./percepta.mdc)
+- Command API: [command-api.mdc](./command-api.mdc)

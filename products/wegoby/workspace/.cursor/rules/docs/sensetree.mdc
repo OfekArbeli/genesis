@@ -1,0 +1,134 @@
+# Sensetree
+
+> **Apply Intelligently** - Wegoby's empathic AI and EI principles.
+
+## What is Sensetree?
+
+Sensetree is Wegoby's empathic AI—trained on deep user personas to approximate inner experience.
+
+It's the "feeling" side of Wegoby, while Percepta is the "doing" side.
+
+## Core Principles
+
+| Aspect | Description |
+|--------|-------------|
+| **What** | AI model/service that "experiences" like a user |
+| **Foundation** | Emotional Intelligence (EI) research |
+| **Approach** | "Becoming the user, not observing the user" |
+| **Models** | Emotional dynamics, not static traits |
+| **Output** | Experiential preferences that guide system behavior |
+
+## Emotional Intelligence (EI)
+
+The research foundation inside Sensetree.
+
+EI focuses on how emotions emerge from:
+- **Perception** — How we sense the world
+- **Memory** — How past experiences shape present
+- **Context** — Situational factors
+- **Meaning** — Personal significance
+
+EI is not psychology as classification, but experience as a living, evolving process.
+
+## Persona Levels
+
+Sensetree models users across multiple levels:
+
+### Level 1: Sensorimotor & Virtual Homeostasis
+
+| Dimension | What It Captures |
+|-----------|------------------|
+| Resource levels | Energy, attention capacity |
+| System integrity | Stress, cognitive load |
+| Innate affordances | Natural preferences |
+
+### Level 2: Affective Construction & Cultural Priors
+
+| Dimension | What It Captures |
+|-----------|------------------|
+| Cultural norms | Background expectations |
+| Arousal interpretation | How excitement/calm is processed |
+| Somatic markers | Gut feelings, intuitions |
+
+### Level 3: Conceptual World-Model & Social Affordances
+
+| Dimension | What It Captures |
+|-----------|------------------|
+| High-level affordances | Perceived possibilities |
+| Active inference commitments | Beliefs driving behavior |
+| Social context | Relationship to others |
+
+### Level 4: Attentional Schema & Metacognitive Strategy
+
+| Dimension | What It Captures |
+|-----------|------------------|
+| Attention model | What gets focus |
+| Strategic override | Conscious control |
+| Importance gating | Priority filtering |
+
+### Wrapper: Identity & Plasticity
+
+| Dimension | What It Captures |
+|-----------|------------------|
+| Learning rates | How fast adaptation occurs |
+| Narrative processing | Story-making tendencies |
+| Integration | How parts form whole |
+
+## How Sensetree Works
+
+```
+User Interaction
+       ↓
+  Sensetree Analysis
+       ↓
+  Persona Update
+       ↓
+  Percepta Receives Preferences
+       ↓
+  Adaptive UI Rendered
+```
+
+## Integration Points
+
+### With Percepta
+
+Sensetree provides persona data that Percepta uses for:
+- Theme selection
+- Layout preferences
+- Content pacing
+- Interaction style
+
+### With Miniapps
+
+Each miniapp can:
+- Request persona questions
+- Receive persona-based recommendations
+- Adapt to user preferences
+
+## API Contract
+
+Sensetree exposes:
+
+```typescript
+// Get user persona
+GET /api/sensetree/persona/{userId}
+
+// Update persona from interaction
+POST /api/sensetree/interaction
+{
+  userId: string,
+  event: InteractionEvent,
+  context: Context
+}
+
+// Get recommendations
+GET /api/sensetree/recommendations/{userId}?domain={domain}
+```
+
+## Related Files
+
+- Domain specs: [feta/domains/sensetree/](../../../domains/sensetree/)
+- Research: [feta/domains/sensetree/research/](../../../domains/sensetree/research/)
+- Persona schema: [feta/domains/sensetree/persona-schema.json](../../../domains/sensetree/persona-schema.json)
+- Projects definition: [feta/projects/](../../../projects/)
+- Packages definition: [feta/packages/](../../../packages/)

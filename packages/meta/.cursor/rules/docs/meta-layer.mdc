@@ -1,0 +1,127 @@
+# Meta Layer
+
+> **Apply Intelligently** - What is the meta layer and how it works.
+
+## What is the Meta Layer?
+
+The meta layer is the **mother layer** - a product-agnostic orchestration system that provides the environment for how agents and humans should work together. It's the DNA of any SaaS R&D team.
+
+Think of it as an **AI-native development operating system**.
+
+## Purpose
+
+> **Enable product engineers to create amazing production-ready products using AI.**
+
+The meta layer provides:
+
+- Product-agnostic rules, workflows, and conventions
+- Full R&D playbook (not just development - branding, UX, research, etc.)
+- Self-improving rules that learn from every feature and bug
+- Cognitive scaffold for product engineers
+- Context guide for AI agents
+- The "womb" (`repos/`) where implementations grow
+
+## The Family Model
+
+```
+Meta (Mother) + Feta (Father) = Development Environment
+                                      ↓
+                            Product Engineer acts here
+                                      ↓
+                              Implementation (Child)
+                              Lives in meta/repos/
+```
+
+- **Meta** (Mother): HOW to do things - product-agnostic orchestration
+- **Feta** (Father): WHAT to build - product-specific blueprints
+- **Implementation** (Child): The actual code, born from Meta + Feta
+
+## Folder Structure
+
+```
+meta/                              # Mother layer (product-agnostic DNA)
+├── .cursor/
+│   ├── rules/
+│   │   ├── core/                  # workflow, conventions, validation
+│   │   ├── instructions/          # Full R&D playbook
+│   │   │   ├── product.mdc        # Product management
+│   │   │   ├── research.mdc       # User/market research
+│   │   │   ├── personas.mdc       # Persona creation
+│   │   │   ├── ux.mdc             # User experience
+│   │   │   ├── design.mdc         # UI design
+│   │   │   ├── branding.mdc       # Brand systems
+│   │   │   ├── content.mdc        # Copy & content
+│   │   │   ├── architecture.mdc   # System design
+│   │   │   ├── dev.mdc            # Development
+│   │   │   ├── testing.mdc        # Testing & QA
+│   │   │   ├── git.mdc            # Version control
+│   │   │   ├── planning.mdc       # Task planning
+│   │   │   ├── shipping.mdc       # Deployment
+│   │   │   └── reflection.mdc     # Learning
+│   │   └── docs/                  # Meta-level documentation
+│   └── commands/
+│       ├── actions/               # Single operations
+│       ├── flows/                 # Orchestrated actions
+│       └── pipelines/             # End-to-end workflows
+├── templates/                     # Task templates, scaffolds
+├── linters/                       # Shared lint configs
+├── repos/                         # THE WOMB (gitignored)
+└── README.md
+```
+
+## Key Principle
+
+**If you could copy this to a completely different SaaS project and it would still make sense, it belongs in Meta.**
+
+The Meta layer teaches HOW to do any product engineering activity, not WHAT to build.
+
+## Rules vs Commands
+
+| Aspect | Rules | Commands |
+|--------|-------|----------|
+| **Purpose** | HOW to do things | WHAT + WHERE |
+| **Activation** | Always/Intelligently | Manual trigger |
+| **Think of as** | Guardrails | Shortcuts |
+
+## Rule Categories
+
+| Category | Location | Purpose |
+|----------|----------|---------|
+| Core | `rules/core/` | Always applied |
+| Instructions | `rules/instructions/` | How to do activities |
+| Docs | `rules/docs/` | Context providers |
+
+## Command Levels
+
+| Level | Folder | Purpose |
+|-------|--------|---------|
+| Actions | `commands/actions/` | Single operations |
+| Flows | `commands/flows/` | Orchestrate actions |
+| Pipelines | `commands/pipelines/` | End-to-end |
+
+## The Product Engineer
+
+The product engineer is the new developer - a full-stack creator who uses the Meta layer's R&D playbook to bring Feta's blueprints to life.
+
+```
+Product Engineer = Developer + Designer + Product Manager + Researcher
+                   (enabled by AI, guided by Meta, building from Feta)
+```
+
+They are the magician of experiences, creating anything by any means necessary in the **correct, validated, agreed-upon way**.
+
+## Self-Improvement
+
+The meta layer learns through:
+
+1. `/reflect` — Compare plan vs outcome
+2. `/contribute` — Extract learnings
+3. Learnings appended to relevant instruction rules
+
+Each instruction file has a `## Learnings` section that grows over time.
+
+## Related Files
+
+- Core rules: [.cursor/rules/core/](../core/)
+- Instructions: [.cursor/rules/instructions/](../instructions/)
+- Commands: [.cursor/commands/](../../commands/)

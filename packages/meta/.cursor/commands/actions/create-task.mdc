@@ -1,0 +1,88 @@
+# /create-task
+
+Create a new task in the backlog.
+
+## Usage
+
+```
+/create-task
+/create-task {short-name}
+```
+
+## What It Does
+
+1. Generates unique task ID: `{uuid}-{short-name}`
+2. Creates task file in `backlog/`
+3. Prompts for goal, context, scope
+4. Sets initial metadata
+
+## Task ID Format
+
+| Part | Format | Example |
+|------|--------|---------|
+| UUID | 8 char hex | `a1b2c3d4` |
+| Short name | kebab-case | `add-book-generation` |
+| Full ID | Combined | `a1b2c3d4-add-book-generation` |
+
+## Task File Template
+
+Creates `backlog/{task-id}.md`:
+
+```markdown
+# {task-id}
+
+## Goal
+[What success looks like]
+
+## Context
+[Why this matters, background]
+
+## Scope
+- [ ] Deliverable 1
+- [ ] Deliverable 2
+
+## Meta
+- Priority: medium
+- Type: feature
+- Estimate: medium
+- Domains: []
+- Projects: []
+```
+
+## Prompts
+
+The command will ask:
+
+1. **Short name**: Descriptive, kebab-case (2-4 words)
+2. **Goal**: One sentence describing success
+3. **Type**: feature | bugfix | refactor | docs
+4. **Priority**: high | medium | low
+
+## Output
+
+```
+✅ Task created → backlog/{task-id}.md
+📍 Next recommended: /research
+```
+
+## Dependencies
+
+- **Mode**: Agent
+- **Depends on**: Nothing
+- **Produces**: task.json, task file in backlog/
+
+## Example
+
+```
+> /create-task add-reading-streaks
+
+Creating task: a1b2c3d4-add-reading-streaks
+
+Goal: Track daily reading streaks on user dashboard
+
+Type: feature
+Priority: high
+
+✅ Task created → backlog/a1b2c3d4-add-reading-streaks.md
+📍 Next recommended: /research
+```

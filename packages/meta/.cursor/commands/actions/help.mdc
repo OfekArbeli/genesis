@@ -1,0 +1,67 @@
+# /help
+
+Show available commands and their usage.
+
+## Usage
+
+```
+/help              # Show all commands
+/help {command}    # Show details for specific command
+```
+
+## Commands Overview
+
+### Actions (Level 1)
+
+Single operations that do one thing well.
+
+| Command | Purpose |
+|---------|---------|
+| `/help` | Show available commands |
+| `/create-task` | Create new task in backlog |
+| `/research` | Gather context & deep analysis |
+| `/plan` | Create implementation plan |
+| `/implement` | Execute a plan step |
+| `/validate` | Run type/lint/test checks |
+| `/commit` | Commit with conventions |
+| `/reflect` | Compare plan vs outcome |
+| `/contribute` | Distill learnings |
+
+### Flows (Level 2)
+
+Orchestrate multiple actions.
+
+| Command | Orchestrates |
+|---------|--------------|
+| `/prepare` | research → plan |
+| `/ship` | validate → commit → summary → push |
+| `/learn` | reflect → contribute |
+
+### Pipelines (Level 3)
+
+End-to-end workflows.
+
+| Command | Full Flow |
+|---------|-----------|
+| `/do {task-id}` | prepare → implement loop → ship → learn |
+| `/do {task-id} manually` | Same, with approval at each phase |
+
+## Workflow Profiles
+
+| Profile | Flow | Best For |
+|---------|------|----------|
+| Full | research → plan → implement → ship → learn | New features |
+| Focused | plan → implement → ship | Medium tasks |
+| Quick | implement → ship | Bug fixes |
+
+## Getting Started
+
+1. Create a task: `/create-task`
+2. Run the full workflow: `/do {task-id}`
+
+Or run steps manually:
+1. `/research` - Understand the codebase
+2. `/plan` - Create implementation plan
+3. `/implement` - Execute the plan
+4. `/ship` - Validate, commit, push
+5. `/learn` - Capture learnings

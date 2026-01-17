@@ -1,0 +1,88 @@
+# Wegoby Workflow
+
+> **Always Apply** - Central workflow definition for all Wegoby development.
+
+## Task Phases
+
+```
+creating → researching → planning → implementing → shipping → learning → done
+```
+
+Flow is **non-linear** — the agent can jump phases based on task complexity.
+
+## Workflow Profiles
+
+| Profile | Flow | When to Use |
+|---------|------|-------------|
+| **Full** | research → plan → implement → ship → learn | New features, refactors, complex changes |
+| **Focused** | plan → implement → ship | Medium tasks, clear scope |
+| **Quick** | implement → ship | Bug fixes, small tweaks, docs |
+
+## Command Dependency Graph
+
+| Command | Mode | Depends On | Produces | Next |
+|---------|------|------------|----------|------|
+| `/help` | any | - | - | - |
+| `/create-task` | agent | - | task.json | /research |
+| `/research` | agent | task.json | context.md | /plan |
+| `/plan` | plan | context.md | plan.md | /implement |
+| `/implement` | agent | plan.md | code changes | /validate |
+| `/validate` | agent | code changes | validation report | /commit |
+| `/commit` | agent | validation pass | commit | /reflect |
+| `/reflect` | plan | outcome | reflection | /contribute |
+| `/contribute` | agent | reflection | knowledge update | done |
+
+## Flows (Orchestrate Actions)
+
+| Flow | Orchestrates | Purpose |
+|------|--------------|---------|
+| `/prepare` | research → plan | Get ready to implement |
+| `/ship` | validate → commit → summary → push | Ship completed work |
+| `/learn` | reflect → contribute | Capture learnings |
+
+## Pipelines (End-to-End)
+
+| Pipeline | Variants | Full Flow |
+|----------|----------|-----------|
+| `/do` | `/do {task-id}` (autonomous) | prepare → implement loop → ship → learn |
+| | `/do {task-id} manually` | Same flow, waits for approval each phase |
+
+## Error Handling
+
+| Scenario | Behavior |
+|----------|----------|
+| `/validate` fails | Show errors, stay in `implementing` phase, suggest fixes |
+| `/commit` fails | Show git error, allow retry or manual fix |
+| `/ship` partial | Log state to `task.json`, allow resume with `/ship --resume` |
+| `/do` interrupted | Save progress to `task.json`, allow resume with `/do --resume` |
+| Unrecoverable error | Log to `journal.md`, suggest `/reflect` to capture learning |
+
+**Recovery principle**: Always save state before failing, always allow resume.
+
+## Command Output Format
+
+Each command should end with:
+
+```
+✅ [Phase] complete → [output] created
+📍 Next recommended: /[next-command]
+```
+
+## Smart Workflow Selection
+
+When starting `/do`, analyze the task and select:
+
+- **Bug fix with clear cause** → Quick profile
+- **Bug fix with unclear cause** → Focused profile  
+- **Small enhancement** → Focused profile
+- **New feature** → Full profile
+- **Refactor** → Full profile
+- **Documentation** → Quick profile
+
+## Learnings Integration
+
+After `/reflect` and `/contribute`:
+- Testing insight → Added to `instructions/testing.mdc`
+- Git pattern → Added to `instructions/git.mdc`
+- Dev pattern → Added to `instructions/dev.mdc`
+- Architecture decision → Added to `instructions/architecture.mdc`

@@ -1,0 +1,38 @@
+{
+  "name": "wegoby",
+  "tagline": "An adaptive chat-app experience that evolves with you—built for maximum personalization that shapes the app around you in real time.",
+  "mission": "Create adaptive chat-app experiences that evolve with users",
+  "values": [
+    "Adaptive",
+    "Personal",
+    "Empathic",
+    "Evolving",
+    "Real-time"
+  ],
+  "philosophy": {
+    "core": "Maximum Personalization",
+    "description": "Experiences that evolve with you and shape the app around you in real time"
+  },
+  "voice": {
+    "tone": "Confident, friendly, innovative",
+    "characteristics": [
+      "Friendly but not casual",
+      "Helpful without being overbearing",
+      "Clear and concise",
+      "Empathic and understanding"
+    ],
+    "keyPhrases": [
+      "The Future of Personalization",
+      "Your Journey, Reimagined",
+      "Intelligence in Every Interaction",
+      "Designed for Human Nature",
+      "Ready to Go Beyond?"
+    ]
+  },
+  "contact": {
+    "email": "hello@wegoby.com",
+    "twitter": "@wegoby",
+    "linkedin": "/company/wegoby",
+    "github": "/wegoby"
+  }
+}

@@ -1,0 +1,137 @@
+# Content Instructions
+
+> **Apply Intelligently** - Tone, terminology, and writing style.
+
+## Scope
+
+**In scope**: Tone, terminology, writing style
+**Not in scope**: UI component text (→ design.mdc)
+
+## Brand Voice
+
+Wegoby's voice is:
+
+| Trait | Meaning | Example |
+|-------|---------|---------|
+| **Confident** | We know what we're building | "Your personalized experience awaits" |
+| **Friendly** | Approachable, not corporate | "Let's get started!" |
+| **Innovative** | Forward-thinking | "Experience AI-powered personalization" |
+
+## Writing Guidelines
+
+### Be Concise
+
+```
+✅ "Add to reading list"
+❌ "Click here to add this book to your personal reading list"
+```
+
+### Be Clear
+
+```
+✅ "Your password must be at least 8 characters"
+❌ "Password validation failed: minimum length requirement not met"
+```
+
+### Be Helpful
+
+```
+✅ "No books found. Try searching for a different title."
+❌ "No results."
+```
+
+## UI Text Patterns
+
+### Buttons
+
+| Action Type | Pattern | Example |
+|-------------|---------|---------|
+| Primary action | Verb | "Save", "Create", "Submit" |
+| Navigation | Destination | "Go to Dashboard" |
+| Destructive | Confirm action | "Delete Book" |
+
+### Error Messages
+
+Structure: What happened + What to do
+
+```
+✅ "We couldn't save your changes. Please try again."
+❌ "Error 500: Internal Server Error"
+```
+
+### Empty States
+
+Structure: What's missing + How to fix
+
+```
+✅ "No books in your library yet. Add your first book to get started."
+❌ "No data available"
+```
+
+### Success Messages
+
+Structure: What happened + What's next (optional)
+
+```
+✅ "Book added to your reading list!"
+✅ "Settings saved. Changes will take effect immediately."
+```
+
+## Terminology
+
+### Consistent Terms
+
+| Use | Don't Use |
+|-----|-----------|
+| Sign in | Log in, Login |
+| Sign up | Register, Create account |
+| Reading list | Book list, Library |
+| Dashboard | Home page |
+
+### Wegoby-Specific Terms
+
+| Term | Definition | Usage |
+|------|------------|-------|
+| Miniapp | A to-* product | "Each miniapp adapts to you" |
+| Persona | User profile/preferences | "Based on your persona" |
+| Adaptive | Changes based on user | "Adaptive experience" |
+
+## Formatting
+
+### Numbers
+
+- Use numerals for most cases: "3 books"
+- Spell out at sentence start: "Three things to know"
+- Use comma separators: "1,000 users"
+
+### Dates
+
+- Relative when recent: "2 hours ago", "Yesterday"
+- Absolute otherwise: "Jan 9, 2026"
+
+### Lists
+
+- Use bullet points for 3+ items
+- End each item consistently (all periods or no periods)
+- Keep parallel structure
+
+## Localization
+
+Wegoby supports English (LTR) and Hebrew (RTL).
+
+### Writing for Translation
+
+- Avoid idioms: "Piece of cake" → "Easy to do"
+- Don't embed text in images
+- Leave room for text expansion (some languages are 30% longer)
+- Use Unicode-safe characters
+
+### RTL Considerations
+
+- Icons may need mirroring
+- Number direction stays LTR
+- Bidirectional text needs care
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

@@ -1,0 +1,27 @@
+{
+  "name": "@genesis/feta",
+  "version": "0.1.0",
+  "description": "Blueprint framework - defines HOW to write a product blueprint",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./schemas/*": "./schemas/*",
+    "./templates/*": "./templates/*"
+  },
+  "files": [
+    "schemas",
+    "templates",
+    "validators",
+    "README.md"
+  ],
+  "keywords": [
+    "genesis",
+    "feta",
+    "blueprint",
+    "framework",
+    "product-definition"
+  ],
+  "author": "",
+  "license": "MIT"
+}

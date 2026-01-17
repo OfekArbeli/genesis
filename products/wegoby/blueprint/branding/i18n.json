@@ -1,0 +1,62 @@
+{
+  "defaultLocale": "en",
+  "supportedLocales": ["en", "he"],
+  "locales": {
+    "en": {
+      "name": "English",
+      "nativeName": "English",
+      "direction": "ltr",
+      "dateFormat": {
+        "short": "MM/DD/YYYY",
+        "long": "MMMM D, YYYY",
+        "time": "h:mm A"
+      },
+      "numberFormat": {
+        "decimal": ".",
+        "thousands": ",",
+        "currency": {
+          "symbol": "$",
+          "position": "before"
+        }
+      },
+      "firstDayOfWeek": 0
+    },
+    "he": {
+      "name": "Hebrew",
+      "nativeName": "עברית",
+      "direction": "rtl",
+      "dateFormat": {
+        "short": "DD/MM/YYYY",
+        "long": "D בMMMM YYYY",
+        "time": "HH:mm"
+      },
+      "numberFormat": {
+        "decimal": ".",
+        "thousands": ",",
+        "currency": {
+          "symbol": "₪",
+          "position": "after"
+        }
+      },
+      "firstDayOfWeek": 0
+    }
+  },
+  "rtlSupport": {
+    "enabled": true,
+    "guidelines": [
+      "Mirror horizontal layouts for RTL",
+      "Keep icons unmirrored unless directional",
+      "Adjust text alignment appropriately",
+      "Test both directions thoroughly"
+    ]
+  },
+  "contentStrategy": {
+    "approach": "Localize, don't just translate",
+    "guidelines": [
+      "Adapt cultural references",
+      "Consider different reading patterns",
+      "Adjust humor and idioms",
+      "Respect local conventions"
+    ]
+  }
+}

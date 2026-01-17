@@ -1,0 +1,136 @@
+# Git Instructions
+
+> **Apply Intelligently** - How to work with Git in Wegoby projects.
+
+## Scope
+
+**In scope**: Branching, commits, merging, git commands
+**Not in scope**: PR content (→ shipping.mdc)
+
+## Branch Strategy
+
+### Main Branches
+
+| Branch | Purpose | Protected |
+|--------|---------|-----------|
+| `main` | Production-ready code | Yes |
+| `develop` | Integration branch | Yes |
+
+### Feature Branches
+
+Create from `develop`, merge back to `develop`:
+
+```bash
+git checkout develop
+git pull origin develop
+git checkout -b feature/book-generation
+```
+
+### Branch Naming
+
+Format: `{type}/{short-description}`
+
+- `feature/` - New features
+- `fix/` - Bug fixes
+- `refactor/` - Code improvements
+- `docs/` - Documentation
+- `hotfix/` - Urgent production fixes (from `main`)
+
+## Commit Guidelines
+
+### Message Format
+
+```
+{type}({scope}): {description}
+
+[optional body]
+
+[optional footer]
+```
+
+### Types
+
+| Type | Use For |
+|------|---------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `docs` | Documentation |
+| `style` | Formatting (no code change) |
+| `refactor` | Code restructuring |
+| `test` | Adding/updating tests |
+| `chore` | Maintenance tasks |
+
+### Examples
+
+```bash
+feat(auth): add OAuth2 login with Google
+
+fix(ui): resolve button alignment on mobile
+- Added flex container
+- Fixed padding values
+
+refactor(service): extract validation logic
+BREAKING CHANGE: ValidationService now requires config
+```
+
+## Common Operations
+
+### Starting Work
+
+```bash
+# Update develop
+git checkout develop
+git pull origin develop
+
+# Create feature branch
+git checkout -b feature/{description}
+```
+
+### Committing
+
+```bash
+# Stage specific files
+git add src/components/Button.tsx
+
+# Commit with message
+git commit -m "feat(ui): add loading state to Button"
+```
+
+### Syncing with Develop
+
+```bash
+# While on feature branch
+git fetch origin
+git rebase origin/develop
+
+# Or merge if preferred
+git merge origin/develop
+```
+
+### Finishing Feature
+
+```bash
+# Ensure up to date
+git fetch origin
+git rebase origin/develop
+
+# Push for PR
+git push origin feature/{description}
+```
+
+## Merge Strategy
+
+- **Feature → Develop**: Squash merge (clean history)
+- **Develop → Main**: Merge commit (preserve history)
+- **Hotfix → Main**: Merge commit, then cherry-pick to develop
+
+## Conflict Resolution
+
+1. Understand both changes before resolving
+2. Prefer the newer logic unless it breaks existing behavior
+3. After resolving, run tests to verify
+4. If unsure, ask for review before completing merge
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

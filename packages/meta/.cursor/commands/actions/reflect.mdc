@@ -1,0 +1,119 @@
+# /reflect
+
+Compare plan vs outcome and extract learnings.
+
+## Usage
+
+```
+/reflect                     # Reflect on current task
+/reflect {task-id}           # Reflect on specific task
+```
+
+## What It Does
+
+1. Compares plan.md with actual outcome
+2. Identifies divergences
+3. Extracts learning candidates
+4. Proposes where to add learnings
+
+## Reflection Areas
+
+### Time Analysis
+
+- Estimated vs actual time
+- Which steps took longer/shorter
+- Why variance occurred
+
+### Approach Analysis
+
+- Did the chosen approach work?
+- What alternatives emerged?
+- What would you do differently?
+
+### Quality Analysis
+
+- Were there unexpected bugs?
+- Did tests catch issues?
+- Code quality observations
+
+## Output Format
+
+Generates reflection entry in journal.md:
+
+```markdown
+## Reflection: {date}
+
+### What Went Well
+- [Positive outcome 1]
+- [Positive outcome 2]
+
+### What Could Be Better
+- [Issue 1] - [Why it happened]
+- [Issue 2] - [Why it happened]
+
+### Learnings
+1. [Learning 1] - Applies to: {category}
+2. [Learning 2] - Applies to: {category}
+
+### Time Analysis
+- Estimated: X hours
+- Actual: Y hours
+- Variance: [explanation]
+```
+
+## Learning Categories
+
+| Category | Target Rule |
+|----------|-------------|
+| Git patterns | `instructions/git.mdc` |
+| Code patterns | `instructions/dev.mdc` |
+| Testing insights | `instructions/testing.mdc` |
+| Task management | `instructions/task.mdc` |
+| Research methods | `instructions/research.mdc` |
+| Planning | `instructions/planning.mdc` |
+| Architecture | `instructions/architecture.mdc` |
+
+## Output
+
+```
+✅ Reflection complete → learnings identified
+📍 Next recommended: /contribute
+```
+
+## Dependencies
+
+- **Mode**: Plan
+- **Depends on**: Completed task outcome
+- **Produces**: Reflection entry, learning candidates
+
+## Example
+
+```
+> /reflect
+
+Reflecting on: a1b2c3d4-add-reading-streaks
+
+Comparing plan vs outcome...
+
+Time Analysis:
+- Estimated: 3 hours
+- Actual: 4.5 hours
+- Variance: +50% (streak calculation more complex)
+
+Learnings Identified:
+1. "Streak calculation needs timezone handling"
+   → instructions/dev.mdc
+
+2. "Test data factories save time"
+   → instructions/testing.mdc
+
+✅ Reflection complete → 2 learnings identified
+📍 Next recommended: /contribute
+```
+
+## Questions to Consider
+
+1. What surprised me?
+2. What would I do differently?
+3. What pattern emerged?
+4. What should others know?

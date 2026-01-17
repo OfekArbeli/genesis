@@ -1,0 +1,179 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Persona",
+  "description": "Wegoby user persona schema",
+  "type": "object",
+  "required": ["userId", "version", "level1", "level2", "level3", "level4", "wrapper"],
+  "properties": {
+    "userId": {
+      "type": "string",
+      "description": "Unique user identifier"
+    },
+    "version": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "level1": {
+      "$ref": "#/definitions/Level1"
+    },
+    "level2": {
+      "$ref": "#/definitions/Level2"
+    },
+    "level3": {
+      "$ref": "#/definitions/Level3"
+    },
+    "level4": {
+      "$ref": "#/definitions/Level4"
+    },
+    "wrapper": {
+      "$ref": "#/definitions/Wrapper"
+    }
+  },
+  "definitions": {
+    "Level1": {
+      "type": "object",
+      "description": "Sensorimotor & Virtual Homeostasis",
+      "properties": {
+        "resourceLevels": {
+          "type": "object",
+          "properties": {
+            "energy": { "type": "number", "minimum": 0, "maximum": 1 },
+            "attention": { "type": "number", "minimum": 0, "maximum": 1 },
+            "cognitiveLoad": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "systemIntegrity": {
+          "type": "object",
+          "properties": {
+            "stress": { "type": "number", "minimum": 0, "maximum": 1 },
+            "fatigue": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "innateAffordances": {
+          "type": "object",
+          "properties": {
+            "preferredPace": { "type": "string", "enum": ["slow", "moderate", "fast"] },
+            "stimulationLevel": { "type": "string", "enum": ["low", "medium", "high"] }
+          }
+        }
+      }
+    },
+    "Level2": {
+      "type": "object",
+      "description": "Affective Construction & Cultural Priors",
+      "properties": {
+        "culturalNorms": {
+          "type": "object",
+          "properties": {
+            "locale": { "type": "string" },
+            "timeZone": { "type": "string" },
+            "workWeek": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "arousalInterpretation": {
+          "type": "object",
+          "properties": {
+            "excitementThreshold": { "type": "number", "minimum": 0, "maximum": 1 },
+            "calmPreference": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "somaticMarkers": {
+          "type": "object",
+          "properties": {
+            "positiveAssociations": { "type": "array", "items": { "type": "string" } },
+            "negativeAssociations": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "Level3": {
+      "type": "object",
+      "description": "Conceptual World-Model & Social Affordances",
+      "properties": {
+        "worldModel": {
+          "type": "object",
+          "properties": {
+            "beliefs": { "type": "array", "items": { "type": "string" } },
+            "goals": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "socialAffordances": {
+          "type": "object",
+          "properties": {
+            "sharingComfort": { "type": "number", "minimum": 0, "maximum": 1 },
+            "competitionMotivation": { "type": "number", "minimum": 0, "maximum": 1 },
+            "communityEngagement": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "activeInference": {
+          "type": "object",
+          "properties": {
+            "expectedOutcomes": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "Level4": {
+      "type": "object",
+      "description": "Attentional Schema & Metacognitive Strategy",
+      "properties": {
+        "attentionModel": {
+          "type": "object",
+          "properties": {
+            "focusDuration": { "type": "number", "description": "Minutes" },
+            "breakFrequency": { "type": "number", "description": "Minutes" },
+            "multitaskingTolerance": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "strategicOverride": {
+          "type": "object",
+          "properties": {
+            "willpowerReserve": { "type": "number", "minimum": 0, "maximum": 1 },
+            "habitStrength": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "importanceGating": {
+          "type": "object",
+          "properties": {
+            "priorityWeights": {
+              "type": "object",
+              "properties": {
+                "urgency": { "type": "number", "minimum": 0, "maximum": 1 },
+                "interest": { "type": "number", "minimum": 0, "maximum": 1 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Wrapper": {
+      "type": "object",
+      "description": "Identity & Plasticity",
+      "properties": {
+        "identity": {
+          "type": "object",
+          "properties": {
+            "selfConcept": { "type": "array", "items": { "type": "string" } },
+            "aspirations": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "plasticity": {
+          "type": "object",
+          "properties": {
+            "learningRate": { "type": "number", "minimum": 0, "maximum": 1 },
+            "adaptationSpeed": { "type": "string", "enum": ["slow", "moderate", "fast"] },
+            "changeResistance": { "type": "number", "minimum": 0, "maximum": 1 }
+          }
+        },
+        "narrativeProcessing": {
+          "type": "object",
+          "properties": {
+            "storyPreference": { "type": "string" },
+            "meaningMaking": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

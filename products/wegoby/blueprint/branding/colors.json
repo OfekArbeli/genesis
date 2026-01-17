@@ -1,0 +1,32 @@
+{
+  "primary": {
+    "DEFAULT": "#F4B4C0",
+    "foreground": "#333333"
+  },
+  "secondary": {
+    "DEFAULT": "#A7D1AB",
+    "foreground": "#333333"
+  },
+  "accent": {
+    "lightPurple": "#C3B1E1",
+    "lightTeal": "#A0D6D3",
+    "lightYellow": "#F7E78B",
+    "lightOrange": "#FFC8A2"
+  },
+  "semantic": {
+    "destructive": {
+      "DEFAULT": "#E74C3C",
+      "foreground": "#FFFFFF"
+    }
+  },
+  "neutral": {
+    "foreground": "#333333",
+    "background": "#FAFAFA"
+  },
+  "opacity": {
+    "subtle": "10",
+    "light": "20",
+    "medium": "30",
+    "prominent": "50"
+  }
+}

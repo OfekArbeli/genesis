@@ -1,0 +1,24 @@
+{
+  "name": "genesis",
+  "version": "0.1.0",
+  "description": "Genesis - The God Layer where Meta (Mother) and Feta (Father) create",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "products/*"
+  ],
+  "scripts": {
+    "validate": "echo 'Validation scripts go here'"
+  },
+  "keywords": [
+    "genesis",
+    "monorepo",
+    "feta",
+    "meta",
+    "product-engineering"
+  ],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@9.0.0"
+}

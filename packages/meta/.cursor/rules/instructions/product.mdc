@@ -1,0 +1,250 @@
+# Product Instructions
+
+> **Apply Intelligently** - How to define products, write specs, and prioritize work.
+
+## Scope
+
+**In scope**: Product definition, feature specs, prioritization, roadmapping
+**Not in scope**: Implementation details (→ dev.mdc), User research (→ research.mdc)
+
+## Product Definition
+
+### Vision Statement
+
+A good vision statement answers:
+- **Who** is this for?
+- **What** problem does it solve?
+- **Why** does it matter?
+- **How** is it different?
+
+Template:
+```
+For [target user] who [has this problem],
+[Product name] is a [category]
+that [key benefit].
+Unlike [competitors],
+our product [unique differentiator].
+```
+
+### Mission Statement
+
+Mission = What you do every day to achieve the vision.
+
+- Vision: Where you're going
+- Mission: How you get there
+
+## Feature Specification
+
+### Feature Document Structure
+
+```markdown
+# Feature: {feature-name}
+
+## Problem Statement
+What user problem does this solve?
+
+## User Stories
+As a [user type], I want to [action] so that [benefit].
+
+## Success Criteria
+- [ ] Measurable outcome 1
+- [ ] Measurable outcome 2
+
+## Scope
+### In Scope
+- Specific capability 1
+- Specific capability 2
+
+### Out of Scope
+- Not doing X (explain why)
+
+## Design
+[Link to designs or describe UX]
+
+## Technical Considerations
+[Non-obvious technical implications]
+
+## Metrics
+How will we measure success?
+
+## Risks
+What could go wrong?
+```
+
+### User Stories
+
+Format: `As a [user], I want to [action] so that [benefit]`
+
+✅ Good:
+```
+As a reader, I want to track my daily reading streak 
+so that I stay motivated to read consistently.
+```
+
+❌ Bad:
+```
+As a user, I want a streak counter.
+(No benefit, vague user)
+```
+
+### Acceptance Criteria
+
+Use Given-When-Then format:
+
+```
+Given [context]
+When [action]
+Then [expected result]
+```
+
+Example:
+```
+Given I have read for 3 consecutive days
+When I open the app
+Then I see "3-day streak" on my dashboard
+```
+
+## Prioritization
+
+### Priority Frameworks
+
+#### MoSCoW Method
+
+| Priority | Description |
+|----------|-------------|
+| **Must Have** | Critical for launch, non-negotiable |
+| **Should Have** | Important, but not critical |
+| **Could Have** | Nice to have if time permits |
+| **Won't Have** | Explicitly out of scope |
+
+#### Impact vs Effort Matrix
+
+```
+High Impact │ Quick Wins    │ Major Projects
+            │ (Do First)    │ (Plan Carefully)
+            ├───────────────┼─────────────────
+Low Impact  │ Fill-ins      │ Time Sinks
+            │ (Do If Time)  │ (Avoid)
+            └───────────────┴─────────────────
+              Low Effort      High Effort
+```
+
+#### RICE Scoring
+
+```
+Score = (Reach × Impact × Confidence) / Effort
+
+Reach: How many users affected (number)
+Impact: How much value (0.25 to 3)
+Confidence: How sure are you (0-100%)
+Effort: Person-months of work
+```
+
+### Priority Guidelines
+
+| Priority | Description | Timeline |
+|----------|-------------|----------|
+| **High** | Blocking other work, critical | This week |
+| **Medium** | Important, not blocking | This sprint |
+| **Low** | Nice to have | Backlog |
+
+## Roadmap Planning
+
+### Time Horizons
+
+| Horizon | Detail Level | Purpose |
+|---------|--------------|---------|
+| Now (2 weeks) | Task-level detail | Execution |
+| Next (1-2 months) | Feature-level | Planning |
+| Later (3-6 months) | Theme-level | Direction |
+
+### Release Planning
+
+```markdown
+## Release: {version}
+
+### Theme
+[What's the focus of this release?]
+
+### Features
+1. [Feature 1] - [status]
+2. [Feature 2] - [status]
+
+### Success Metrics
+- [Metric 1]
+- [Metric 2]
+
+### Dependencies
+- [External dependency]
+```
+
+## Product Thinking
+
+### Jobs to Be Done (JTBD)
+
+Focus on what users are trying to accomplish:
+
+```
+When [situation],
+I want to [motivation],
+so I can [expected outcome].
+```
+
+Example:
+```
+When I finish reading for the day,
+I want to log my progress quickly,
+so I can maintain my streak without friction.
+```
+
+### Kano Model
+
+| Feature Type | User Expectation | Satisfaction |
+|--------------|------------------|--------------|
+| **Basic** | Expected, not requested | Absent = Frustrated |
+| **Performance** | More is better | Linear satisfaction |
+| **Delight** | Unexpected, impressive | Creates loyalty |
+
+## Anti-Patterns
+
+### Avoid
+
+- **Feature soup**: Adding features without cohesive vision
+- **Spec by committee**: Over-specifying everything
+- **Gold plating**: Perfecting before validating
+- **Scope creep**: Growing scope during implementation
+- **Solution-first**: Starting with solution before understanding problem
+
+### Warning Signs
+
+- "We should also add..."
+- "While we're at it..."
+- "Users might want..."
+- Specs longer than the implementation
+
+## Stakeholder Communication
+
+### Status Updates
+
+```markdown
+## {Project} Status - {Date}
+
+### Progress
+- ✅ Completed: [what shipped]
+- 🔄 In Progress: [what's being worked on]
+- ⏳ Blocked: [what's waiting]
+
+### Metrics
+- [Key metric]: [value]
+
+### Next Week
+- [Priority 1]
+- [Priority 2]
+
+### Risks
+- [Risk and mitigation]
+```
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

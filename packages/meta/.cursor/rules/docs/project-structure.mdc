@@ -1,0 +1,140 @@
+# Project Structure
+
+> **Apply Intelligently** - Project organization conventions.
+
+## Overview
+
+Wegoby projects live in `projects/` folder. Each is an independent repo with its own git.
+
+**Important**: Projects are gitignored from meta layer—only README.md is committed.
+
+## Projects Folder
+
+```
+projects/
+├── README.md                    # Explains structure (committed)
+├── percepta/                    # Adaptive UI engine (gitignored)
+├── sensetree/                   # Empathic AI service (gitignored)
+├── wegoby-portfolio/            # Main website (gitignored)
+└── wegoby-server/               # Backend services (gitignored)
+```
+
+## Project Types
+
+### Percepta (Runtime Engine)
+
+```
+percepta/
+├── src/
+│   ├── renderer/        # Fast DOM renderer
+│   ├── state/           # State store
+│   ├── events/          # Event bus
+│   ├── widgets/         # Widget library
+│   ├── templates/       # Template library
+│   ├── theming/         # Theming system
+│   └── commands/        # Command API
+├── tests/
+├── .cursor/rules/       # Project-specific rules
+├── package.json
+└── tsconfig.json
+```
+
+### Sensetree (AI Service)
+
+```
+sensetree/
+├── src/
+│   ├── model/           # AI model
+│   ├── persona/         # Persona processing
+│   ├── adaptation/      # Adaptation logic
+│   └── api/             # API endpoints
+├── tests/
+├── .cursor/rules/
+├── package.json
+└── tsconfig.json
+```
+
+### Web App (Portfolio)
+
+```
+wegoby-portfolio/
+├── src/
+│   ├── app/             # Next.js app router
+│   ├── components/      # UI components
+│   ├── hooks/           # Custom hooks
+│   └── styles/          # Global styles
+├── public/
+├── tests/
+├── .cursor/rules/
+├── tailwind.config.js
+├── package.json
+└── tsconfig.json
+```
+
+### Backend (Server)
+
+```
+wegoby-server/
+├── src/
+│   ├── api/             # API routes
+│   ├── services/        # Business logic
+│   ├── repositories/    # Data access
+│   ├── middleware/      # Express middleware
+│   └── utils/           # Utilities
+├── tests/
+├── .cursor/rules/
+├── package.json
+└── tsconfig.json
+```
+
+## Packages Folder
+
+Shared packages in `packages/`:
+
+```
+packages/
+├── README.md                    # Explains structure (committed)
+├── @wegoby/types/               # Shared TypeScript types
+├── @wegoby/ui/                  # UI component library
+├── @wegoby/sensetree/           # Sensetree client SDK
+├── @wegoby/percepta/            # Percepta client SDK
+└── @wegoby/utils/               # Shared utilities
+```
+
+## Project-Specific Rules
+
+Each project can have its own `.cursor/rules/`:
+
+```
+projects/{name}/.cursor/rules/
+├── project.mdc          # Project-specific context
+└── local.mdc            # Local conventions
+```
+
+These rules:
+- Override or extend meta layer rules
+- Contain project-specific patterns
+- Are committed to the project repo
+
+## Creating a New Project
+
+1. Create folder in `projects/{name}/`
+2. Initialize git: `git init`
+3. Create basic structure
+4. Add `.cursor/rules/project.mdc`
+5. Link to meta layer packages
+
+## Project Independence
+
+Each project:
+- Has its own git repository
+- Has its own package.json
+- Can be deployed independently
+- Follows meta layer conventions
+- Can have local rule overrides
+
+## Related Files
+
+- Projects folder: [projects/](../../../projects/)
+- Packages folder: [packages/](../../../packages/)
+- Meta layer docs: [meta-layer.mdc](./meta-layer.mdc)

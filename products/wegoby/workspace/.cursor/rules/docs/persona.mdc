@@ -1,0 +1,173 @@
+# Persona
+
+> **Apply Intelligently** - Persona levels and data structure.
+
+## What is a Persona?
+
+A persona is the mathematical representation of a user across multiple dimensions. It's how Sensetree understands and models users.
+
+## Persona Levels
+
+### Level 1: Sensorimotor & Virtual Homeostasis
+
+The foundation layer—basic system state.
+
+```json
+{
+  "level1": {
+    "resourceLevels": {
+      "energy": 0.7,        // 0-1 scale
+      "attention": 0.8,
+      "cognitiveLoad": 0.3
+    },
+    "systemIntegrity": {
+      "stress": 0.2,
+      "fatigue": 0.4
+    },
+    "innateAffordances": {
+      "preferredPace": "moderate",
+      "stimulationLevel": "medium"
+    }
+  }
+}
+```
+
+### Level 2: Affective Construction & Cultural Priors
+
+Emotional and cultural context.
+
+```json
+{
+  "level2": {
+    "culturalNorms": {
+      "locale": "en-US",
+      "timeZone": "America/New_York",
+      "workWeek": ["Mon", "Tue", "Wed", "Thu", "Fri"]
+    },
+    "arousalInterpretation": {
+      "excitementThreshold": 0.6,
+      "calmPreference": 0.7
+    },
+    "somaticMarkers": {
+      "positiveAssociations": ["morning", "quiet"],
+      "negativeAssociations": ["interruptions"]
+    }
+  }
+}
+```
+
+### Level 3: Conceptual World-Model & Social Affordances
+
+Beliefs and social context.
+
+```json
+{
+  "level3": {
+    "worldModel": {
+      "beliefs": ["growth-mindset", "value-learning"],
+      "goals": ["read-more", "reduce-screen-time"]
+    },
+    "socialAffordances": {
+      "sharingComfort": 0.4,
+      "competitionMotivation": 0.3,
+      "communityEngagement": 0.6
+    },
+    "activeInference": {
+      "expectedOutcomes": ["improvement", "relaxation"]
+    }
+  }
+}
+```
+
+### Level 4: Attentional Schema & Metacognitive Strategy
+
+How attention and thinking work.
+
+```json
+{
+  "level4": {
+    "attentionModel": {
+      "focusDuration": 25,  // minutes
+      "breakFrequency": 5,  // minutes
+      "multitaskingTolerance": 0.3
+    },
+    "strategicOverride": {
+      "willpowerReserve": 0.6,
+      "habitStrength": 0.7
+    },
+    "importanceGating": {
+      "priorityWeights": {
+        "urgency": 0.4,
+        "interest": 0.6
+      }
+    }
+  }
+}
+```
+
+### Wrapper: Identity & Plasticity
+
+Meta-level: how the persona itself changes.
+
+```json
+{
+  "wrapper": {
+    "identity": {
+      "selfConcept": ["reader", "learner"],
+      "aspirations": ["well-read", "knowledgeable"]
+    },
+    "plasticity": {
+      "learningRate": 0.3,
+      "adaptationSpeed": "moderate",
+      "changeResistance": 0.4
+    },
+    "narrativeProcessing": {
+      "storyPreference": "journey",
+      "meaningMaking": "growth-oriented"
+    }
+  }
+}
+```
+
+## Persona Schema
+
+Full schema location: [domains/sensetree/persona-schema.json](../../../domains/sensetree/persona-schema.json)
+
+```json
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "userId": { "type": "string" },
+    "version": { "type": "string" },
+    "lastUpdated": { "type": "string", "format": "date-time" },
+    "level1": { "$ref": "#/definitions/Level1" },
+    "level2": { "$ref": "#/definitions/Level2" },
+    "level3": { "$ref": "#/definitions/Level3" },
+    "level4": { "$ref": "#/definitions/Level4" },
+    "wrapper": { "$ref": "#/definitions/Wrapper" }
+  }
+}
+```
+
+## Persona Updates
+
+Personas are updated through:
+
+1. **Explicit input**: User answers questions
+2. **Implicit signals**: Interaction patterns
+3. **Temporal decay**: Values drift over time
+4. **Context adaptation**: Situational adjustments
+
+## Privacy Considerations
+
+- Persona data is user-owned
+- Users can view and modify their persona
+- Data is encrypted at rest
+- No persona sharing without consent
+
+## Related Files
+
+- Sensetree docs: [sensetree.mdc](./sensetree.mdc)
+- Schema: [domains/sensetree/persona-schema.json](../../../domains/sensetree/persona-schema.json)
+- Research: [domains/sensetree/research/](../../../domains/sensetree/research/)

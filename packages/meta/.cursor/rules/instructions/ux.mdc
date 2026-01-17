@@ -1,0 +1,175 @@
+# UX Instructions
+
+> **Apply Intelligently** - User flows, accessibility, and interaction patterns.
+
+## Scope
+
+**In scope**: User flows, accessibility, interaction patterns
+**Not in scope**: Visual styling (→ design.mdc)
+
+## User Flow Design
+
+### Flow Documentation
+
+```markdown
+## Flow: [Name]
+
+### Entry Points
+- [How users reach this flow]
+
+### Steps
+1. User sees [screen/state]
+2. User actions [what they can do]
+3. System responds [what happens]
+
+### Exit Points
+- Success: [where they go]
+- Failure: [error handling]
+- Abandon: [back navigation]
+```
+
+### Flow Principles
+
+1. **Clear entry**: User knows where they are
+2. **Visible progress**: User knows how far along
+3. **Easy exit**: User can always go back
+4. **Clear completion**: User knows when done
+
+## Interaction Patterns
+
+### Forms
+
+```typescript
+// Progressive disclosure
+<Form>
+  <Step1 /> {/* Basic info first */}
+  {showStep2 && <Step2 />} {/* Reveal when needed */}
+</Form>
+
+// Inline validation
+<Input
+  error={touched && errors.email}
+  helperText={touched && errors.email}
+/>
+```
+
+### Loading States
+
+| Duration | Pattern |
+|----------|---------|
+| <100ms | No indicator |
+| 100ms-1s | Subtle spinner |
+| 1-10s | Progress indicator |
+| >10s | Background process with notification |
+
+### Feedback
+
+| Action | Feedback |
+|--------|----------|
+| Button click | Visual press state |
+| Form submit | Loading state → Success/Error |
+| Data save | Confirmation toast |
+| Error | Inline message + suggestion |
+
+## Accessibility (a11y)
+
+### WCAG Guidelines
+
+Target: WCAG 2.1 Level AA
+
+| Criterion | Requirement |
+|-----------|-------------|
+| Perceivable | Content available to all senses |
+| Operable | All functions keyboard-accessible |
+| Understandable | Clear, predictable UI |
+| Robust | Works with assistive tech |
+
+### Keyboard Navigation
+
+```typescript
+// All interactive elements must be focusable
+<button>Focusable by default</button>
+<div role="button" tabIndex={0}>Custom focusable</div>
+
+// Focus order should be logical
+// Use tabIndex={0} to include, tabIndex={-1} to exclude
+```
+
+### Screen Readers
+
+```typescript
+// Provide context
+<button aria-label="Close dialog">×</button>
+
+// Announce changes
+<div role="alert">{errorMessage}</div>
+
+// Hide decorative elements
+<Icon aria-hidden="true" />
+```
+
+### Color Independence
+
+- Don't rely on color alone to convey meaning
+- Add icons, text, or patterns
+
+```typescript
+// ❌ Bad: Color only
+<span className="text-red-500">Error</span>
+
+// ✅ Good: Color + icon
+<span className="text-red-500">
+  <ErrorIcon /> Error
+</span>
+```
+
+## Mobile UX
+
+### Touch Targets
+
+- Minimum 44×44px for touch targets
+- Add padding to small elements
+- Space targets apart
+
+### Gestures
+
+| Gesture | Use For |
+|---------|---------|
+| Tap | Primary actions |
+| Swipe | Navigation, delete |
+| Long press | Secondary actions |
+| Pinch | Zoom |
+
+### Mobile-First
+
+- Design for mobile constraints first
+- Add complexity for larger screens
+- Test on real devices
+
+## Error Handling UX
+
+### Error Prevention
+
+- Disable invalid actions
+- Show constraints upfront
+- Auto-save work
+
+### Error Recovery
+
+- Clear error messages
+- Suggest fixes
+- Don't lose user data
+- Easy retry
+
+```typescript
+// Good error UX
+<Error
+  message="Couldn't save your book"
+  suggestion="Check your connection and try again"
+  action={<Button onClick={retry}>Retry</Button>}
+/>
+```
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

@@ -1,0 +1,98 @@
+# /prepare
+
+Orchestrates research and planning for a task.
+
+## Usage
+
+```
+/prepare                     # Prepare current task
+/prepare {task-id}           # Prepare specific task
+```
+
+## What It Does
+
+Executes in sequence:
+1. `/research` - Gather context and analyze codebase
+2. `/plan` - Create implementation plan
+
+## Flow
+
+```
+/prepare
+    │
+    ├──▶ /research
+    │       └──▶ Creates context.md
+    │
+    └──▶ /plan
+            └──▶ Creates plan.md
+```
+
+## When to Use
+
+- Starting a new task
+- Task needs understanding before implementing
+- You want research and planning in one step
+
+## Output
+
+```
+Starting: /prepare
+
+[1/2] Running /research...
+Analyzing codebase...
+✅ Research complete → context.md created
+
+[2/2] Running /plan...
+Creating implementation plan...
+✅ Planning complete → plan.md created
+
+✅ Preparation complete
+📍 Next recommended: /implement
+```
+
+## Orchestration Details
+
+| Step | Command | Mode | Output |
+|------|---------|------|--------|
+| 1 | /research | Agent | context.md |
+| 2 | /plan | Plan | plan.md |
+
+## Error Handling
+
+- If /research fails: Stop, show error, suggest fixes
+- If /plan fails: context.md preserved, retry /plan only
+
+## Dependencies
+
+- **Mode**: Agent + Plan
+- **Depends on**: task.json (task in backlog)
+- **Produces**: context.md, plan.md
+
+## Alternative
+
+If you only need one step:
+- `/research` - Just gather context
+- `/plan` - Just create plan (requires context.md)
+
+## Example
+
+```
+> /prepare a1b2c3d4-add-reading-streaks
+
+Starting preparation for: a1b2c3d4-add-reading-streaks
+
+[1/2] Researching...
+- Found UserProfile component
+- Found existing streak patterns
+- Identified dependencies
+✅ Research complete
+
+[2/2] Planning...
+- Approach: Add streak service + UI component
+- 4 steps identified
+- Estimated: 3 hours
+✅ Planning complete
+
+✅ Preparation complete
+📍 Next recommended: /implement
+```

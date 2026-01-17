@@ -1,0 +1,185 @@
+# Design Instructions
+
+> **Apply Intelligently** - UI components, design tokens, and visual patterns.
+
+## Scope
+
+**In scope**: UI components, design tokens, visual patterns
+**Not in scope**: UX flows (→ ux.mdc), brand colors (→ docs/branding.mdc)
+
+## Design System
+
+Wegoby uses a token-based design system. All visual values come from tokens defined in `branding/`.
+
+### Design Tokens
+
+| Category | Source File | Example |
+|----------|-------------|---------|
+| Colors | `branding/colors.json` | `primary`, `secondary` |
+| Typography | `branding/typography.json` | `heading`, `body` |
+| Spacing | `branding/visual-patterns.json` | `sm`, `md`, `lg` |
+| Borders | `branding/visual-patterns.json` | `radius-sm`, `radius-md` |
+
+### Token Usage
+
+```typescript
+// ✅ Good: Use tokens
+<Button className="bg-primary text-white rounded-md p-4">
+
+// ❌ Bad: Hardcoded values
+<Button className="bg-[#F4B4C0] text-[#fff] rounded-[8px] p-[16px]">
+```
+
+## Component Guidelines
+
+### Component Structure
+
+```
+components/
+├── Button/
+│   ├── Button.tsx        # Component logic
+│   ├── Button.test.tsx   # Tests
+│   ├── Button.stories.tsx # Storybook (if used)
+│   └── index.ts          # Export
+```
+
+### Component Patterns
+
+```typescript
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'sm' | 'md' | 'lg';
+  children: React.ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
+}
+
+export function Button({
+  variant = 'primary',
+  size = 'md',
+  children,
+  onClick,
+  disabled = false,
+}: ButtonProps) {
+  return (
+    <button
+      className={cn(
+        'rounded-md font-medium transition-colors',
+        variantStyles[variant],
+        sizeStyles[size],
+        disabled && 'opacity-50 cursor-not-allowed'
+      )}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  );
+}
+```
+
+## Visual Hierarchy
+
+### Typography Scale
+
+| Level | Use For | Token |
+|-------|---------|-------|
+| H1 | Page titles | `text-4xl font-bold` |
+| H2 | Section titles | `text-2xl font-semibold` |
+| H3 | Subsections | `text-xl font-medium` |
+| Body | Content | `text-base` |
+| Small | Captions | `text-sm` |
+
+### Spacing Scale
+
+| Size | Value | Use For |
+|------|-------|---------|
+| xs | 4px | Inline elements |
+| sm | 8px | Tight grouping |
+| md | 16px | Standard spacing |
+| lg | 24px | Section gaps |
+| xl | 32px | Major sections |
+
+## Responsive Design
+
+### Mobile-First
+
+Always start with mobile styles, add larger breakpoints:
+
+```css
+/* Mobile first */
+.container {
+  padding: 1rem;
+}
+
+/* Tablet and up */
+@screen md {
+  .container {
+    padding: 2rem;
+  }
+}
+
+/* Desktop and up */
+@screen lg {
+  .container {
+    padding: 3rem;
+  }
+}
+```
+
+### Breakpoints
+
+| Name | Width | Use For |
+|------|-------|---------|
+| sm | 640px | Large phones |
+| md | 768px | Tablets |
+| lg | 1024px | Laptops |
+| xl | 1280px | Desktops |
+
+## State Styles
+
+### Interactive States
+
+Every interactive element needs:
+
+| State | Description |
+|-------|-------------|
+| Default | Normal appearance |
+| Hover | Mouse over |
+| Focus | Keyboard focus |
+| Active | Being clicked |
+| Disabled | Not interactive |
+
+### Loading States
+
+```typescript
+function Button({ loading, children }) {
+  return (
+    <button disabled={loading}>
+      {loading ? <Spinner /> : children}
+    </button>
+  );
+}
+```
+
+## Accessibility
+
+### Color Contrast
+
+- Text on background: minimum 4.5:1 ratio
+- Large text: minimum 3:1 ratio
+- UI components: minimum 3:1 ratio
+
+### Focus Indicators
+
+```css
+/* Visible focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+```
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

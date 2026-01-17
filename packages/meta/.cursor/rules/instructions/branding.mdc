@@ -1,0 +1,324 @@
+# Branding Instructions
+
+> **Apply Intelligently** - How to create and maintain brand systems and identity.
+
+## Scope
+
+**In scope**: Brand identity, visual systems, voice & tone, brand guidelines
+**Not in scope**: UI component design (→ design.mdc), Copy writing (→ content.mdc)
+
+## What is a Brand?
+
+A brand is not just a logo—it's the complete experience and perception users have of your product. It includes visual identity, voice, values, and the emotional connection users form.
+
+### Brand Components
+
+| Component | What It Includes |
+|-----------|------------------|
+| **Identity** | Name, logo, tagline, mission, values |
+| **Visual** | Colors, typography, imagery, layout patterns |
+| **Voice** | Tone, personality, communication style |
+| **Experience** | How the brand feels at every touchpoint |
+
+## Brand Identity
+
+### Name
+
+A good product name is:
+- **Memorable**: Easy to recall
+- **Pronounceable**: Can be said out loud
+- **Spellable**: Users can type it correctly
+- **Unique**: Searchable, no conflicts
+- **Meaningful**: Connects to purpose (optional but helpful)
+
+### Tagline
+
+A tagline captures the essence in one line.
+
+Structure: `[Benefit/Promise] + [Differentiator]`
+
+Examples:
+- "Your AI-powered journey to customized experiences"
+- "Experience the web your way"
+
+### Mission Statement
+
+Template:
+```
+We [action] for [audience] by [method],
+so they can [benefit].
+```
+
+### Values
+
+3-5 core values that guide decisions:
+
+| Value | Meaning | How It Shows |
+|-------|---------|--------------|
+| Value 1 | What it means | How it manifests |
+| Value 2 | What it means | How it manifests |
+
+## Visual Identity
+
+### Logo
+
+Logo types:
+- **Wordmark**: Name in stylized text
+- **Symbol**: Icon/graphic only
+- **Combination**: Symbol + wordmark
+
+Logo requirements:
+- Works at small sizes (favicon)
+- Works at large sizes (billboard)
+- Works in single color (black/white)
+- Has clear space rules
+- Has minimum size rules
+
+### Color Palette
+
+#### Primary Colors
+
+Main brand colors used for key elements.
+
+```json
+{
+  "primary": {
+    "DEFAULT": "#8B5CF6",
+    "50": "#FAF5FF",
+    "100": "#F3E8FF",
+    "500": "#8B5CF6",
+    "600": "#7C3AED",
+    "900": "#4C1D95"
+  }
+}
+```
+
+#### Secondary Colors
+
+Supporting colors for variety.
+
+#### Semantic Colors
+
+Colors with specific meanings:
+
+| Color | Purpose |
+|-------|---------|
+| Success | Positive outcomes, confirmations |
+| Warning | Cautions, attention needed |
+| Error | Problems, failures |
+| Info | Neutral information |
+
+#### Color Guidelines
+
+- Maintain contrast ratios (WCAG AA: 4.5:1)
+- Don't use too many colors together
+- Be consistent across touchpoints
+- Document when/where to use each color
+
+### Typography
+
+#### Font Selection
+
+Choose fonts that:
+- Are readable at all sizes
+- Support needed languages
+- Have enough weights
+- Match brand personality
+- Load performantly
+
+#### Type Scale
+
+```json
+{
+  "scale": {
+    "xs": "0.75rem",
+    "sm": "0.875rem",
+    "base": "1rem",
+    "lg": "1.125rem",
+    "xl": "1.25rem",
+    "2xl": "1.5rem",
+    "3xl": "1.875rem",
+    "4xl": "2.25rem"
+  }
+}
+```
+
+#### Font Pairing
+
+- **Heading font**: For titles, display text
+- **Body font**: For readable content
+- **Mono font**: For code, technical content
+
+### Imagery
+
+#### Photography Style
+
+Define:
+- Subject matter (people, nature, abstract)
+- Mood (warm, cool, bright, moody)
+- Composition preferences
+- Filters/treatments
+
+#### Illustration Style
+
+Define:
+- Style (flat, 3D, hand-drawn)
+- Line weight
+- Color usage
+- Level of detail
+
+#### Iconography
+
+Define:
+- Style (outlined, filled, duo-tone)
+- Stroke weight
+- Corner radius
+- Consistent metaphors
+
+## Brand Voice
+
+### Personality Traits
+
+Define 3-5 personality traits:
+
+| Trait | Meaning | Do | Don't |
+|-------|---------|-----|-------|
+| Friendly | Approachable, warm | "Let's get started!" | "Proceed to initiate" |
+| Confident | Assured, capable | "We've got you covered" | "We might be able to help" |
+
+### Tone Variations
+
+Same voice, different tones for different contexts:
+
+| Context | Tone | Example |
+|---------|------|---------|
+| Success | Celebratory | "You did it! 🎉" |
+| Error | Helpful | "Something went wrong. Let's fix it." |
+| Onboarding | Encouraging | "You're almost there!" |
+| Empty state | Inviting | "Ready to add your first book?" |
+
+### Writing Principles
+
+1. **Be clear**: Clarity over cleverness
+2. **Be concise**: Fewer words, more impact
+3. **Be human**: Natural, conversational
+4. **Be consistent**: Same patterns throughout
+5. **Be helpful**: Always guide next action
+
+## Brand Guidelines Document
+
+### Structure
+
+```markdown
+# Brand Guidelines
+
+## Introduction
+- Brand story
+- Mission and values
+- This document's purpose
+
+## Logo
+- Primary logo
+- Variations (horizontal, stacked, icon)
+- Clear space requirements
+- Minimum sizes
+- Don'ts (stretching, wrong colors, etc.)
+
+## Colors
+- Primary palette with hex/RGB values
+- Secondary palette
+- Semantic colors
+- Usage examples
+- Accessibility notes
+
+## Typography
+- Primary fonts
+- Fallback fonts
+- Type scale
+- Usage guidelines
+
+## Imagery
+- Photography guidelines
+- Illustration style
+- Icon library
+
+## Voice & Tone
+- Personality traits
+- Writing principles
+- Tone variations
+- Examples
+
+## Applications
+- Digital (web, mobile)
+- Print (if applicable)
+- Social media
+- Email
+
+## Assets
+- Where to find assets
+- File formats available
+- Request process
+```
+
+## Brand Consistency
+
+### Audit Checklist
+
+Regularly check:
+- [ ] Logo used correctly
+- [ ] Colors match palette
+- [ ] Typography follows scale
+- [ ] Voice is consistent
+- [ ] Imagery matches style
+
+### Brand Debt
+
+Signs of brand inconsistency:
+- Multiple shades of the same color
+- Mixed font families
+- Inconsistent icon styles
+- Voice changes between screens
+- Logo used incorrectly
+
+## Brand Evolution
+
+### When to Evolve
+
+- Market/audience changes
+- Product scope changes
+- Brand feels dated
+- Consistency issues accumulate
+- Strategic pivot
+
+### Evolution vs Revolution
+
+| Evolution | Revolution |
+|-----------|------------|
+| Refine existing elements | Complete rebrand |
+| Incremental changes | New identity |
+| Maintain recognition | Reset perception |
+| Lower risk | Higher risk |
+
+### Evolution Process
+
+1. Audit current brand
+2. Identify gaps/issues
+3. Define goals for update
+4. Create updated guidelines
+5. Plan rollout
+6. Update all touchpoints
+7. Communicate changes
+
+## Anti-Patterns
+
+### Avoid
+
+- **Design by committee**: Too many opinions, no coherence
+- **Trend chasing**: Following fads over lasting design
+- **Over-complexity**: Too many colors, fonts, styles
+- **Inconsistency**: Different looks on different pages
+- **Ignoring guidelines**: Having rules but not following them
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

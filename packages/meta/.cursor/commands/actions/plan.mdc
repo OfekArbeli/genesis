@@ -1,0 +1,110 @@
+# /plan
+
+Create an implementation plan for a task.
+
+## Usage
+
+```
+/plan                        # Plan current task
+/plan {task-id}              # Plan specific task
+```
+
+## What It Does
+
+1. Reads context.md from research phase
+2. Breaks down work into steps
+3. Identifies files to modify
+4. Estimates time for each step
+5. Creates plan.md
+
+## Process
+
+### 1. Review Context
+
+- Read research findings
+- Understand constraints
+- Note dependencies
+
+### 2. Design Approach
+
+- Choose implementation strategy
+- Consider alternatives
+- Document rationale
+
+### 3. Break Down Steps
+
+Each step should:
+- Be completable in 30-90 min
+- Have clear output
+- Be independently verifiable
+
+### 4. Create Plan
+
+Output to `tasks/{task-id}/plan.md`:
+
+```markdown
+# Plan: {task-id}
+
+## Approach
+[1-2 paragraphs on chosen approach and why]
+
+## Steps
+
+### Step 1: [Action]
+- [ ] Sub-task 1.1
+- [ ] Sub-task 1.2
+**Files**: `path/to/file.ts`
+**Estimate**: 30 min
+
+### Step 2: [Action]
+- [ ] Sub-task 2.1
+**Files**: `path/to/file.ts`
+**Estimate**: 45 min
+
+## Testing Strategy
+- Unit tests for [X]
+- Integration test for [Y]
+
+## Risks
+- [Potential issue and mitigation]
+
+## Total Estimate
+[X hours]
+```
+
+## Step Ordering
+
+1. Foundation first (types, interfaces)
+2. Core logic second (services)
+3. Integration third (API, UI)
+4. Polish last (errors, edge cases, tests)
+
+## Output
+
+```
+✅ Planning complete → plan.md created
+📍 Next recommended: /implement
+```
+
+## Dependencies
+
+- **Mode**: Plan
+- **Depends on**: context.md (from /research)
+- **Produces**: plan.md
+
+## Example
+
+```
+> /plan a1b2c3d4-add-reading-streaks
+
+Planning: a1b2c3d4-add-reading-streaks
+
+Based on research, proposing 4-step plan:
+1. Add streak calculation to domain layer
+2. Create StreakDisplay component
+3. Integrate into UserProfile
+4. Add unit tests
+
+✅ Planning complete → plan.md created
+📍 Next recommended: /implement
+```

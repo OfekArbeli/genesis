@@ -1,0 +1,153 @@
+# /ship
+
+Orchestrates validation, commit, summary, and push.
+
+## Usage
+
+```
+/ship                        # Ship current changes
+/ship --resume               # Resume interrupted ship
+```
+
+## What It Does
+
+Executes in sequence:
+1. `/validate` - Run all checks
+2. `/commit` - Commit with conventions
+3. Create summary - Generate PR description
+4. Push - Push to remote
+
+## Flow
+
+```
+/ship
+    │
+    ├──▶ /validate
+    │       └──▶ Types, lint, tests
+    │
+    ├──▶ /commit
+    │       └──▶ Git commit
+    │
+    ├──▶ Create summary
+    │       └──▶ PR description
+    │
+    └──▶ Push
+            └──▶ git push
+```
+
+## When to Use
+
+- After completing implementation
+- All code changes are ready
+- Ready to create PR
+
+## Output
+
+```
+Starting: /ship
+
+[1/4] Validating...
+✅ Types: Pass
+✅ Lint: Pass
+✅ Tests: Pass
+
+[2/4] Committing...
+✅ Committed: abc1234
+
+[3/4] Creating summary...
+✅ Summary generated
+
+[4/4] Pushing...
+✅ Pushed to origin/feature/add-reading-streaks
+
+✅ Shipped successfully!
+📍 Next recommended: /reflect
+
+PR Summary:
+## Summary
+- Add streak display to user profile
+- Track daily reading progress
+
+## Changes
+- Add StreakDisplay component
+- Add streak calculation service
+- Update Profile page
+
+## Test Plan
+- [x] Unit tests pass
+- [x] Manual testing
+```
+
+## Error Handling
+
+| Error | Behavior |
+|-------|----------|
+| Validation fails | Stop, show errors, fix and retry |
+| Commit fails | Stop, show git error |
+| Push fails | Log state, allow `/ship --resume` |
+
+## Resume Flow
+
+If ship is interrupted (e.g., push failed):
+
+```
+> /ship --resume
+
+Resuming ship from: push
+
+[4/4] Pushing...
+✅ Pushed to origin/feature/add-reading-streaks
+
+✅ Ship resumed successfully!
+```
+
+## Dependencies
+
+- **Mode**: Agent
+- **Depends on**: Code changes (from /implement)
+- **Produces**: Commit, push, PR summary
+
+## PR Summary Format
+
+```markdown
+## Summary
+[1-3 bullet points]
+
+## Changes
+- [Specific change 1]
+- [Specific change 2]
+
+## Test Plan
+- [x] Unit tests pass
+- [x] Integration tests pass
+- [ ] Manual testing: [describe]
+
+## Related
+- Task: {task-id}
+```
+
+## Example
+
+```
+> /ship
+
+Starting ship process...
+
+[1/4] Validating...
+Running type check... ✅
+Running lint... ✅
+Running tests... ✅ (42 passed)
+
+[2/4] Committing...
+feat(ui): add streak display to user profile
+✅ Committed: abc1234
+
+[3/4] Creating summary...
+✅ Summary generated
+
+[4/4] Pushing...
+✅ Pushed to origin/feature/add-reading-streaks
+
+✅ Shipped successfully!
+📍 Next recommended: /reflect
+```

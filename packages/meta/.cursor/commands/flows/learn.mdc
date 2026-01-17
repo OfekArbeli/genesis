@@ -1,0 +1,141 @@
+# /learn
+
+Orchestrates reflection and contribution of learnings.
+
+## Usage
+
+```
+/learn                       # Learn from current task
+/learn {task-id}             # Learn from specific task
+```
+
+## What It Does
+
+Executes in sequence:
+1. `/reflect` - Compare plan vs outcome
+2. `/contribute` - Add learnings to rules
+
+## Flow
+
+```
+/learn
+    │
+    ├──▶ /reflect
+    │       └──▶ Identifies learnings
+    │
+    └──▶ /contribute
+            └──▶ Updates instruction rules
+```
+
+## When to Use
+
+- After shipping a task
+- After significant pivot during implementation
+- When you discover something worth remembering
+
+## Output
+
+```
+Starting: /learn
+
+[1/2] Reflecting...
+Comparing plan vs outcome...
+- Time variance: +50%
+- 2 learnings identified
+✅ Reflection complete
+
+[2/2] Contributing...
+- Added learning to instructions/dev.mdc
+- Added learning to instructions/testing.mdc
+✅ Contribution complete
+
+✅ Learning captured!
+📍 Task complete. Ready for next task.
+```
+
+## What Gets Captured
+
+### Time Analysis
+- Estimated vs actual time
+- Why variance occurred
+
+### Approach Analysis
+- What worked well
+- What could be better
+
+### Pattern Discovery
+- New patterns found
+- Pitfalls to avoid
+
+## Dependencies
+
+- **Mode**: Plan + Agent
+- **Depends on**: Completed task
+- **Produces**: Updated instruction rules
+
+## Learning Quality
+
+Good learnings:
+- ✅ Specific and actionable
+- ✅ Explains context
+- ✅ Helps future tasks
+
+Bad learnings:
+- ❌ Too vague
+- ❌ Too specific to one case
+- ❌ Not actionable
+
+## Example
+
+```
+> /learn
+
+Starting learning process for: a1b2c3d4-add-reading-streaks
+
+[1/2] Reflecting...
+
+Time Analysis:
+- Estimated: 3 hours
+- Actual: 4.5 hours
+- Reason: Timezone handling unexpected
+
+What Went Well:
+- Component design was clean
+- Tests caught edge cases
+
+What Could Be Better:
+- Should have researched timezone handling earlier
+
+Learnings:
+1. "Timezone handling in date calculations"
+2. "Test factories for complex entities"
+
+✅ Reflection complete
+
+[2/2] Contributing...
+
+Adding to instructions/dev.mdc...
+✅ Learning 1 added
+
+Adding to instructions/testing.mdc...
+✅ Learning 2 added
+
+✅ 2 learnings contributed
+📍 Task complete!
+```
+
+## Self-Improvement
+
+The meta layer improves through learning:
+
+```
+Task completed
+      ↓
+/learn extracts insights
+      ↓
+Instructions updated
+      ↓
+Future tasks benefit
+```
+
+Every task is an opportunity to improve.

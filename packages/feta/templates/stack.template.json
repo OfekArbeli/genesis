@@ -1,0 +1,25 @@
+{
+  "frontend": {
+    "framework": "",
+    "language": "",
+    "styling": ""
+  },
+  "backend": {
+    "runtime": "",
+    "framework": "",
+    "language": ""
+  },
+  "database": {
+    "primary": "",
+    "cache": ""
+  },
+  "infrastructure": {
+    "hosting": "",
+    "ai": ""
+  },
+  "tools": {
+    "packageManager": "",
+    "testing": "",
+    "linting": ""
+  }
+}

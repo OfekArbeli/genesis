@@ -1,0 +1,77 @@
+# ===========================================
+# Genesis Monorepo .gitignore
+# ===========================================
+
+# -------------------------------------------
+# Implementation Repositories
+# products/*/repos/ is where implementations live
+# -------------------------------------------
+
+# Product repos (implementation code)
+products/*/repos/*/
+!products/*/repos/.gitkeep
+
+# -------------------------------------------
+# Node.js
+# -------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# -------------------------------------------
+# Build outputs
+# -------------------------------------------
+dist/
+build/
+.next/
+out/
+.nuxt/
+.output/
+
+# -------------------------------------------
+# Environment files
+# -------------------------------------------
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+
+# -------------------------------------------
+# IDE & Editor
+# -------------------------------------------
+.idea/
+*.swp
+*.swo
+*~
+.vscode/settings.json
+.vscode/launch.json
+
+# -------------------------------------------
+# OS files
+# -------------------------------------------
+.DS_Store
+Thumbs.db
+*.log
+
+# -------------------------------------------
+# Testing
+# -------------------------------------------
+coverage/
+.nyc_output/
+
+# -------------------------------------------
+# Temporary files
+# -------------------------------------------
+*.tmp
+*.temp
+.cache/
+
+# -------------------------------------------
+# User-specific files
+# -------------------------------------------
+packages/meta/.cursor/rules/user-config.mdc
+products/*/.cursor/rules/user-config.mdc

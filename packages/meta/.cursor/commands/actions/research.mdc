@@ -1,0 +1,97 @@
+# /research
+
+Gather context and perform deep analysis for a task.
+
+## Usage
+
+```
+/research                    # Research current task
+/research {task-id}          # Research specific task
+```
+
+## What It Does
+
+1. Reads task file from backlog
+2. Analyzes relevant codebase areas
+3. Identifies patterns and dependencies
+4. Documents findings in `context.md`
+
+## Process
+
+### 1. Understand the Task
+
+- Read Goal and Scope carefully
+- Identify domains and projects involved
+- Note constraints and requirements
+
+### 2. Explore Codebase
+
+- Find entry points (routes, main files)
+- Trace data flow
+- Identify existing patterns
+- Note dependencies
+
+### 3. Document Findings
+
+Output to `tasks/{task-id}/context.md`:
+
+```markdown
+# Context: {task-id}
+
+## Summary
+[2-3 sentences of key findings]
+
+## Relevant Files
+- `path/to/file.ts` - Description
+- `path/to/file.ts` - Description
+
+## Existing Patterns
+[How similar features are implemented]
+
+## Dependencies
+- External: [libraries, APIs]
+- Internal: [services, components]
+
+## Constraints
+[Technical limitations, business rules]
+
+## Open Questions
+[Things needing clarification]
+```
+
+## Time Boxing
+
+| Task Size | Research Time |
+|-----------|---------------|
+| Small | 15-30 min |
+| Medium | 30-60 min |
+| Large | 1-2 hours |
+
+## Output
+
+```
+✅ Research complete → context.md created
+📍 Next recommended: /plan
+```
+
+## Dependencies
+
+- **Mode**: Agent
+- **Depends on**: task.json (task file in backlog)
+- **Produces**: context.md
+
+## Example
+
+```
+> /research a1b2c3d4-add-reading-streaks
+
+Researching: a1b2c3d4-add-reading-streaks
+
+Analyzing codebase...
+- Found UserProfile component
+- Found existing streak logic in gameification/
+- Identified ReadingSession entity
+
+✅ Research complete → context.md created
+📍 Next recommended: /plan
+```

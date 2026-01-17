@@ -1,0 +1,185 @@
+# /do
+
+End-to-end task execution pipeline.
+
+## Usage
+
+```
+/do {task-id}                # Full autonomous execution
+/do {task-id} manually       # Step-by-step with approval
+/do --resume                 # Resume interrupted task
+```
+
+## What It Does
+
+Executes the complete task workflow:
+1. `/prepare` (research → plan)
+2. `/implement` (loop until complete)
+3. `/ship` (validate → commit → push)
+4. `/learn` (reflect → contribute)
+
+## Flow
+
+```
+/do {task-id}
+    │
+    ├──▶ /prepare
+    │       ├──▶ /research → context.md
+    │       └──▶ /plan → plan.md
+    │
+    ├──▶ /implement (loop)
+    │       ├──▶ Step 1
+    │       ├──▶ Step 2
+    │       └──▶ ... until complete
+    │
+    ├──▶ /ship
+    │       ├──▶ /validate
+    │       ├──▶ /commit
+    │       └──▶ push
+    │
+    └──▶ /learn
+            ├──▶ /reflect
+            └──▶ /contribute
+```
+
+## Workflow Profiles
+
+Agent automatically selects based on task:
+
+| Profile | Flow | When Selected |
+|---------|------|---------------|
+| **Full** | prepare → implement → ship → learn | New features, complex tasks |
+| **Focused** | plan → implement → ship | Medium tasks, clear scope |
+| **Quick** | implement → ship | Bug fixes, docs, tweaks |
+
+### Selection Logic
+
+- Bug fix with clear cause → Quick
+- Bug fix with unclear cause → Focused
+- Small enhancement → Focused
+- New feature → Full
+- Refactor → Full
+- Documentation → Quick
+
+## Manual Mode
+
+With `manually` flag, pauses after each phase:
+
+```
+> /do a1b2c3d4-add-streaks manually
+
+[Phase: Prepare]
+Research complete. Plan created.
+Proceed to implement? [Y/n/skip]
+
+[Phase: Implement]
+Step 1 complete.
+Proceed to step 2? [Y/n/skip]
+
+[Phase: Ship]
+Ready to ship.
+Proceed? [Y/n]
+```
+
+## Resume Mode
+
+If interrupted, resume from last state:
+
+```
+> /do --resume
+
+Resuming task: a1b2c3d4-add-streaks
+Last phase: implementing (step 3)
+
+Continuing from step 3...
+```
+
+## State Tracking
+
+Progress saved to `tasks/{id}/task.json`:
+
+```json
+{
+  "id": "a1b2c3d4-add-streaks",
+  "phase": "implementing",
+  "workflowProfile": "full",
+  "currentStep": 3,
+  "error": null,
+  "resumable": true
+}
+```
+
+## Error Handling
+
+| Phase | On Error |
+|-------|----------|
+| Prepare | Stop, show error, allow retry |
+| Implement | Save state, suggest fix |
+| Ship | Log state, allow `--resume` |
+| Learn | Non-blocking, continue |
+
+## Output
+
+```
+> /do a1b2c3d4-add-reading-streaks
+
+Starting: a1b2c3d4-add-reading-streaks
+Profile: Full (new feature detected)
+
+[1/4] Preparing...
+✅ Research complete
+✅ Plan complete (4 steps)
+
+[2/4] Implementing...
+✅ Step 1: Add streak service
+✅ Step 2: Create StreakDisplay
+✅ Step 3: Integrate into Profile
+✅ Step 4: Add tests
+
+[3/4] Shipping...
+✅ Validation passed
+✅ Committed: abc1234
+✅ Pushed to origin
+
+[4/4] Learning...
+✅ Reflection captured
+✅ 2 learnings contributed
+
+════════════════════════════════════════
+✅ Task complete: a1b2c3d4-add-reading-streaks
+Time: 4.5 hours
+Commits: 1
+Learnings: 2
+════════════════════════════════════════
+```
+
+## Dependencies
+
+- **Mode**: Agent + Plan (varies by phase)
+- **Depends on**: Task in backlog
+- **Produces**: Complete task execution
+
+## Example: Manual Mode
+
+```
+> /do a1b2c3d4-add-streaks manually
+
+Starting (manual mode): a1b2c3d4-add-streaks
+Profile: Full
+
+[Phase 1: Prepare]
+Running research...
+✅ Research complete
+
+Running planning...
+✅ Plan created (4 steps)
+
+Continue to implement? [Y/n/skip] y
+
+[Phase 2: Implement]
+Step 1: Add streak service
+✅ Step 1 complete
+
+Continue to step 2? [Y/n/skip] y
+...
+```

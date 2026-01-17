@@ -1,0 +1,135 @@
+# Wegoby Conventions
+
+> **Always Apply** - Naming, commits, and code style conventions.
+
+## Naming Conventions
+
+### Files & Folders
+
+| Type | Convention | Example |
+|------|------------|---------|
+| Folders | kebab-case | `user-profile/`, `to-read/` |
+| TypeScript files | camelCase | `userProfile.ts`, `bookReader.ts` |
+| React components | PascalCase | `UserProfile.tsx`, `BookCard.tsx` |
+| Test files | `*.test.ts` or `*.spec.ts` | `userProfile.test.ts` |
+| Config files | kebab-case | `tailwind.config.js` |
+
+### Code
+
+| Type | Convention | Example |
+|------|------------|---------|
+| Variables | camelCase | `userName`, `bookList` |
+| Constants | SCREAMING_SNAKE_CASE | `MAX_RETRIES`, `API_URL` |
+| Functions | camelCase | `getUserProfile()`, `calculateScore()` |
+| Classes | PascalCase | `UserService`, `BookRepository` |
+| Interfaces | PascalCase with `I` prefix (optional) | `User` or `IUser` |
+| Types | PascalCase | `UserResponse`, `BookStatus` |
+| Enums | PascalCase | `BookStatus.Reading` |
+
+### Task IDs
+
+Format: `{uuid}-{short-name}`
+
+| Part | Format | Example |
+|------|--------|---------|
+| UUID | 8 character hex | `a1b2c3d4` |
+| Short name | kebab-case, 2-4 words | `add-book-generation` |
+| Full ID | Combined | `a1b2c3d4-add-book-generation` |
+
+## Git Conventions
+
+### Branch Naming
+
+Format: `{type}/{short-description}`
+
+| Type | Use For | Example |
+|------|---------|---------|
+| `feature/` | New features | `feature/book-generation` |
+| `fix/` | Bug fixes | `fix/login-redirect` |
+| `refactor/` | Code improvements | `refactor/auth-service` |
+| `docs/` | Documentation | `docs/api-endpoints` |
+| `hotfix/` | Urgent production fixes | `hotfix/payment-crash` |
+
+### Commit Messages
+
+Format: `{type}({scope}): {description}`
+
+```bash
+feat(auth): add OAuth2 integration with Google
+fix(ui): resolve button alignment in mobile view
+test(domain): add regression tests for user validation
+docs(api): update endpoint documentation for v2
+refactor(service): extract user validation logic
+```
+
+Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+
+### PR Format
+
+```markdown
+## Summary
+[1-3 bullet points of what this PR does]
+
+## Changes
+- [Specific change 1]
+- [Specific change 2]
+
+## Test Plan
+- [ ] Unit tests pass
+- [ ] Integration tests pass
+- [ ] Manual testing completed
+
+## Related
+- Task: {task-id}
+- Closes #{issue-number}
+```
+
+## Code Style
+
+### TypeScript
+
+- Use `const` by default, `let` only when reassignment is needed
+- Prefer arrow functions for callbacks
+- Use explicit return types for public functions
+- Avoid `any` - use `unknown` if type is truly unknown
+- Use optional chaining (`?.`) and nullish coalescing (`??`)
+
+### React
+
+- Use functional components with hooks
+- Keep components focused and small (<100 lines ideal)
+- Extract complex logic into custom hooks
+- Use TypeScript for all components
+- Implement proper error boundaries
+
+### Comments
+
+```typescript
+// ✅ Good: Explains WHY, not WHAT
+// Debounce to prevent excessive API calls during typing
+const debouncedSearch = debounce(searchUsers, 300);
+
+// ❌ Bad: Explains WHAT (obvious from code)
+// Create a debounced version of searchUsers with 300ms delay
+const debouncedSearch = debounce(searchUsers, 300);
+```
+
+## Import Order
+
+1. External libraries (react, lodash, etc.)
+2. Internal packages (@wegoby/*)
+3. Relative imports (../../)
+4. Styles
+
+```typescript
+import React from 'react';
+import { debounce } from 'lodash';
+
+import { UserService } from '@wegoby/services';
+import { Button } from '@wegoby/ui';
+
+import { useUser } from '../../hooks/useUser';
+import { formatDate } from './utils';
+
+import styles from './UserProfile.module.css';
+```

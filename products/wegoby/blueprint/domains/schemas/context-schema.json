@@ -1,0 +1,309 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Context",
+  "description": "User's personalized UX state - practical preferences derived from Sensetree persona",
+  "type": "object",
+  "required": ["userId", "version", "presentation", "cognition", "autonomy", "continuity", "intent"],
+  "properties": {
+    "userId": {
+      "type": "string",
+      "description": "Unique user identifier"
+    },
+    "version": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "presentation": {
+      "$ref": "#/definitions/Presentation"
+    },
+    "cognition": {
+      "$ref": "#/definitions/Cognition"
+    },
+    "autonomy": {
+      "$ref": "#/definitions/Autonomy"
+    },
+    "continuity": {
+      "$ref": "#/definitions/Continuity"
+    },
+    "intent": {
+      "$ref": "#/definitions/Intent"
+    }
+  },
+  "definitions": {
+    "Presentation": {
+      "type": "object",
+      "description": "Surface - How information is displayed",
+      "properties": {
+        "layout": {
+          "type": "object",
+          "properties": {
+            "density": {
+              "type": "string",
+              "enum": ["compact", "comfortable", "spacious"],
+              "description": "Visual density of UI elements"
+            },
+            "columns": {
+              "type": "string",
+              "enum": ["single", "multi"],
+              "description": "Preferred column layout"
+            }
+          }
+        },
+        "visual": {
+          "type": "object",
+          "properties": {
+            "theme": {
+              "type": "string",
+              "enum": ["light", "dark", "system"],
+              "description": "Color theme preference"
+            },
+            "animations": {
+              "type": "boolean",
+              "description": "Whether to show animations"
+            },
+            "iconStyle": {
+              "type": "string",
+              "enum": ["outlined", "filled", "minimal"],
+              "description": "Preferred icon style"
+            }
+          }
+        },
+        "typography": {
+          "type": "object",
+          "properties": {
+            "fontSize": {
+              "type": "string",
+              "enum": ["small", "medium", "large"],
+              "description": "Base font size preference"
+            },
+            "lineHeight": {
+              "type": "string",
+              "enum": ["tight", "normal", "relaxed"],
+              "description": "Line height preference"
+            }
+          }
+        }
+      }
+    },
+    "Cognition": {
+      "type": "object",
+      "description": "Density - How content is written and conveyed",
+      "properties": {
+        "detail": {
+          "type": "object",
+          "properties": {
+            "level": {
+              "type": "string",
+              "enum": ["minimal", "balanced", "comprehensive"],
+              "description": "Amount of detail in content"
+            },
+            "explanations": {
+              "type": "boolean",
+              "description": "Whether to include explanatory text"
+            }
+          }
+        },
+        "tone": {
+          "type": "object",
+          "properties": {
+            "formality": {
+              "type": "string",
+              "enum": ["casual", "neutral", "formal"],
+              "description": "Communication formality level"
+            },
+            "encouragement": {
+              "type": "string",
+              "enum": ["minimal", "moderate", "enthusiastic"],
+              "description": "Level of positive reinforcement"
+            }
+          }
+        },
+        "load": {
+          "type": "object",
+          "properties": {
+            "maxItemsPerView": {
+              "type": "integer",
+              "minimum": 5,
+              "maximum": 50,
+              "description": "Maximum items to show before pagination"
+            },
+            "progressiveDisclosure": {
+              "type": "boolean",
+              "description": "Whether to hide advanced options initially"
+            }
+          }
+        }
+      }
+    },
+    "Autonomy": {
+      "type": "object",
+      "description": "Agency - Who leads the experience",
+      "properties": {
+        "control": {
+          "type": "object",
+          "properties": {
+            "mode": {
+              "type": "string",
+              "enum": ["user-driven", "balanced", "system-driven"],
+              "description": "Who initiates actions"
+            },
+            "confirmations": {
+              "type": "string",
+              "enum": ["always", "destructive-only", "never"],
+              "description": "When to ask for confirmation"
+            }
+          }
+        },
+        "automation": {
+          "type": "object",
+          "properties": {
+            "suggestions": {
+              "type": "boolean",
+              "description": "Whether to show AI suggestions proactively"
+            },
+            "autoComplete": {
+              "type": "boolean",
+              "description": "Whether to auto-complete actions"
+            },
+            "shortcuts": {
+              "type": "boolean",
+              "description": "Whether to offer quick actions"
+            }
+          }
+        },
+        "guidance": {
+          "type": "object",
+          "properties": {
+            "tooltips": {
+              "type": "boolean",
+              "description": "Whether to show tooltips"
+            },
+            "onboarding": {
+              "type": "string",
+              "enum": ["full", "minimal", "skip"],
+              "description": "Onboarding experience level"
+            }
+          }
+        }
+      }
+    },
+    "Continuity": {
+      "type": "object",
+      "description": "Temporal Context - How time and history are handled",
+      "properties": {
+        "memory": {
+          "type": "object",
+          "properties": {
+            "rememberPreferences": {
+              "type": "boolean",
+              "description": "Whether to persist user preferences"
+            },
+            "rememberHistory": {
+              "type": "boolean",
+              "description": "Whether to track interaction history"
+            },
+            "historyDepth": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 365,
+              "description": "Days of history to retain"
+            }
+          }
+        },
+        "session": {
+          "type": "object",
+          "properties": {
+            "resumeLastState": {
+              "type": "boolean",
+              "description": "Whether to restore previous session state"
+            },
+            "crossDeviceSync": {
+              "type": "boolean",
+              "description": "Whether to sync across devices"
+            }
+          }
+        },
+        "anticipation": {
+          "type": "object",
+          "properties": {
+            "predictActions": {
+              "type": "boolean",
+              "description": "Whether to predict and prepare for likely actions"
+            },
+            "preload": {
+              "type": "boolean",
+              "description": "Whether to preload likely next content"
+            }
+          }
+        }
+      }
+    },
+    "Intent": {
+      "type": "object",
+      "description": "Content Matching - What is relevant to the user",
+      "properties": {
+        "goals": {
+          "type": "object",
+          "properties": {
+            "primary": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "User's main goals"
+            },
+            "secondary": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "User's secondary goals"
+            }
+          }
+        },
+        "interests": {
+          "type": "object",
+          "properties": {
+            "topics": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Topics of interest"
+            },
+            "avoidTopics": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Topics to avoid"
+            }
+          }
+        },
+        "constraints": {
+          "type": "object",
+          "properties": {
+            "timeAvailable": {
+              "type": "string",
+              "enum": ["minimal", "moderate", "flexible"],
+              "description": "How much time user typically has"
+            },
+            "focusLevel": {
+              "type": "string",
+              "enum": ["distracted", "moderate", "focused"],
+              "description": "User's typical focus level"
+            }
+          }
+        },
+        "currentIntent": {
+          "type": "object",
+          "properties": {
+            "action": {
+              "type": "string",
+              "description": "Current inferred action intent"
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Confidence in the inferred intent"
+            }
+          }
+        }
+      }
+    }
+  }
+}

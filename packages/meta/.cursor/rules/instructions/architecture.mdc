@@ -1,0 +1,198 @@
+# Architecture Instructions
+
+> **Apply Intelligently** - System design, data flow, and API contracts.
+
+## Scope
+
+**In scope**: System design, data flow, API contracts
+**Not in scope**: Code style (→ dev.mdc)
+
+## Wegoby Architecture Overview
+
+```
+┌─────────────────┐     ┌─────────────────┐
+│   Miniapps      │     │   Sensetree     │
+│  (Configs)      │────▶│  (Personas)     │
+└────────┬────────┘     └────────┬────────┘
+         │                       │
+         ▼                       ▼
+┌─────────────────────────────────────────┐
+│              Percepta Engine            │
+│  (Runtime + Command API + Adaptive UI)  │
+└─────────────────────────────────────────┘
+```
+
+## Layer Architecture
+
+### Domain Layer
+
+Pure business logic, no dependencies on UI or external services.
+
+```typescript
+// domain/book/calculateProgress.ts
+export function calculateProgress(book: Book): number {
+  if (book.totalPages === 0) return 0;
+  return Math.round((book.currentPage / book.totalPages) * 100);
+}
+```
+
+### Service Layer
+
+Orchestrates domain logic and external services.
+
+```typescript
+// services/bookService.ts
+export class BookService {
+  constructor(
+    private bookRepo: BookRepository,
+    private userService: UserService
+  ) {}
+
+  async addToReadingList(userId: string, bookId: string) {
+    const user = await this.userService.getById(userId);
+    const book = await this.bookRepo.findById(bookId);
+    return this.bookRepo.addToList(user, book);
+  }
+}
+```
+
+### API Layer
+
+HTTP handlers, request/response transformation.
+
+```typescript
+// api/books.ts
+export async function POST(req: Request) {
+  const body = await req.json();
+  const result = await bookService.create(body);
+  return Response.json(result);
+}
+```
+
+### UI Layer
+
+React components, hooks, state management.
+
+## Data Flow
+
+### Read Flow
+
+```
+UI Component
+    ↓ (hook call)
+Custom Hook
+    ↓ (API call)
+API Layer
+    ↓ (service call)
+Service Layer
+    ↓ (repository call)
+Data Layer
+    ↓ (database query)
+Database
+```
+
+### Write Flow
+
+```
+UI Component
+    ↓ (form submit)
+Custom Hook
+    ↓ (mutation)
+API Layer
+    ↓ (validation)
+Service Layer
+    ↓ (business logic)
+Domain Layer
+    ↓ (repository save)
+Data Layer
+```
+
+## API Design
+
+### RESTful Conventions
+
+| Method | Use For | Example |
+|--------|---------|---------|
+| GET | Read | `GET /api/books` |
+| POST | Create | `POST /api/books` |
+| PUT | Replace | `PUT /api/books/123` |
+| PATCH | Update | `PATCH /api/books/123` |
+| DELETE | Remove | `DELETE /api/books/123` |
+
+### Response Format
+
+```typescript
+// Success
+{
+  "data": { /* payload */ },
+  "meta": { /* pagination, etc */ }
+}
+
+// Error
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid input",
+    "details": [{ "field": "email", "message": "Required" }]
+  }
+}
+```
+
+### Versioning
+
+- Use URL versioning: `/api/v1/books`
+- Maintain backward compatibility within version
+- Deprecate before removing
+
+## State Management
+
+### Server State
+
+Use React Query or similar for server data:
+
+```typescript
+const { data, isLoading, error } = useQuery({
+  queryKey: ['books', userId],
+  queryFn: () => fetchBooks(userId),
+});
+```
+
+### Client State
+
+Use Zustand or similar for UI state:
+
+```typescript
+const useStore = create((set) => ({
+  sidebarOpen: false,
+  toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
+}));
+```
+
+### State Location
+
+| Type | Location | Example |
+|------|----------|---------|
+| Server data | React Query cache | User profile, books |
+| Global UI | Zustand store | Theme, sidebar state |
+| Local UI | Component state | Form inputs, modals |
+| URL | Router params | Current page, filters |
+
+## Dependency Injection
+
+Prefer dependency injection for testability:
+
+```typescript
+// ✅ Good: Injectable
+class UserService {
+  constructor(private repo: UserRepository) {}
+}
+
+// ❌ Bad: Hard dependency
+class UserService {
+  private repo = new UserRepository();
+}
+```
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

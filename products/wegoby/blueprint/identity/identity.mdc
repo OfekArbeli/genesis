@@ -1,0 +1,60 @@
+# Wegoby Identity
+
+> **Always Apply** - This rule defines who we are and how we work.
+
+## Vision
+
+**Wegoby aims to redefine the internet experience for the AI era by creating adaptive chat-app experiences that evolve together with the user.**
+
+## Core Philosophy: Maximum Personalization
+
+> **An adaptive chat-app experience that evolves with you—built for maximum personalization that shapes the app around you in real time.**
+
+Traditional approach: One-size-fits-all apps that never change
+Wegoby approach: Experiences that evolve with you and adapt in real time
+
+Every Wegoby user gets:
+- An experience that learns and adapts
+- Maximum personalization across every interaction
+- An app that shapes itself around them in real time
+
+## What We Build
+
+### Sensetree
+Wegoby's empathic AI—trained on deep user personas to approximate inner experience. The "feeling" side.
+
+### Percepta
+Wegoby's adaptive UI engine—runtime + AI operator + adaptive UI. The "doing" side that brings Sensetree's insights to life.
+
+### to-* Products
+Each product is accessed via a `to-*` path (e.g., `to-read`, `to-eat`, `to-workout`). These are not separate products, but **different expressions of the same experiential core**.
+
+## Feta Layer Purpose
+
+The feta layer is the **father layer** - Wegoby's product blueprint. It provides:
+
+- Product identity, vision, and mission
+- Branding (colors, typography, assets, voice)
+- Domain specifications (Sensetree, Percepta)
+- Miniapp definitions and schemas
+- Research findings and documentation
+- Backlog of features, bugs, and improvements
+
+The feta layer defines WHAT to build, while the meta layer (mother) defines HOW to build.
+
+## Brand Voice
+
+- **Confident** - We know what we're building and why
+- **Friendly** - Approachable, not intimidating
+- **Innovative** - Pushing boundaries of what's possible
+
+## Quality Principles
+
+1. **Behavior-Driven** - All development starts with behavior mapping
+2. **Test-Driven** - Write tests before implementation
+3. **Consistency-Focused** - Follow established patterns before innovating
+4. **Documentation-Aware** - Keep docs updated with every change
+
+---
+
+*Remember: We're not just coding—we're building the Wegoby development culture.*

@@ -1,0 +1,145 @@
+# Research Instructions
+
+> **Apply Intelligently** - How to analyze code and gather context.
+
+## Scope
+
+**In scope**: How to analyze code, gather context, document findings
+**Not in scope**: Making decisions (→ planning.mdc)
+
+## Research Process
+
+### 1. Understand the Task
+
+Before diving into code:
+- Read the task Goal and Scope carefully
+- Identify what domains/projects are involved
+- Note any constraints or requirements mentioned
+
+### 2. Explore the Codebase
+
+```
+1. Start with entry points (routes, main files)
+2. Trace the data flow
+3. Identify existing patterns
+4. Note dependencies and integrations
+```
+
+### 3. Document Findings
+
+Output to `context.md` in the task workspace.
+
+## Context Document Structure
+
+```markdown
+# Context: {task-id}
+
+## Summary
+[2-3 sentences summarizing what you learned]
+
+## Relevant Files
+- `src/services/userService.ts` - User business logic
+- `src/components/UserProfile.tsx` - Profile UI component
+- `src/api/users.ts` - API endpoints
+
+## Existing Patterns
+[How similar features are implemented in the codebase]
+
+## Dependencies
+- External: [libraries, APIs]
+- Internal: [other services, components]
+
+## Constraints
+- [Technical limitations]
+- [Business rules to follow]
+
+## Open Questions
+- [Things that need clarification]
+```
+
+## Research Techniques
+
+### Code Exploration
+
+```bash
+# Find all files related to a concept
+rg "UserService" --type ts
+
+# Find imports/usages
+rg "import.*UserService" --type ts
+
+# Find function definitions
+rg "function.*createUser|createUser.*=" --type ts
+```
+
+### Pattern Discovery
+
+Look for:
+- How similar features are structured
+- Common abstractions used
+- Testing patterns
+- Error handling approaches
+
+### Data Flow Tracing
+
+1. Start at the UI component or API endpoint
+2. Follow function calls down to data layer
+3. Note transformations and validations
+4. Map the complete flow
+
+## What to Look For
+
+### Technical Aspects
+
+- [ ] File structure and organization
+- [ ] Naming conventions used
+- [ ] State management approach
+- [ ] Error handling patterns
+- [ ] Testing coverage
+
+### Business Logic
+
+- [ ] Validation rules
+- [ ] Business constraints
+- [ ] Edge cases handled
+- [ ] Integration points
+
+### Quality Indicators
+
+- [ ] Code duplication
+- [ ] Complex functions (>50 lines)
+- [ ] Missing tests
+- [ ] Outdated dependencies
+
+## Research Output Quality
+
+### Good Context Document
+
+- ✅ Specific file paths mentioned
+- ✅ Code snippets for key patterns
+- ✅ Clear summary of findings
+- ✅ Actionable open questions
+
+### Poor Context Document
+
+- ❌ Vague descriptions
+- ❌ No file references
+- ❌ Missing constraints
+- ❌ No patterns identified
+
+## Time Boxing
+
+| Task Size | Research Time |
+|-----------|---------------|
+| Small | 15-30 min |
+| Medium | 30-60 min |
+| Large | 1-2 hours |
+
+If research is taking longer, it might indicate:
+- Task needs to be broken down
+- Missing documentation in codebase
+- Need to ask for clarification
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

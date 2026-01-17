@@ -1,0 +1,82 @@
+# Wegoby
+
+> **Apply Intelligently** - What is Wegoby, vision, and mission.
+
+## What is Wegoby?
+
+Wegoby is an AI-powered personalization platform that creates adaptive digital experiences evolving together with the user.
+
+**Tagline**: "Your AI-powered journey to customized experiences"
+
+## Core Philosophy: User is the Dev
+
+> **The user IS the developer.** Instead of building apps and guessing what users want, we build small services that users can modify via AI to make it their own.
+
+**Traditional approach**: Developer → App → User (developer guesses user needs)
+
+**Wegoby approach**: User ↔ AI ↔ App (user shapes their own experience)
+
+**"The user of the user is the user."** — Every Wegoby user is simultaneously:
+- A user of the platform
+- A developer of their own experience
+- The beneficiary of their own customizations
+
+## Products
+
+### to-* Miniapps
+
+Each Wegoby product is accessed via a `to-*` path:
+
+| Product | Path | Purpose |
+|---------|------|---------|
+| to-read | `/to-read` | Personalized reading experience |
+| to-eat | `/to-eat` | Meal planning and recipes |
+| to-note | `/to-note` | Note-taking and journaling |
+
+These are not separate products, but **different expressions of the same experiential core**.
+
+Each to-* miniapp:
+- Uses Sensetree for persona understanding
+- Uses Percepta for adaptive rendering
+- Explores personalization within a specific life domain
+
+### Sensetree
+
+The "feeling" side — Wegoby's empathic AI trained on deep user personas to approximate inner experience.
+
+See: [domains/sensetree/](../../../domains/sensetree/)
+
+### Percepta
+
+The "doing" side — Wegoby's adaptive UI engine that brings Sensetree's insights to life through runtime + AI operator + adaptive UI.
+
+See: [domains/percepta/](../../../domains/percepta/)
+
+## Personalization Depth
+
+Wegoby personalization is not cosmetic. It affects:
+
+| Layer | Examples |
+|-------|----------|
+| **Logic** | Different workflows for different users |
+| **Content** | Adapted text, suggestions, recommendations |
+| **Layout** | UI structure based on preferences |
+| **Tone** | Communication style matching user |
+| **Pacing** | Speed of interaction, information density |
+| **Narrative** | Story and framing of experiences |
+
+## Brand Voice
+
+| Trait | Meaning |
+|-------|---------|
+| **Confident** | We know what we're building and why |
+| **Friendly** | Approachable, not intimidating |
+| **Innovative** | Pushing boundaries of what's possible |
+
+## Related Files
+
+- Branding: [feta/branding/](../../../branding/)
+- Identity: [feta/identity/](../../../identity/)
+- Colors: [feta/branding/colors.json](../../../branding/colors.json)
+- Domains: [feta/domains/](../../../domains/)
+- Miniapps: [feta/miniapps/](../../../miniapps/)

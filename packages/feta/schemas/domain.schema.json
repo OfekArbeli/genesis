@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://genesis.dev/schemas/domain.schema.json",
+  "title": "Domain Schema",
+  "description": "Schema for validating domain specification folders",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Domain name (folder name)"
+    },
+    "structure": {
+      "type": "object",
+      "description": "Expected files and folders in a domain",
+      "properties": {
+        "README.md": {
+          "type": "boolean",
+          "const": true,
+          "description": "Domain documentation"
+        },
+        "architecture.md": {
+          "type": "boolean",
+          "description": "Architecture documentation"
+        },
+        "api-contract.md": {
+          "type": "boolean",
+          "description": "API contract documentation"
+        }
+      },
+      "required": ["README.md"]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Domain metadata",
+      "properties": {
+        "description": { "type": "string" },
+        "owner": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["planned", "in-development", "active", "deprecated"]
+        }
+      }
+    }
+  },
+  "required": ["name"]
+}

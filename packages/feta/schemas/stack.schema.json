@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://genesis.dev/schemas/stack.schema.json",
+  "title": "Stack Schema",
+  "description": "Schema for validating technology stack configuration",
+  "type": "object",
+  "properties": {
+    "frontend": {
+      "type": "object",
+      "description": "Frontend technology stack",
+      "properties": {
+        "framework": {
+          "type": "string",
+          "description": "Frontend framework (e.g., React, Vue, Svelte)"
+        },
+        "language": {
+          "type": "string",
+          "description": "Programming language (e.g., TypeScript, JavaScript)"
+        },
+        "styling": {
+          "type": "string",
+          "description": "Styling approach (e.g., Tailwind, CSS Modules)"
+        }
+      }
+    },
+    "backend": {
+      "type": "object",
+      "description": "Backend technology stack",
+      "properties": {
+        "runtime": {
+          "type": "string",
+          "description": "Runtime environment (e.g., Node.js, Deno, Bun)"
+        },
+        "framework": {
+          "type": "string",
+          "description": "Backend framework (e.g., Express, Fastify, Hono)"
+        },
+        "language": {
+          "type": "string",
+          "description": "Programming language (e.g., TypeScript, Go, Rust)"
+        }
+      }
+    },
+    "database": {
+      "type": "object",
+      "description": "Database technology stack",
+      "properties": {
+        "primary": {
+          "type": "string",
+          "description": "Primary database (e.g., PostgreSQL, MongoDB)"
+        },
+        "cache": {
+          "type": "string",
+          "description": "Cache layer (e.g., Redis, Memcached)"
+        }
+      }
+    },
+    "infrastructure": {
+      "type": "object",
+      "description": "Infrastructure and deployment",
+      "properties": {
+        "hosting": {
+          "type": "string",
+          "description": "Hosting platform (e.g., Vercel, AWS, GCP)"
+        },
+        "ai": {
+          "type": "string",
+          "description": "AI/ML platform (e.g., OpenAI, Anthropic)"
+        }
+      }
+    },
+    "tools": {
+      "type": "object",
+      "description": "Development tools",
+      "properties": {
+        "packageManager": {
+          "type": "string",
+          "description": "Package manager (e.g., pnpm, npm, yarn)"
+        },
+        "testing": {
+          "type": "string",
+          "description": "Testing framework (e.g., Vitest, Jest)"
+        },
+        "linting": {
+          "type": "string",
+          "description": "Linting tools (e.g., ESLint, Biome)"
+        }
+      }
+    }
+  }
+}

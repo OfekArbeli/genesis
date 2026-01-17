@@ -1,0 +1,141 @@
+# Branding
+
+> **Apply Intelligently** - Brand colors, typography, images, and i18n.
+
+## Overview
+
+Wegoby branding is defined as **data** in the meta layer. Projects consume this data and implement it in their tech stack.
+
+## Brand Identity
+
+| Property | Value |
+|----------|-------|
+| **Name** | wegoby |
+| **Tagline** | "Your AI-powered journey to customized experiences" |
+| **Positioning** | AI-powered personalization platform |
+| **Voice** | Confident, friendly, innovative |
+
+See: [branding/identity.md](../../../branding/identity.md)
+
+## Color Palette
+
+### Core Colors
+
+| Name | Hex | Usage |
+|------|-----|-------|
+| Primary | #F4B4C0 | Main brand color |
+| Secondary | #A7D1AB | Accent, success |
+| Foreground | #333333 | Text |
+| Background | #FAFAFA | Page background |
+
+### Accent Colors
+
+| Name | Hex | Usage |
+|------|-----|-------|
+| Light Purple | #C3B1E1 | Highlights |
+| Light Teal | #A0D6D3 | Info states |
+| Light Yellow | #F7E78B | Warnings |
+| Light Orange | #FFC8A2 | Notifications |
+
+### State Colors
+
+| Name | Hex | Usage |
+|------|-----|-------|
+| Destructive | #E74C3C | Errors, delete |
+
+See: [branding/colors.json](../../../branding/colors.json)
+
+## Typography
+
+| Usage | Font | Weights |
+|-------|------|---------|
+| Headings | Nunito Sans | 400, 700 |
+| Body | Open Sans | 400, 700 |
+
+See: [branding/typography.json](../../../branding/typography.json)
+
+## Language Support
+
+| Property | Default | Override |
+|----------|---------|----------|
+| Language | English (en) | Per miniapp |
+| Direction | LTR | RTL for Hebrew |
+
+See: [branding/i18n.json](../../../branding/i18n.json)
+
+## Consuming Branding Data
+
+### Tailwind Config
+
+```typescript
+// tailwind.config.js
+import colors from '../../branding/colors.json';
+import typography from '../../branding/typography.json';
+
+export default {
+  theme: {
+    colors: {
+      primary: colors.primary,
+      secondary: colors.secondary,
+      foreground: colors.foreground,
+      background: colors.background,
+      destructive: colors.destructive,
+    },
+    fontFamily: {
+      heading: [typography.heading.family, 'sans-serif'],
+      body: [typography.body.family, 'sans-serif'],
+    },
+  },
+};
+```
+
+### CSS Variables
+
+```css
+:root {
+  --color-primary: #F4B4C0;
+  --color-secondary: #A7D1AB;
+  --font-heading: 'Nunito Sans', sans-serif;
+  --font-body: 'Open Sans', sans-serif;
+}
+```
+
+### Percepta Theming
+
+Percepta loads branding JSON directly into its theming system.
+
+### React Native
+
+```typescript
+import colors from '../../branding/colors.json';
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: colors.primary,
+  },
+});
+```
+
+## Branding Flow
+
+```
+branding/ (meta layer)
+    ↓
+projects/wegoby-portfolio/ (implements via tailwind)
+    ↓
+projects/percepta/ (theming system)
+    ↓
+miniapps/{app}/ (can override via theme.json)
+```
+
+## Related Files
+
+- Branding folder: [branding/](../../../branding/)
+- Identity: [branding/identity.md](../../../branding/identity.md)
+- Colors: [branding/colors.json](../../../branding/colors.json)
+- Typography: [branding/typography.json](../../../branding/typography.json)
+- Gradients: [branding/gradients.json](../../../branding/gradients.json)
+- Images: [branding/images.json](../../../branding/images.json)
+- i18n: [branding/i18n.json](../../../branding/i18n.json)
+- Logo: [branding/logo/](../../../branding/logo/)
+- Favicon: [branding/favicon/](../../../branding/favicon/)

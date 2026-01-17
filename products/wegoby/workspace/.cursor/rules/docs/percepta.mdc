@@ -1,0 +1,125 @@
+# Percepta
+
+> **Apply Intelligently** - Wegoby's adaptive UI engine.
+
+## What is Percepta?
+
+Percepta is Wegoby's adaptive UI engine—the "doing" side that brings Sensetree's insights to life.
+
+It unifies:
+- **Runtime engine** — Fast DOM rendering
+- **AI operator** — Command API for AI control
+- **Adaptive UI** — Personalization based on persona
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                         PERCEPTA                                 │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
+│  │   Renderer   │  │ State Store  │  │  Event Bus   │          │
+│  │  (Fast DOM)  │  │              │  │              │          │
+│  └──────────────┘  └──────────────┘  └──────────────┘          │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐          │
+│  │   Widgets    │  │  Templates   │  │   Theming    │          │
+│  │   Library    │  │   Library    │  │   System     │          │
+│  └──────────────┘  └──────────────┘  └──────────────┘          │
+│  ┌─────────────────────────────────────────────────┐           │
+│  │              COMMAND API                         │           │
+│  │  (The only way AI interacts with Percepta)      │           │
+│  └─────────────────────────────────────────────────┘           │
+└─────────────────────────────────────────────────────────────────┘
+                              ↑
+              ┌───────────────┼───────────────┐
+              ↓               ↓               ↓
+        ┌──────────┐   ┌──────────┐   ┌──────────┐
+        │ to-read  │   │ to-note  │   │ to-eat   │
+        │ (config) │   │ (config) │   │ (config) │
+        └──────────┘   └──────────┘   └──────────┘
+```
+
+## Components
+
+| Component | Purpose |
+|-----------|---------|
+| **Renderer** | Fast DOM rendering (no React hydration) |
+| **State Store** | Centralized state management |
+| **Event Bus** | Cross-component communication |
+| **Widget Library** | Pre-built UI components |
+| **Template Library** | Lists, dashboards, checklists, stats |
+| **Theming System** | Design tokens from user preferences + Sensetree |
+| **Command API** | Restricted interface for AI operations |
+
+## Command API
+
+The only way AI interacts with Percepta.
+
+### Data Commands
+
+```typescript
+entity.create({ type, data })
+entity.update({ id, data })
+entity.delete({ id })
+query.get(queryName, params)
+query.list(entityType, filters)
+```
+
+### View Commands
+
+```typescript
+view.switch(viewId)
+view.modify({ id, changes })
+view.create({ template, config })
+view.addWidget({ viewId, widget, position })
+```
+
+### Rule Commands
+
+```typescript
+rule.create({ trigger, condition, action })
+rule.modify({ id, changes })
+rule.delete({ id })
+```
+
+### UI Commands
+
+```typescript
+ui.notify({ message, type })
+ui.navigate({ to })
+ui.openPanel({ type, data })
+```
+
+## AI Interaction Modes
+
+### Use Mode
+
+AI operates the app for the user.
+
+| User Says | AI Command |
+|-----------|------------|
+| "Add 'Atomic Habits' to my list" | `entity.create({ type: "Book", data: {...} })` |
+| "What's my reading streak?" | `query.get("streak")` |
+| "Mark chapter 5 as done" | `entity.update({ id: "...", currentPage: 120 })` |
+
+### Evolve Mode
+
+AI modifies the app configuration.
+
+| User Says | AI Command |
+|-----------|------------|
+| "Turn this list into checkboxes" | `view.modify({ id: "...", template: "checklist" })` |
+| "Add a weekly view" | `view.create({ template: "calendar", period: "week" })` |
+| "Score each day based on pages" | `rule.create({ trigger: "daily", compute: "..." })` |
+
+## Key Insight
+
+- **Percepta Engine** = Code (TypeScript, tests, builds)
+- **Miniapps** = Configuration (JSON, declarative)
+- **AI** = Operator (sends commands, never writes code)
+
+## Related Files
+
+- Domain specs: [feta/domains/percepta/](../../../domains/percepta/)
+- Projects definition: [feta/projects/](../../../projects/)
+- Packages definition: [feta/packages/](../../../packages/)
+- Miniapps: [feta/miniapps/](../../../miniapps/)

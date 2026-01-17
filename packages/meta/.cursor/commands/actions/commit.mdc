@@ -1,0 +1,126 @@
+# /commit
+
+Commit changes with conventional commit message.
+
+## Usage
+
+```
+/commit                      # Commit staged changes
+/commit --all                # Stage all and commit
+/commit "{message}"          # Commit with specific message
+```
+
+## What It Does
+
+1. Reviews staged changes
+2. Generates commit message
+3. Commits with conventions
+4. Updates task journal
+
+## Commit Message Format
+
+```
+{type}({scope}): {description}
+
+[optional body]
+
+[optional footer]
+```
+
+### Types
+
+| Type | Use For |
+|------|---------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `docs` | Documentation |
+| `style` | Formatting |
+| `refactor` | Code restructuring |
+| `test` | Adding tests |
+| `chore` | Maintenance |
+
+### Examples
+
+```
+feat(auth): add OAuth2 login with Google
+
+fix(ui): resolve button alignment on mobile
+
+refactor(service): extract validation logic
+
+BREAKING CHANGE: ValidationService now requires config
+```
+
+## Process
+
+### 1. Review Changes
+
+- Show diff summary
+- Identify affected areas
+- Determine commit type
+
+### 2. Generate Message
+
+Based on changes:
+- Detect type from files changed
+- Extract scope from paths
+- Summarize changes
+
+### 3. Commit
+
+- Execute git commit
+- Verify success
+- Log to journal
+
+## Output
+
+```
+Staged changes:
+  M src/components/StreakDisplay.tsx
+  A src/components/StreakDisplay.test.tsx
+
+Commit message:
+  feat(ui): add StreakDisplay component
+
+✅ Committed: abc1234
+📍 Next recommended: /reflect
+```
+
+## Dependencies
+
+- **Mode**: Agent
+- **Depends on**: Validation pass (from /validate)
+- **Produces**: Git commit
+
+## Error Handling
+
+| Error | Action |
+|-------|--------|
+| No staged changes | Suggest staging files |
+| Pre-commit hook fails | Show hook output, suggest fixes |
+| Merge conflict | Guide through resolution |
+
+## Example
+
+```
+> /commit
+
+Analyzing changes...
+
+Files changed:
+- src/components/StreakDisplay.tsx (new)
+- src/components/StreakDisplay.test.tsx (new)
+- src/pages/Profile.tsx (modified)
+
+Generated commit message:
+feat(ui): add streak display to user profile
+
+- Add StreakDisplay component
+- Add unit tests for streak calculation
+- Integrate into Profile page
+
+Proceed with commit? [Y/n]
+
+✅ Committed: abc1234
+📍 Next recommended: /reflect
+```

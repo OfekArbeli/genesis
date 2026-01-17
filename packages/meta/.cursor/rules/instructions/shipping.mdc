@@ -1,0 +1,134 @@
+# Shipping Instructions
+
+> **Apply Intelligently** - PR descriptions, release notes, and shipping process.
+
+## Scope
+
+**In scope**: PR description, release notes, summaries
+**Not in scope**: Git commands (→ git.mdc)
+
+## Pull Request Format
+
+### Title
+
+Format: `{type}({scope}): {description}`
+
+Examples:
+- `feat(auth): add OAuth2 login with Google`
+- `fix(ui): resolve button alignment on mobile`
+
+### Description Template
+
+```markdown
+## Summary
+[1-3 bullet points of what this PR does]
+
+## Changes
+- [Specific change 1]
+- [Specific change 2]
+- [Specific change 3]
+
+## Test Plan
+- [ ] Unit tests pass
+- [ ] Integration tests pass
+- [ ] Manual testing: [describe what to test]
+
+## Screenshots
+[If UI changes, add before/after screenshots]
+
+## Related
+- Task: {task-id}
+- Closes #{issue-number}
+```
+
+## PR Checklist
+
+Before opening PR:
+
+- [ ] Code compiles without errors
+- [ ] All tests pass
+- [ ] Linting passes
+- [ ] Self-reviewed the diff
+- [ ] Removed debug code and console.logs
+- [ ] Updated documentation if needed
+- [ ] Added tests for new functionality
+
+## Summary Writing
+
+### Good Summary
+
+- ✅ Explains the "why" not just the "what"
+- ✅ Highlights breaking changes
+- ✅ Mentions key decisions made
+- ✅ Notes any risks or follow-ups needed
+
+### Bad Summary
+
+- ❌ Just lists files changed
+- ❌ Copies commit messages
+- ❌ Missing context
+- ❌ No test plan
+
+## Release Notes
+
+For significant releases:
+
+```markdown
+## v1.2.0 (2026-01-09)
+
+### New Features
+- **OAuth2 Login**: Users can now login with Google (#123)
+- **Reading Streaks**: Track daily reading progress (#124)
+
+### Bug Fixes
+- Fixed button alignment on mobile devices (#125)
+- Resolved login redirect issue (#126)
+
+### Breaking Changes
+- `UserService.create()` now requires email verification
+
+### Migration Guide
+If upgrading from v1.1.x:
+1. Run database migration: `npm run migrate`
+2. Update environment variables: add `OAUTH_CLIENT_ID`
+```
+
+## Ship Command Flow
+
+`/ship` executes:
+1. `/validate` - Run all checks
+2. `/commit` - Commit with conventions
+3. Create summary - Generate PR description
+4. Push - Push to remote
+
+## Pre-Ship Validation
+
+Before shipping:
+
+| Check | Command |
+|-------|---------|
+| Types | `tsc --noEmit` |
+| Lint | `eslint .` |
+| Tests | `npm test` |
+| Build | `npm run build` |
+
+## Code Review Guidelines
+
+When reviewing:
+
+1. **Functionality**: Does it work as intended?
+2. **Tests**: Are there adequate tests?
+3. **Readability**: Is the code clear?
+4. **Performance**: Any obvious issues?
+5. **Security**: Any vulnerabilities?
+
+### Review Comments
+
+- ✅ "Consider using X because Y"
+- ✅ "This could fail when Z"
+- ❌ "This is wrong" (not helpful)
+- ❌ Nitpicking style (let linters handle)
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

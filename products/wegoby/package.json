@@ -1,0 +1,19 @@
+{
+  "name": "@genesis/wegoby",
+  "version": "0.1.0",
+  "description": "Wegoby product - adaptive chat-app experience",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@genesis/feta": "workspace:*",
+    "@genesis/meta": "workspace:*"
+  },
+  "keywords": [
+    "wegoby",
+    "product",
+    "adaptive",
+    "personalization"
+  ],
+  "author": "",
+  "license": "MIT"
+}

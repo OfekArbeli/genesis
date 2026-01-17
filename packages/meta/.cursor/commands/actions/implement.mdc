@@ -1,0 +1,104 @@
+# /implement
+
+Execute a step from the implementation plan.
+
+## Usage
+
+```
+/implement                   # Implement next step
+/implement {step-number}     # Implement specific step
+/implement --all             # Implement all remaining steps
+```
+
+## What It Does
+
+1. Reads plan.md for current step
+2. Executes the step's sub-tasks
+3. Creates/modifies files as needed
+4. Updates step status in plan
+5. Logs progress to journal.md
+
+## Process
+
+### 1. Load Current Step
+
+- Read plan.md
+- Find next incomplete step
+- Load file paths and sub-tasks
+
+### 2. Execute Sub-tasks
+
+- Create or modify files
+- Follow dev.mdc conventions
+- Follow testing.mdc for test code
+
+### 3. Update Progress
+
+- Mark sub-tasks complete in plan
+- Add entry to journal.md
+
+## Journal Entry Format
+
+Appends to `tasks/{task-id}/journal.md`:
+
+```markdown
+## {timestamp}: Step {n} - {title}
+
+### Completed
+- [x] Sub-task 1
+- [x] Sub-task 2
+
+### Files Modified
+- `path/to/file.ts` - Added streak calculation
+- `path/to/component.tsx` - Created StreakDisplay
+
+### Notes
+[Any observations or decisions made]
+```
+
+## Guidelines
+
+- Follow existing patterns in codebase
+- Write tests alongside implementation
+- Keep changes focused on current step
+- Don't refactor unrelated code
+
+## Output
+
+```
+✅ Step {n} complete → code changes made
+📍 Next recommended: /implement (or /validate if last step)
+```
+
+## Dependencies
+
+- **Mode**: Agent
+- **Depends on**: plan.md (from /plan)
+- **Produces**: Code changes, journal updates
+
+## Example
+
+```
+> /implement
+
+Implementing Step 2: Create StreakDisplay component
+
+Creating src/components/StreakDisplay.tsx...
+- Added StreakDisplay component
+- Added props interface
+- Added basic styling
+
+Creating src/components/StreakDisplay.test.tsx...
+- Added render test
+- Added streak calculation test
+
+✅ Step 2 complete → StreakDisplay component created
+📍 Next recommended: /implement (2 steps remaining)
+```
+
+## Error Handling
+
+If implementation fails:
+- Error logged to journal.md
+- Stay in implementing phase
+- Suggest fixes based on error

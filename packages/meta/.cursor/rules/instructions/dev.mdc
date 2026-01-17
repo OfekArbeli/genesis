@@ -1,0 +1,194 @@
+# Development Instructions
+
+> **Apply Intelligently** - Coding standards and patterns for Wegoby projects.
+
+## Scope
+
+**In scope**: Code style, naming, error handling, logging
+**Not in scope**: Architecture decisions (→ architecture.mdc), test code (→ testing.mdc)
+
+## TypeScript Standards
+
+### Type Safety
+
+```typescript
+// ✅ Good: Explicit types
+function getUserById(id: string): Promise<User | null> {
+  return userRepository.findById(id);
+}
+
+// ❌ Bad: Implicit any
+function getUserById(id) {
+  return userRepository.findById(id);
+}
+```
+
+### Prefer Const
+
+```typescript
+// ✅ Good
+const userName = 'John';
+const config = { timeout: 5000 };
+
+// ❌ Bad (unless reassignment needed)
+let userName = 'John';
+var config = { timeout: 5000 };
+```
+
+### Optional Chaining & Nullish Coalescing
+
+```typescript
+// ✅ Good
+const city = user?.address?.city ?? 'Unknown';
+
+// ❌ Bad
+const city = user && user.address && user.address.city ? user.address.city : 'Unknown';
+```
+
+## Error Handling
+
+### Use Result Pattern
+
+```typescript
+type Result<T, E = Error> = 
+  | { success: true; data: T }
+  | { success: false; error: E };
+
+async function createUser(data: UserInput): Promise<Result<User>> {
+  try {
+    const user = await userService.create(data);
+    return { success: true, data: user };
+  } catch (error) {
+    return { success: false, error: error as Error };
+  }
+}
+```
+
+### Never Swallow Errors
+
+```typescript
+// ✅ Good
+try {
+  await riskyOperation();
+} catch (error) {
+  logger.error('Operation failed', { error, context: 'createUser' });
+  throw new UserCreationError('Failed to create user', { cause: error });
+}
+
+// ❌ Bad
+try {
+  await riskyOperation();
+} catch (error) {
+  // Silent failure
+}
+```
+
+## Logging
+
+### Log Levels
+
+| Level | Use For |
+|-------|---------|
+| `error` | Errors that need attention |
+| `warn` | Unexpected but handled situations |
+| `info` | Important business events |
+| `debug` | Development debugging |
+
+### Structured Logging
+
+```typescript
+// ✅ Good
+logger.info('User created', { userId: user.id, email: user.email });
+
+// ❌ Bad
+console.log('User created: ' + user.id);
+```
+
+## Function Guidelines
+
+### Single Responsibility
+
+```typescript
+// ✅ Good: One function, one job
+function validateEmail(email: string): boolean {
+  return EMAIL_REGEX.test(email);
+}
+
+function sendWelcomeEmail(user: User): Promise<void> {
+  return emailService.send(user.email, 'welcome');
+}
+
+// ❌ Bad: Multiple responsibilities
+function createUserAndSendEmail(data: UserInput): Promise<User> {
+  // validates, creates, sends email, logs... too much
+}
+```
+
+### Keep Functions Small
+
+- Aim for < 20 lines per function
+- Extract helper functions for complex logic
+- Each function should be readable without scrolling
+
+### Pure Functions When Possible
+
+```typescript
+// ✅ Good: Pure function
+function calculateTotal(items: Item[]): number {
+  return items.reduce((sum, item) => sum + item.price, 0);
+}
+
+// ❌ Avoid: Side effects
+function calculateTotal(items: Item[]): number {
+  globalTotal = items.reduce((sum, item) => sum + item.price, 0);
+  return globalTotal;
+}
+```
+
+## Async/Await
+
+### Always Use Async/Await
+
+```typescript
+// ✅ Good
+async function fetchUser(id: string): Promise<User> {
+  const response = await api.get(`/users/${id}`);
+  return response.data;
+}
+
+// ❌ Avoid: Raw promises
+function fetchUser(id: string): Promise<User> {
+  return api.get(`/users/${id}`).then(r => r.data);
+}
+```
+
+### Handle All Promises
+
+```typescript
+// ✅ Good
+await Promise.all([fetchUser(), fetchPosts()]);
+
+// ❌ Bad: Floating promise
+fetchUser(); // No await, no .catch()
+```
+
+## Constants
+
+```typescript
+// ✅ Good: Named constants
+const MAX_RETRY_ATTEMPTS = 3;
+const API_TIMEOUT_MS = 5000;
+
+if (attempts > MAX_RETRY_ATTEMPTS) {
+  throw new Error('Max retries exceeded');
+}
+
+// ❌ Bad: Magic numbers
+if (attempts > 3) {
+  throw new Error('Max retries exceeded');
+}
+```
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

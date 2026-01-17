@@ -1,0 +1,140 @@
+# Planning Instructions
+
+> **Apply Intelligently** - Breaking down work and creating implementation plans.
+
+## Scope
+
+**In scope**: Breaking down work, estimation, plan structure
+**Not in scope**: Task metadata (→ task.mdc)
+
+## Plan Document Structure
+
+Output to `plan.md` in the task workspace:
+
+```markdown
+# Plan: {task-id}
+
+## Approach
+[1-2 paragraphs explaining the chosen approach and why]
+
+## Steps
+
+### Step 1: [Action]
+- [ ] Sub-task 1.1
+- [ ] Sub-task 1.2
+**Files**: `path/to/file.ts`
+**Estimate**: 30 min
+
+### Step 2: [Action]
+- [ ] Sub-task 2.1
+- [ ] Sub-task 2.2
+**Files**: `path/to/file.ts`
+**Estimate**: 45 min
+
+## Testing Strategy
+- Unit tests for [X]
+- Integration test for [Y]
+
+## Risks
+- [Potential issue and mitigation]
+
+## Total Estimate
+[X hours]
+```
+
+## Breaking Down Work
+
+### Step Size Guidelines
+
+Each step should:
+- Be completable in 30-90 minutes
+- Have a clear output (file created, test passing, etc.)
+- Be independently verifiable
+
+### Step Types
+
+| Type | Example |
+|------|---------|
+| Create | Create UserService class |
+| Modify | Add validation to createUser |
+| Test | Add unit tests for UserService |
+| Integrate | Connect UserService to API |
+| Refactor | Extract validation logic |
+
+### Ordering Steps
+
+1. **Foundation first**: Types, interfaces, schemas
+2. **Core logic second**: Business logic, services
+3. **Integration third**: API, UI connections
+4. **Polish last**: Error handling, edge cases, tests
+
+## Estimation
+
+### Size Guidelines
+
+| Size | Time | Characteristics |
+|------|------|-----------------|
+| Small | <2h | Single file change, clear path |
+| Medium | 2-8h | Multiple files, some complexity |
+| Large | >8h | Consider breaking down |
+
+### Estimation Technique
+
+1. Break into steps
+2. Estimate each step
+3. Add 20% buffer for unknowns
+4. If total >8h, reconsider scope
+
+## Decision Documentation
+
+Document significant decisions in `decisions.md`:
+
+```markdown
+# Decision: [Title]
+
+## Context
+[What prompted this decision]
+
+## Options Considered
+1. [Option A] - [pros/cons]
+2. [Option B] - [pros/cons]
+
+## Decision
+[What was decided and why]
+
+## Consequences
+[What this means for the implementation]
+```
+
+## Plan Quality Checklist
+
+### Good Plan
+
+- ✅ Clear approach with rationale
+- ✅ Steps are actionable and specific
+- ✅ Files are identified
+- ✅ Estimates are realistic
+- ✅ Testing strategy defined
+- ✅ Risks identified
+
+### Bad Plan
+
+- ❌ Vague steps like "implement feature"
+- ❌ No file references
+- ❌ Missing estimates
+- ❌ No testing mentioned
+- ❌ Ignores edge cases
+
+## Plan Review Questions
+
+Before starting implementation:
+
+1. Does each step have a clear output?
+2. Are dependencies between steps clear?
+3. Is the testing strategy adequate?
+4. Have risks been considered?
+5. Is the total estimate reasonable?
+
+## Learnings
+
+<!-- Learnings from /reflect and /contribute will be appended here -->

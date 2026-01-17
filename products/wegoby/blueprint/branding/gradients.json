@@ -1,0 +1,75 @@
+{
+  "hero": {
+    "features": {
+      "name": "Features Hero",
+      "css": "linear-gradient(to bottom right, rgba(195, 177, 225, 0.2), rgba(160, 214, 211, 0.2), rgba(247, 231, 139, 0.2))",
+      "tailwind": "bg-gradient-to-br from-light-purple/20 via-light-teal/20 to-light-yellow/20"
+    },
+    "useCases": {
+      "name": "Use Cases Hero",
+      "css": "linear-gradient(to bottom right, rgba(247, 231, 139, 0.2), rgba(255, 200, 162, 0.2), rgba(244, 180, 192, 0.2))",
+      "tailwind": "bg-gradient-to-br from-light-yellow/20 via-light-orange/20 to-primary/20"
+    },
+    "cta": {
+      "name": "CTA Section",
+      "css": "linear-gradient(to bottom right, rgba(195, 177, 225, 0.3), rgba(160, 214, 211, 0.3), rgba(247, 231, 139, 0.3))",
+      "tailwind": "bg-gradient-to-br from-light-purple/30 via-light-teal/30 to-light-yellow/30"
+    }
+  },
+  "text": {
+    "primary": {
+      "name": "Primary Text Gradient",
+      "css": "linear-gradient(to right, #F4B4C0, #C3B1E1, #A0D6D3)",
+      "tailwind": "bg-gradient-to-r from-primary via-light-purple to-light-teal bg-clip-text text-transparent"
+    },
+    "features": {
+      "name": "Features Title",
+      "css": "linear-gradient(to right, #F4B4C0, #C3B1E1, #A7D1AB)",
+      "tailwind": "bg-gradient-to-r from-primary via-light-purple to-secondary bg-clip-text text-transparent"
+    },
+    "warm": {
+      "name": "Warm Text Gradient",
+      "css": "linear-gradient(to right, #F7E78B, #FFC8A2)",
+      "tailwind": "bg-gradient-to-r from-light-yellow to-light-orange bg-clip-text text-transparent"
+    }
+  },
+  "card": {
+    "purpleTeal": {
+      "name": "Purple to Teal",
+      "css": "linear-gradient(to bottom right, rgba(195, 177, 225, 0.2), rgba(160, 214, 211, 0.2))",
+      "tailwind": "bg-gradient-to-br from-light-purple/20 to-light-teal/20"
+    },
+    "yellowOrange": {
+      "name": "Yellow to Orange",
+      "css": "linear-gradient(to bottom right, rgba(247, 231, 139, 0.2), rgba(255, 200, 162, 0.2))",
+      "tailwind": "bg-gradient-to-br from-light-yellow/20 to-light-orange/20"
+    },
+    "mintPink": {
+      "name": "Mint to Pink",
+      "css": "linear-gradient(to bottom right, rgba(167, 209, 171, 0.2), rgba(244, 180, 192, 0.2))",
+      "tailwind": "bg-gradient-to-br from-secondary/20 to-primary/20"
+    }
+  },
+  "overlay": {
+    "dark": {
+      "name": "Dark Overlay",
+      "css": "linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0), transparent)",
+      "tailwind": "bg-gradient-to-t from-black/60 via-black/0 to-transparent"
+    },
+    "subtle": {
+      "name": "Subtle Overlay",
+      "css": "linear-gradient(to top, rgba(0, 0, 0, 0.2), transparent)",
+      "tailwind": "bg-gradient-to-t from-black/20 to-transparent"
+    }
+  },
+  "footer": {
+    "name": "Footer Background",
+    "css": "linear-gradient(to bottom right, rgba(195, 177, 225, 0.1), rgba(160, 214, 211, 0.1), rgba(247, 231, 139, 0.1))",
+    "tailwind": "bg-gradient-to-br from-light-purple/10 via-light-teal/10 to-light-yellow/10"
+  },
+  "buttonHover": {
+    "name": "Button Hover",
+    "css": "linear-gradient(to right, #F4B4C0, #C3B1E1)",
+    "tailwind": "bg-gradient-to-r from-primary to-light-purple"
+  }
+}

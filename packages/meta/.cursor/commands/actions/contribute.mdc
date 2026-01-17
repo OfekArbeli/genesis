@@ -1,0 +1,122 @@
+# /contribute
+
+Distill learnings into the knowledge base.
+
+## Usage
+
+```
+/contribute                  # Contribute learnings from current task
+/contribute {task-id}        # Contribute from specific task
+```
+
+## What It Does
+
+1. Reads learning candidates from /reflect
+2. Formats learnings properly
+3. Appends to relevant instruction rules
+4. Updates metrics
+
+## Process
+
+### 1. Review Learnings
+
+- Load candidates from reflection
+- Verify each is actionable
+- Confirm target rules
+
+### 2. Format Learning
+
+Each learning follows format:
+
+```markdown
+### {date}: {title}
+{Description of the learning with context and why it matters}
+```
+
+### 3. Append to Rules
+
+Adds to `## Learnings` section of target instruction file.
+
+## Learning Targets
+
+| Category | Target File |
+|----------|-------------|
+| Git patterns | `instructions/git.mdc` |
+| Code patterns | `instructions/dev.mdc` |
+| Testing | `instructions/testing.mdc` |
+| Tasks | `instructions/task.mdc` |
+| Research | `instructions/research.mdc` |
+| Planning | `instructions/planning.mdc` |
+| Shipping | `instructions/shipping.mdc` |
+| Architecture | `instructions/architecture.mdc` |
+| Conventions | `core/conventions.mdc` |
+| Project-specific | `projects/{name}/.cursor/rules/` |
+
+## Learning Quality Criteria
+
+### Good Learning
+
+- ✅ Specific and actionable
+- ✅ Explains why, not just what
+- ✅ Includes when it applies
+- ✅ Helps future tasks
+
+### Bad Learning
+
+- ❌ Too vague ("be careful")
+- ❌ Too specific to one case
+- ❌ No actionable insight
+
+## Output
+
+```
+✅ Learning contributed → instructions/dev.mdc updated
+✅ Learning contributed → instructions/testing.mdc updated
+📍 Task complete! Ready for next task.
+```
+
+## Dependencies
+
+- **Mode**: Agent
+- **Depends on**: Reflection (from /reflect)
+- **Produces**: Updated instruction rules
+
+## Example
+
+```
+> /contribute
+
+Contributing learnings from: a1b2c3d4-add-reading-streaks
+
+Learning 1: "Streak calculation needs timezone handling"
+Target: instructions/dev.mdc
+Preview:
+  ### 2026-01-09: Timezone in date calculations
+  When calculating streaks or daily counts, always normalize
+  dates to user's timezone before comparison. UTC comparison
+  can cause off-by-one errors near midnight.
+
+Add this learning? [Y/n]
+✅ Added to instructions/dev.mdc
+
+Learning 2: "Test data factories save time"
+Target: instructions/testing.mdc
+Preview:
+  ### 2026-01-09: Use test factories for complex entities
+  Create factory functions for test data instead of inline
+  objects. Reduces test setup code and ensures consistent
+  test data across test files.
+
+Add this learning? [Y/n]
+✅ Added to instructions/testing.mdc
+
+✅ 2 learnings contributed
+📍 Task a1b2c3d4-add-reading-streaks complete!
+```
+
+## Self-Improving Rules
+
+The meta layer improves over time:
+- Every task can contribute learnings
+- Rules grow with `## Learnings` sections
+- Future tasks benefit from past experience
