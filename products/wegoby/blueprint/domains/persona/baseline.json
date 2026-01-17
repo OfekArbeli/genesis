@@ -1,0 +1,90 @@
+{
+  "version": "0.1.0",
+  "updatedAt": "2026-01-18T00:00:00Z",
+  "screens": {
+    "home": {
+      "pageName": "Home",
+      "items": [
+        {
+          "layer": "presentation",
+          "text": "iPhone-style grid layout for miniapps with colorful icons"
+        },
+        {
+          "layer": "presentation",
+          "text": "Pastel color scheme with glass morphism effects and soft shadows"
+        },
+        {
+          "layer": "cognition",
+          "text": "Welcome message is friendly and casual, using first name"
+        },
+        {
+          "layer": "autonomy",
+          "text": "User freely navigates between miniapps, no forced paths"
+        },
+        {
+          "layer": "continuity",
+          "text": "Recently used miniapps could be highlighted or sorted to top"
+        },
+        {
+          "layer": "intent",
+          "text": "User is exploring available miniapps to find useful tools"
+        }
+      ]
+    },
+    "to-read-onboarding": {
+      "pageName": "To-Read Onboarding",
+      "items": [
+        {
+          "layer": "presentation",
+          "text": "Step-by-step questionnaire with progress indicator"
+        },
+        {
+          "layer": "cognition",
+          "text": "Questions are clear and concise, not overwhelming"
+        },
+        {
+          "layer": "autonomy",
+          "text": "User can skip optional questions and proceed"
+        },
+        {
+          "layer": "intent",
+          "text": "Gathering user preferences for reading style and motivation"
+        }
+      ]
+    },
+    "to-read-library": {
+      "pageName": "To-Read Library",
+      "items": [
+        {
+          "layer": "presentation",
+          "text": "Light purple accent color (#C3B1E1) as the signature color for to-read miniapp"
+        },
+        {
+          "layer": "autonomy",
+          "text": "User can browse freely and select any book to read"
+        },
+        {
+          "layer": "continuity",
+          "text": "Reading progress is saved automatically and visible on each book card"
+        }
+      ]
+    },
+    "to-read-reading": {
+      "pageName": "Reading View",
+      "items": [
+        {
+          "layer": "presentation",
+          "text": "Clean, distraction-free reading interface with comfortable typography"
+        },
+        {
+          "layer": "autonomy",
+          "text": "User controls reading pace with chapter navigation"
+        },
+        {
+          "layer": "continuity",
+          "text": "Reading position is bookmarked automatically so user can resume anytime"
+        }
+      ]
+    }
+  }
+}

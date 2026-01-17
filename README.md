@@ -60,6 +60,7 @@ genesis/
 │
 ├── package.json              # Monorepo configuration
 ├── pnpm-workspace.yaml       # Workspace definition
+├── CLAUDE.md                 # Claude Code instructions
 └── README.md                 # THIS FILE
 ```
 
@@ -143,6 +144,20 @@ pnpm install
 
 # Packages are linked automatically via workspaces
 ```
+
+---
+
+## AI Tool Compatibility
+
+This project supports both **Cursor** and **Claude Code** without duplicating configuration:
+
+| Tool | Configuration | Source |
+|------|---------------|--------|
+| Cursor | `.cursor/rules/` directories | Native support |
+| Claude Code | `CLAUDE.md` | References same rules |
+
+**Source of truth**: `packages/meta/.cursor/` contains all rules.
+The `CLAUDE.md` file at the root references these rules so both tools stay in sync.
 
 ---
 

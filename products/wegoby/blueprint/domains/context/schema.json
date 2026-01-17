@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Context",
+  "description": "User's personalized preferences as natural language items across 5 UX dimensions",
+  "type": "object",
+  "required": ["userId", "version", "pages"],
+  "properties": {
+    "userId": {
+      "type": "string",
+      "description": "Unique user identifier"
+    },
+    "version": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "pages": {
+      "type": "object",
+      "description": "Context items organized by page/screen",
+      "additionalProperties": {
+        "$ref": "#/definitions/PageContext"
+      }
+    }
+  },
+  "definitions": {
+    "PageContext": {
+      "type": "object",
+      "description": "Context for a specific page/screen",
+      "required": ["pageName", "items"],
+      "properties": {
+        "pageName": {
+          "type": "string",
+          "description": "Human-readable page name"
+        },
+        "items": {
+          "type": "array",
+          "description": "List of context items for this page",
+          "items": {
+            "$ref": "#/definitions/ContextItem"
+          }
+        }
+      }
+    },
+    "ContextItem": {
+      "type": "object",
+      "description": "A single preference or context statement",
+      "required": ["layer", "text", "isBaseline"],
+      "properties": {
+        "layer": {
+          "type": "string",
+          "enum": ["presentation", "cognition", "autonomy", "continuity", "intent"],
+          "description": "Which UX dimension this item belongs to"
+        },
+        "text": {
+          "type": "string",
+          "description": "Natural language description of the preference"
+        },
+        "isBaseline": {
+          "type": "boolean",
+          "description": "true = system-defined (locked), false = user-added (editable)"
+        },
+        "source": {
+          "type": "string",
+          "enum": ["baseline", "onboarding", "learned", "user-added"],
+          "description": "Where this context item originated"
+        }
+      }
+    },
+    "Layer": {
+      "type": "string",
+      "enum": ["presentation", "cognition", "autonomy", "continuity", "intent"],
+      "description": "The 5 UX dimensions for organizing context"
+    }
+  }
+}
