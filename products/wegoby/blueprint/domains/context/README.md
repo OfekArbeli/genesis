@@ -1,19 +1,163 @@
 # Context Domain
 
-> **WHAT the user prefers** — Natural language preferences that the AI reads.
+> **EPHEMERAL session data** — What's relevant right now, this moment.
 
 ---
 
 ## Overview
 
-Context is the practical layer of personalization. It's a list of natural language statements that describe how the user wants their experience to feel.
+Context captures **situational, session-specific information** that shapes the current experience. Unlike Style (stable), Context is temporary and resets between sessions.
 
-| Aspect | Description |
-|--------|-------------|
-| **Purpose** | Communicate preferences to AI |
-| **Format** | Natural language text items |
-| **Scope** | Per-screen |
-| **Visibility** | Shown in Context Panel (transparent to user) |
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    CONTEXT LIFECYCLE                         │
+│                                                             │
+│  Session Start                                              │
+│       │                                                     │
+│       ▼                                                     │
+│  ┌──────────────────────────────────────────────────────┐  │
+│  │              CONTEXT SNAPSHOT                         │  │
+│  │                                                       │  │
+│  │  Built from:                                          │  │
+│  │  - Chat (context-building phase)                     │  │
+│  │  - Sensors (location, time)                          │  │
+│  │  - User input ("I'm in a hurry")                     │  │
+│  │  - Inferred state (restaurant detected)              │  │
+│  │                                                       │  │
+│  └──────────────────────────────────────────────────────┘  │
+│       │                                                     │
+│       ▼                                                     │
+│  Experience Planner uses snapshot                           │
+│       │                                                     │
+│       ▼                                                     │
+│  Session End → Context discarded                            │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Context vs Style
+
+| Aspect | Context | Style |
+|--------|---------|-------|
+| **Temporality** | Ephemeral, session-only | Stable, persists |
+| **Question answered** | "What's happening now?" | "How do I prefer things?" |
+| **Source** | Chat, sensors, situation | Onboarding, learned, user-set |
+| **Lifespan** | Dies with session | Lives across sessions |
+| **Example** | "I'm at a restaurant" | "I prefer calm pacing" |
+
+---
+
+## Context Sources
+
+### 1. Chat (Context-Building Phase)
+
+When user enters a decision-heavy flow, chat collects situational inputs:
+
+```
+AI: "Are you at home or eating out?"
+User: "At home"
+
+AI: "What ingredients do you have?"
+User: "Chicken, rice, some vegetables"
+
+AI: "How much time do you have?"
+User: "About 30 minutes"
+```
+
+Result:
+```json
+{
+  "location": "home",
+  "ingredients": ["chicken", "rice", "vegetables"],
+  "timeConstraint": "30min"
+}
+```
+
+### 2. Sensors / Environment
+
+Automatically detected:
+- Time of day
+- Day of week
+- Location (if permitted)
+- Device type
+
+### 3. User Input
+
+Explicit statements during session:
+- "I'm in a hurry"
+- "I'm feeling adventurous today"
+- "Keep it simple"
+
+### 4. Inferred State
+
+Derived from actions:
+- Scanned a menu → at restaurant
+- Browsing recipes → cooking mood
+- Opened library late night → relaxed reading time
+
+---
+
+## Context Snapshot
+
+The Context Snapshot is the structured output passed to the Experience Planner.
+
+```typescript
+interface ContextSnapshot {
+  sessionId: string;
+  timestamp: string;
+
+  // Situational data
+  situation: {
+    location: "home" | "restaurant" | "commute" | "work" | "unknown";
+    timeOfDay: "morning" | "afternoon" | "evening" | "night";
+    dayType: "weekday" | "weekend";
+    deviceType: "mobile" | "tablet" | "desktop";
+  };
+
+  // Constraints
+  constraints: {
+    time?: string;           // "30min", "1 hour", "no limit"
+    budget?: string;         // "cheap", "moderate", "splurge"
+    energy?: string;         // "tired", "normal", "energetic"
+    social?: string;         // "alone", "with partner", "group"
+  };
+
+  // Mood / Intent hints
+  mood: {
+    adventurousness: "low" | "medium" | "high";
+    decisiveness: "want-options" | "want-recommendation";
+    urgency: "relaxed" | "normal" | "urgent";
+  };
+
+  // Domain-specific data
+  domain: {
+    [key: string]: any;      // Mini-app specific context
+  };
+
+  // Natural language items (for AI interpretation)
+  naturalItems: string[];
+
+  // Policy overrides (derived from session context)
+  policyOverrides: Partial<PolicySet>;
+}
+```
+
+---
+
+## Policy Overrides
+
+Session context can temporarily override Style policies:
+
+| Context Signal | Policy Override |
+|----------------|-----------------|
+| "I'm in a hurry" | `pace: fast`, `verbosity: minimal` |
+| "Feeling adventurous" | `noveltyBias: high`, `confidence: assertive` |
+| "Keep it simple" | `density: low`, `structure: guided` |
+| "Just tell me what to eat" | `autonomy: system-led` |
+
+These overrides apply **only to the current session**.
 
 ---
 
@@ -22,154 +166,42 @@ Context is the practical layer of personalization. It's a list of natural langua
 ```
 context/
 ├── README.md              # This file
-├── schema.json            # ContextItem[] definition
-├── layers.md              # The 5 UX layers explained
-└── panel.md               # Context Panel UI spec
+├── schema.json            # ContextSnapshot definition
+├── sources.md             # How context is collected
+└── layers.md              # The 5 UX categories (for organization)
 ```
 
 ---
 
-## The 5 Layers
+## The 5 Categories
 
-Context items are organized into 5 UX dimensions:
+Context items are still organized into 5 UX categories (same as Style):
 
-| Layer | Focus | Example |
-|-------|-------|---------|
-| **Presentation** | How things look | "Clean, distraction-free interface" |
-| **Cognition** | How content is conveyed | "Story pace: Slowly and gradually" |
-| **Autonomy** | Who's in control | "User freely navigates, no forced paths" |
-| **Continuity** | How time/state is handled | "Progress bookmarked automatically" |
-| **Intent** | What the user wants | "User follows vegetarian diet" |
+| Category | Focus | Example |
+|----------|-------|---------|
+| **Presentation** | How things look | "Show compact cards" |
+| **Cognition** | How content is conveyed | "I need quick answers" |
+| **Autonomy** | Who's in control | "Just decide for me" |
+| **Continuity** | How time/state is handled | "Remember where I was" |
+| **Relevance** | What's relevant now | "I'm at a restaurant" |
 
-See [layers.md](./layers.md) for detailed explanations.
-
----
-
-## Context Sources
-
-Context items come from 4 sources:
-
-| Source | Description | Editable | Locked |
-|--------|-------------|----------|--------|
-| **Baseline** | Default assumptions (from Persona) | No | Yes |
-| **Onboarding** | Generated from miniapp onboarding | No | Yes |
-| **Learned** | Patterns detected from behavior | Yes | No |
-| **User-added** | Manually added in Context Panel | Yes | No |
+Note: "Intent" layer renamed to "Relevance" to avoid confusion with Intent Resolver.
 
 ---
 
-## Data Model
+## Files
 
-```typescript
-interface ContextItem {
-  layer: 'presentation' | 'cognition' | 'autonomy' | 'continuity' | 'intent';
-  text: string;           // Natural language preference
-  isBaseline: boolean;    // true = locked, false = editable
-  source: 'baseline' | 'onboarding' | 'learned' | 'user-added';
-}
-
-interface PageContext {
-  pageName: string;
-  items: ContextItem[];
-}
-```
-
----
-
-## How Context is Built
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                  PERSONA DOMAIN                         │
-│                                                         │
-│   Baseline (per screen)    +    Onboarding answers     │
-│                                                         │
-└─────────────────────┬───────────────────────────────────┘
-                      │ generates
-                      ▼
-┌─────────────────────────────────────────────────────────┐
-│                  CONTEXT DOMAIN                         │
-│                                                         │
-│   Baseline items    Onboarding items    User items     │
-│   (locked)          (locked)            (editable)     │
-│                                                         │
-│                      ↓ merged                          │
-│                                                         │
-│               Full Context (per screen)                │
-│                                                         │
-└─────────────────────┬───────────────────────────────────┘
-                      │ read by
-                      ▼
-┌─────────────────────────────────────────────────────────┐
-│                   CHAT DOMAIN                           │
-│                                                         │
-│   AI receives context items as natural language        │
-│   AI adapts responses based on preferences             │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
-```
-
----
-
-## Example: Merged Context
-
-For the `to-read-library` screen:
-
-```typescript
-const libraryContext = {
-  pageName: 'To-Read Library',
-  items: [
-    // From Baseline (locked)
-    { layer: 'presentation', text: 'Light purple accent color (#C3B1E1)', isBaseline: true, source: 'baseline' },
-    { layer: 'autonomy', text: 'User can browse freely and select any book', isBaseline: true, source: 'baseline' },
-    { layer: 'continuity', text: 'Reading progress saved automatically', isBaseline: true, source: 'baseline' },
-
-    // From Onboarding (locked)
-    { layer: 'cognition', text: 'Story pace: Slowly and gradually', isBaseline: true, source: 'onboarding' },
-    { layer: 'intent', text: 'Reading motivation: Connecting with characters', isBaseline: true, source: 'onboarding' },
-
-    // User-added (editable)
-    { layer: 'presentation', text: 'Prefer grid view over list view', isBaseline: false, source: 'user-added' },
-  ]
-};
-```
-
----
-
-## How AI Uses Context
-
-When user sends a chat message, AI receives:
-
-1. Current screen's Context items (all layers)
-2. User's message
-3. Available commands
-
-The AI reads Context as natural language:
-
-```
-Context: "Story pace: Slowly and gradually"
-Context: "Reading flow breaks: Too much tension"
-Context: "User follows vegetarian diet"
-
-User: "Create a recipe for dinner"
-
-AI thinks: User wants vegetarian, probably not rushed.
-AI action: Generates a relaxed vegetarian recipe.
-```
-
----
-
-## Context Panel
-
-Users can view and edit their Context via the Context Panel.
-
-See [panel.md](./panel.md) for the full UI specification.
+| File | Purpose |
+|------|---------|
+| `schema.json` | Context Snapshot data model |
+| `sources.md` | How context is collected |
+| `layers.md` | The 5 UX categories explained |
 
 ---
 
 ## Related
 
-- Persona Domain: [../persona/](../persona/)
-- Chat Domain: [../chat/](../chat/)
-- Context Schema: [schema.json](./schema.json)
-- Layers Explanation: [layers.md](./layers.md)
+- Style Domain: [../style/](../style/) — Stable preferences
+- Chat Domain: [../chat/](../chat/) — Context-building phase
+- Experience Domain: [../experience/](../experience/) — Consumes context
+- Intent Domain: [../intent/](../intent/) — What user wants to do

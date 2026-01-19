@@ -1,0 +1,82 @@
+{
+  "$schema": "../../schema.json",
+  "id": "to-eat",
+  "name": "to-eat Baseline",
+  "description": "Practical, decisive experience for food decisions",
+  "inheritsFrom": "global",
+  "character": {
+    "essence": "practical, decisive, sensory",
+    "metaphor": "A knowledgeable friend who knows exactly where to eat"
+  },
+  "policies": {
+    "density": "medium",
+    "structure": "guided",
+    "verbosity": "minimal",
+    "autonomy": "shared",
+    "ctaStrength": "clear",
+    "pace": "normal",
+    "chunking": "small",
+    "useHistory": true,
+    "noveltyBias": "medium",
+    "tone": "warm",
+    "confidence": "assertive"
+  },
+  "naturalLanguageItems": [
+    {
+      "category": "presentation",
+      "text": "Visual, appetizing presentation of food content",
+      "source": "baseline"
+    },
+    {
+      "category": "cognition",
+      "text": "Quick, scannable information for fast decisions",
+      "source": "baseline"
+    },
+    {
+      "category": "cognition",
+      "text": "Clear recommendations with confident rationale",
+      "source": "baseline"
+    },
+    {
+      "category": "autonomy",
+      "text": "AI suggests best options, user picks",
+      "source": "baseline"
+    },
+    {
+      "category": "relevance",
+      "text": "Dietary restrictions always respected",
+      "source": "baseline"
+    }
+  ],
+  "constraints": {
+    "description": "to-eat should feel decisive - these policies have restricted ranges",
+    "rangeRestrictions": {
+      "confidence": ["balanced", "assertive"],
+      "verbosity": ["minimal", "normal"]
+    }
+  },
+  "screenOverrides": {
+    "recipes": {
+      "policies": {
+        "density": "medium",
+        "chunking": "medium"
+      },
+      "note": "Recipe browsing can show more at once"
+    },
+    "groceries": {
+      "policies": {
+        "density": "high",
+        "structure": "guided",
+        "pace": "fast"
+      },
+      "note": "Grocery lists are utility-focused, fast interaction"
+    },
+    "menu-scan": {
+      "policies": {
+        "autonomy": "system-led",
+        "confidence": "assertive"
+      },
+      "note": "Menu recommendations should be confident and clear"
+    }
+  }
+}

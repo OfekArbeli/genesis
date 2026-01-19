@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PolicyDefinitions",
+  "description": "All available policy knobs and their valid values",
+  "policies": {
+    "cognition": {
+      "density": {
+        "description": "Amount of information shown per screen",
+        "values": {
+          "low": "Minimal information, lots of whitespace, one focus per view",
+          "medium": "Balanced information density, clear hierarchy",
+          "high": "Dense information, multiple data points visible"
+        },
+        "default": "medium"
+      },
+      "structure": {
+        "description": "How much guidance and hand-holding",
+        "values": {
+          "loose": "Freeform exploration, minimal guardrails",
+          "guided": "Clear paths, suggested next steps"
+        },
+        "default": "guided"
+      },
+      "verbosity": {
+        "description": "Length and detail of text content",
+        "values": {
+          "minimal": "Terse, essential information only",
+          "normal": "Balanced explanations",
+          "detailed": "Comprehensive, thorough descriptions"
+        },
+        "default": "normal"
+      }
+    },
+    "control": {
+      "autonomy": {
+        "description": "Who drives the experience",
+        "values": {
+          "system-led": "AI makes decisions, user confirms",
+          "shared": "AI suggests, user chooses",
+          "user-led": "User explores, AI assists on request"
+        },
+        "default": "shared"
+      },
+      "ctaStrength": {
+        "description": "How prominent calls-to-action are",
+        "values": {
+          "soft": "Subtle, easily ignored",
+          "clear": "Visible but not pushy",
+          "urgent": "Prominent, attention-grabbing"
+        },
+        "default": "clear"
+      }
+    },
+    "pace": {
+      "pace": {
+        "description": "Speed of experience progression",
+        "values": {
+          "fast": "Quick transitions, immediate results",
+          "normal": "Balanced flow",
+          "calm": "Slow, contemplative, no rush"
+        },
+        "default": "normal"
+      },
+      "chunking": {
+        "description": "Size of information units",
+        "values": {
+          "small": "Bite-sized pieces, many steps",
+          "medium": "Balanced chunks",
+          "large": "Comprehensive units, fewer steps"
+        },
+        "default": "medium"
+      }
+    },
+    "memory": {
+      "useHistory": {
+        "description": "Whether to reference past behavior",
+        "values": {
+          "true": "Incorporate user history into recommendations",
+          "false": "Treat each session as fresh"
+        },
+        "default": true
+      },
+      "noveltyBias": {
+        "description": "Preference for new vs familiar content",
+        "values": {
+          "low": "Prefer familiar, comfortable choices",
+          "medium": "Balance of new and familiar",
+          "high": "Prioritize discovery and surprise"
+        },
+        "default": "medium"
+      }
+    },
+    "tone": {
+      "tone": {
+        "description": "Voice and personality of the experience",
+        "values": {
+          "neutral": "Professional, informational",
+          "warm": "Friendly, supportive",
+          "playful": "Fun, casual, sometimes humorous"
+        },
+        "default": "warm"
+      },
+      "confidence": {
+        "description": "How decisive recommendations are",
+        "values": {
+          "cautious": "Hedged language, multiple options",
+          "balanced": "Clear recommendations with alternatives",
+          "assertive": "Strong opinions, confident picks"
+        },
+        "default": "balanced"
+      }
+    }
+  }
+}

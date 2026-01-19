@@ -1,0 +1,291 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "IntentTaxonomy",
+  "description": "All available intents organized by scope",
+  "global": {
+    "Browse": {
+      "id": "Browse",
+      "name": "Browse Content",
+      "description": "Explore available content without specific goal",
+      "triggers": {
+        "routes": [],
+        "actions": ["open-library", "go-home"],
+        "keywords": ["show me", "what's available", "browse"]
+      },
+      "requiredContext": [],
+      "optionalContext": ["mood.adventurousness"],
+      "typicalBlocks": ["Hero", "List", "Card"],
+      "availableActions": ["filter", "sort", "search", "select"],
+      "contextBuildingNeeded": false,
+      "renderTarget": "screen"
+    },
+    "Search": {
+      "id": "Search",
+      "name": "Search",
+      "description": "Find specific content by query",
+      "triggers": {
+        "routes": [],
+        "actions": ["search"],
+        "keywords": ["find", "search for", "look for"]
+      },
+      "requiredContext": [],
+      "optionalContext": [],
+      "typicalBlocks": ["List", "Card", "Empty"],
+      "availableActions": ["refine", "select", "clear"],
+      "contextBuildingNeeded": false,
+      "renderTarget": "screen"
+    },
+    "DeepDive": {
+      "id": "DeepDive",
+      "name": "Deep Dive",
+      "description": "Focus on single item in detail",
+      "triggers": {
+        "routes": ["/:miniapp/:type/:id"],
+        "actions": ["select-item", "open-detail"],
+        "keywords": ["tell me about", "show me more about"]
+      },
+      "requiredContext": [],
+      "optionalContext": ["mood.urgency"],
+      "typicalBlocks": ["Hero", "Timeline", "Insight", "ActionDock"],
+      "availableActions": ["save", "share", "related", "back"],
+      "contextBuildingNeeded": false,
+      "renderTarget": "screen"
+    },
+    "Create": {
+      "id": "Create",
+      "name": "Create",
+      "description": "Generate new content",
+      "triggers": {
+        "routes": [],
+        "actions": ["create", "generate"],
+        "keywords": ["create", "generate", "make me", "give me"]
+      },
+      "requiredContext": [],
+      "optionalContext": ["constraints", "mood"],
+      "typicalBlocks": ["Hero", "Card", "ActionDock"],
+      "availableActions": ["save", "refine", "regenerate", "discard"],
+      "contextBuildingNeeded": true,
+      "renderTarget": "hybrid"
+    },
+    "Refine": {
+      "id": "Refine",
+      "name": "Refine",
+      "description": "Modify or adjust existing result",
+      "triggers": {
+        "routes": [],
+        "actions": ["edit", "modify"],
+        "keywords": ["change", "adjust", "modify", "more", "less"]
+      },
+      "requiredContext": ["domain.currentItem"],
+      "optionalContext": [],
+      "typicalBlocks": ["Card", "ActionDock"],
+      "availableActions": ["apply", "cancel", "more-options"],
+      "contextBuildingNeeded": false,
+      "renderTarget": "chat"
+    },
+    "Compare": {
+      "id": "Compare",
+      "name": "Compare",
+      "description": "Evaluate multiple options side by side",
+      "triggers": {
+        "routes": [],
+        "actions": ["compare"],
+        "keywords": ["compare", "vs", "versus", "which is better"]
+      },
+      "requiredContext": ["domain.compareItems"],
+      "optionalContext": ["mood.decisiveness"],
+      "typicalBlocks": ["Compare", "Insight", "ActionDock"],
+      "availableActions": ["select", "add-more", "clear"],
+      "contextBuildingNeeded": false,
+      "renderTarget": "screen"
+    },
+    "Save": {
+      "id": "Save",
+      "name": "Save",
+      "description": "Store content for later",
+      "triggers": {
+        "routes": [],
+        "actions": ["save", "bookmark"],
+        "keywords": ["save", "keep", "bookmark"]
+      },
+      "requiredContext": ["domain.currentItem"],
+      "optionalContext": [],
+      "typicalBlocks": ["Card"],
+      "availableActions": ["confirm", "organize", "cancel"],
+      "contextBuildingNeeded": false,
+      "renderTarget": "screen"
+    }
+  },
+  "miniapps": {
+    "to-read": {
+      "defaultIntent": "BrowseLibrary",
+      "intents": {
+        "BrowseLibrary": {
+          "id": "BrowseLibrary",
+          "name": "Browse Library",
+          "description": "Explore book collection",
+          "triggers": {
+            "routes": ["/to-read", "/to-read/library"],
+            "actions": ["open-to-read"],
+            "keywords": ["my books", "library", "reading list"]
+          },
+          "requiredContext": [],
+          "optionalContext": ["mood.adventurousness"],
+          "typicalBlocks": ["Hero", "List", "Card"],
+          "availableActions": ["filter", "sort", "select", "create"],
+          "contextBuildingNeeded": false,
+          "renderTarget": "screen"
+        },
+        "ContinueReading": {
+          "id": "ContinueReading",
+          "name": "Continue Reading",
+          "description": "Resume where left off",
+          "triggers": {
+            "routes": ["/to-read/book/:id/read"],
+            "actions": ["continue", "resume"],
+            "keywords": ["continue", "where was I", "keep reading"]
+          },
+          "requiredContext": ["domain.currentBook"],
+          "optionalContext": ["constraints.time"],
+          "typicalBlocks": ["Hero", "Timeline"],
+          "availableActions": ["bookmark", "pause", "finish"],
+          "contextBuildingNeeded": false,
+          "renderTarget": "screen"
+        },
+        "DiscoverNew": {
+          "id": "DiscoverNew",
+          "name": "Discover New",
+          "description": "Find new books to read",
+          "triggers": {
+            "routes": ["/to-read/discover"],
+            "actions": ["discover"],
+            "keywords": ["something new", "recommend", "what should I read"]
+          },
+          "requiredContext": [],
+          "optionalContext": ["mood.adventurousness", "constraints.time"],
+          "typicalBlocks": ["Hero", "List", "Card", "Insight"],
+          "availableActions": ["select", "skip", "more"],
+          "contextBuildingNeeded": false,
+          "renderTarget": "screen"
+        },
+        "CreateBook": {
+          "id": "CreateBook",
+          "name": "Create Book",
+          "description": "Generate new book content",
+          "triggers": {
+            "routes": [],
+            "actions": ["create-book"],
+            "keywords": ["create a book", "generate a story", "write me"]
+          },
+          "requiredContext": [],
+          "optionalContext": ["constraints", "mood"],
+          "typicalBlocks": ["Hero", "Card", "ActionDock"],
+          "availableActions": ["save", "refine", "regenerate"],
+          "contextBuildingNeeded": true,
+          "renderTarget": "hybrid"
+        }
+      }
+    },
+    "to-eat": {
+      "defaultIntent": "BrowseRecipes",
+      "intents": {
+        "BrowseRecipes": {
+          "id": "BrowseRecipes",
+          "name": "Browse Recipes",
+          "description": "Explore recipe collection",
+          "triggers": {
+            "routes": ["/to-eat", "/to-eat/recipes"],
+            "actions": ["open-to-eat"],
+            "keywords": ["my recipes", "recipes", "food"]
+          },
+          "requiredContext": [],
+          "optionalContext": [],
+          "typicalBlocks": ["Hero", "List", "Card"],
+          "availableActions": ["filter", "sort", "select", "create"],
+          "contextBuildingNeeded": false,
+          "renderTarget": "screen"
+        },
+        "DecideNow": {
+          "id": "DecideNow",
+          "name": "Decide Now",
+          "description": "Make immediate food decision",
+          "triggers": {
+            "routes": [],
+            "actions": ["decide"],
+            "keywords": ["what should I eat", "hungry", "dinner", "lunch"]
+          },
+          "requiredContext": ["situation.location"],
+          "optionalContext": ["constraints.time", "constraints.energy", "mood.adventurousness"],
+          "typicalBlocks": ["Hero", "Card", "Insight", "ActionDock"],
+          "availableActions": ["select", "alternatives", "refine"],
+          "contextBuildingNeeded": true,
+          "renderTarget": "hybrid"
+        },
+        "ScanMenu": {
+          "id": "ScanMenu",
+          "name": "Scan Menu",
+          "description": "Analyze restaurant menu photo",
+          "triggers": {
+            "routes": [],
+            "actions": ["scan-menu", "upload-menu"],
+            "keywords": ["scan menu", "analyze menu", "what should I order"]
+          },
+          "requiredContext": ["domain.menuImage"],
+          "optionalContext": ["constraints.social", "mood.adventurousness"],
+          "typicalBlocks": ["Hero", "List", "Insight", "ActionDock"],
+          "availableActions": ["highlight", "filter", "save", "order"],
+          "contextBuildingNeeded": true,
+          "renderTarget": "screen"
+        },
+        "CreateRecipe": {
+          "id": "CreateRecipe",
+          "name": "Create Recipe",
+          "description": "Generate new recipe",
+          "triggers": {
+            "routes": [],
+            "actions": ["create-recipe"],
+            "keywords": ["create a recipe", "make me a recipe", "recipe for"]
+          },
+          "requiredContext": [],
+          "optionalContext": ["domain.ingredients", "constraints.time", "constraints.energy"],
+          "typicalBlocks": ["Hero", "Card", "Timeline", "ActionDock"],
+          "availableActions": ["save", "refine", "regenerate", "scale"],
+          "contextBuildingNeeded": true,
+          "renderTarget": "hybrid"
+        },
+        "ManageGroceries": {
+          "id": "ManageGroceries",
+          "name": "Manage Groceries",
+          "description": "Handle shopping list",
+          "triggers": {
+            "routes": ["/to-eat/groceries"],
+            "actions": ["groceries", "shopping"],
+            "keywords": ["groceries", "shopping list", "what to buy"]
+          },
+          "requiredContext": [],
+          "optionalContext": [],
+          "typicalBlocks": ["List", "ActionDock"],
+          "availableActions": ["add", "check", "clear", "share"],
+          "contextBuildingNeeded": false,
+          "renderTarget": "screen"
+        },
+        "PlanMeals": {
+          "id": "PlanMeals",
+          "name": "Plan Meals",
+          "description": "Plan meals ahead",
+          "triggers": {
+            "routes": ["/to-eat/plan"],
+            "actions": ["plan-meals"],
+            "keywords": ["plan meals", "meal plan", "this week"]
+          },
+          "requiredContext": [],
+          "optionalContext": ["constraints.budget", "constraints.time"],
+          "typicalBlocks": ["Timeline", "Card", "ActionDock"],
+          "availableActions": ["add", "swap", "generate", "groceries"],
+          "contextBuildingNeeded": true,
+          "renderTarget": "screen"
+        }
+      }
+    }
+  }
+}

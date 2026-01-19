@@ -1,19 +1,70 @@
 # Chat Domain
 
-> **HOW user communicates with AI** — The chat interface and Use/Evolve modes.
+> **HOW user communicates with AI** — Phases, capabilities, and the chat interface.
 
 ---
 
 ## Overview
 
-The Chat domain defines how users interact with the AI assistant. It covers the chat UI, the two operation modes, and quick actions.
+Chat is a **rendering surface** and a **context builder** — not the primary artifact.
 
-| Aspect | Description |
-|--------|-------------|
-| **Purpose** | User ↔ AI communication |
-| **Interface** | Persistent bottom sheet (40vh) |
-| **Modes** | Use (pink) and Evolve (purple) |
-| **Context-aware** | Quick actions adapt to current screen |
+The Chat domain defines:
+- **Phases**: When chat is used (context-building vs experience-use)
+- **Capabilities**: What AI can do (use vs evolve)
+- **Interface**: The chat UI specification
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    CHAT MODEL                                │
+│                                                             │
+│   ┌─────────────────────────────────────────────────────┐  │
+│   │                    PHASES                            │  │
+│   │         (WHEN chat is used)                         │  │
+│   │                                                      │  │
+│   │   ┌──────────────────┐    ┌──────────────────┐     │  │
+│   │   │ Context-building │    │ Experience-use   │     │  │
+│   │   │ (collect inputs) │───►│ (guide/render)   │     │  │
+│   │   └──────────────────┘    └──────────────────┘     │  │
+│   └─────────────────────────────────────────────────────┘  │
+│                                                             │
+│   ┌─────────────────────────────────────────────────────┐  │
+│   │                  CAPABILITIES                        │  │
+│   │         (WHAT AI can do)                            │  │
+│   │                                                      │  │
+│   │   ┌─────────────┐          ┌─────────────┐          │  │
+│   │   │    Use      │          │   Evolve    │          │  │
+│   │   │  (operate)  │          │  (modify)   │          │  │
+│   │   │   (pink)    │          │  (purple)   │          │  │
+│   │   └─────────────┘          └─────────────┘          │  │
+│   └─────────────────────────────────────────────────────┘  │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Key Principles
+
+### Chat Is Not The Artifact
+
+- Chat collects context, guides decisions, provides explanations
+- **Saved outcomes are Experience Artifacts**, not chat transcripts
+- UI is the final answer; chat is the conversation that leads there
+
+### Chat Often Leads Into UI
+
+```
+User: "What should I eat?"
+Chat: Asks 3 context questions
+Chat: Builds context snapshot
+Engine: Produces Experience Plan
+Renderer: Shows recipe in UI  ← This is the outcome
+```
+
+### Chat Can Be Optional
+
+For some intents (BrowseLibrary, DeepDive), chat isn't needed.
+The experience works with just Style + Baseline.
 
 ---
 
@@ -22,37 +73,22 @@ The Chat domain defines how users interact with the AI assistant. It covers the 
 ```
 chat/
 ├── README.md              # This file
+├── phases.md              # Context-building vs Experience-use
+├── capabilities.md        # Use vs Evolve modes
 ├── interface.md           # Chat UI specification
-├── modes.md               # Use vs Evolve modes
 └── quick-actions.md       # Per-screen quick actions
 ```
 
 ---
 
-## The Two Modes
+## Phases × Capabilities Matrix
 
-| Mode | Color | What AI Does |
-|------|-------|--------------|
-| **Use** | Pink | Operates app FOR user (within existing UI) |
-| **Evolve** | Purple | Modifies app's UI/structure |
+| | Use (Operate) | Evolve (Modify) |
+|---|---|---|
+| **Context-building** | "What ingredients do you have?" | "What would you like to customize?" |
+| **Experience-use** | "Here's a recipe based on your context" | "I've added the search bar" |
 
-### Use Mode (Pink)
-AI works within the current structure to help the user.
-
-```
-User: "Create a book for me about space"
-AI: Creates a new book entity
-```
-
-### Evolve Mode (Purple)
-AI changes the app's structure or features.
-
-```
-User: "Add a search bar at the top"
-AI: Adds SearchBar widget to the screen
-```
-
-See [modes.md](./modes.md) for detailed specifications.
+Both phases can use both capabilities. They're orthogonal.
 
 ---
 
@@ -60,8 +96,8 @@ See [modes.md](./modes.md) for detailed specifications.
 
 ```
 ┌─────────────────────────────────────────────┐
-│   [History]      [Chat]      [New/Context]  │  ← Bottom Nav
-│                    ⬤                        │
+│   [History]      [Chat]      [Context]       │  ← Bottom Nav
+│                    ⬤                         │
 └─────────────────────────────────────────────┘
                      │
                      │ tap
@@ -72,7 +108,7 @@ See [modes.md](./modes.md) for detailed specifications.
 │  │ 👋 Hey! What can I help with?  │         │  ← AI
 │  └────────────────────────────────┘         │
 │                    ┌───────────────────────┐│
-│                    │ Create a recipe       ││  ← User
+│                    │ What should I eat?    ││  ← User
 │                    └───────────────────────┘│
 │                                             │
 │  [Quick Action] [Quick Action] [Action]     │  ← Context-aware
@@ -89,77 +125,60 @@ See [interface.md](./interface.md) for full UI specification.
 
 ## Quick Actions
 
-Quick actions are context-aware suggestions that appear before the user types.
+Quick actions are pre-categorized by phase and capability:
 
 | Type | Color | Purpose |
 |------|-------|---------|
 | Use | Pink | Common operations for current screen |
 | Evolve | Purple | Common customizations for current screen |
 
-Example for to-read Library:
-- "Create a book for me" (Use, pink)
-- "Find books about philosophy" (Use, pink)
-- "Add search bar at top" (Evolve, purple)
-- "Switch to list view" (Evolve, purple)
+Example for to-eat:
+- "What should I eat?" (Use, pink) → triggers context-building
+- "Create a recipe" (Use, pink) → may trigger context-building
+- "Scan a menu" (Use, pink) → triggers context-building
+- "Add calorie tracking" (Evolve, purple)
 
 See [quick-actions.md](./quick-actions.md) for per-screen actions.
-
----
-
-## How Chat Uses Context
-
-When user sends a message, AI receives:
-
-1. **Context items** from the current screen
-2. **User's message**
-3. **Available commands** (from Engine)
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                     CHAT receives                       │
-│                                                         │
-│   Context: "User follows vegetarian diet"              │
-│   Context: "User prefers quick meals under 30 min"     │
-│   Message: "What should I cook tonight?"               │
-│   Commands: [entity.create, view.modify, ...]          │
-│                                                         │
-│                         ↓                               │
-│                                                         │
-│   AI Response: "Here's a quick veggie stir-fry..."    │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
-```
-
----
-
-## Chat History
-
-- Conversations are persisted
-- Accessible via History button (left of chat button when open)
-- Each conversation has:
-  - Title (auto-generated from first message)
-  - Messages array
-  - Timestamps
 
 ---
 
 ## Data Flow
 
 ```
-┌──────────┐    ┌──────────┐    ┌──────────┐
-│ CONTEXT  │───►│   CHAT   │───►│  ENGINE  │
-│          │    │          │    │          │
-│ prefs    │    │ AI       │    │ execute  │
-│ per      │    │ decides  │    │ commands │
-│ screen   │    │ action   │    │          │
-└──────────┘    └──────────┘    └──────────┘
+┌──────────────────────────────────────────────────────────┐
+│                     CHAT FLOW                             │
+│                                                          │
+│   User Message                                           │
+│        │                                                 │
+│        ▼                                                 │
+│   Intent Resolver → Active Intent                        │
+│        │                                                 │
+│        ▼                                                 │
+│   Context Complete? ──No──► Context-building phase       │
+│        │                            │                    │
+│       Yes                           │                    │
+│        │◄───────────────────────────┘                    │
+│        ▼                                                 │
+│   Experience Planner → Experience Plan                   │
+│        │                                                 │
+│        ▼                                                 │
+│   Render Target = chat? ──Yes──► Chat response           │
+│        │                                                 │
+│       No (screen/hybrid)                                 │
+│        │                                                 │
+│        ▼                                                 │
+│   UI Rendering                                           │
+│                                                          │
+└──────────────────────────────────────────────────────────┘
 ```
 
 ---
 
 ## Related
 
-- Context Domain: [../context/](../context/)
-- Engine Domain: [../engine/](../engine/)
-- Interface Spec: [interface.md](./interface.md)
-- Modes: [modes.md](./modes.md)
+- Phases: [phases.md](./phases.md)
+- Capabilities: [capabilities.md](./capabilities.md)
+- Style Domain: [../style/](../style/) — Stable preferences
+- Context Domain: [../context/](../context/) — Ephemeral session data
+- Intent Domain: [../intent/](../intent/) — What user wants to do
+- Experience Domain: [../experience/](../experience/) — The plan

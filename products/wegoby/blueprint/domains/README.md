@@ -1,18 +1,45 @@
 # Domains
 
-Core system specifications for Wegoby.
+Core system specifications for the Wegoby Experience Engine.
 
 ## Overview
 
-Domains define the architecture of Wegoby's adaptive system. Each domain has a specific responsibility in the data flow.
+The Experience Engine generates adaptive experiences through a pipeline of specialized components. Each domain has a specific responsibility.
 
 ```
-┌──────────┐    ┌──────────┐    ┌──────────┐    ┌──────────┐
-│ PERSONA  │───►│ CONTEXT  │───►│   CHAT   │───►│  ENGINE  │───► UI
-│          │    │          │    │          │    │          │
-│   WHO    │    │   WHAT   │    │   HOW    │    │   HOW    │
-│  user is │    │  prefs   │    │  talk    │    │  render  │
-└──────────┘    └──────────┘    └──────────┘    └──────────┘
+┌─────────────────────────────────────────────────────────────────────┐
+│                    EXPERIENCE ENGINE ARCHITECTURE                    │
+│                                                                     │
+│   User Action                                                       │
+│        │                                                            │
+│        ▼                                                            │
+│   ┌──────────────┐                                                  │
+│   │   INTENT     │  "What does the user want to do?"               │
+│   │   RESOLVER   │  Route / Action / Message → Intent              │
+│   └──────┬───────┘                                                  │
+│          │                                                          │
+│          ▼                                                          │
+│   ┌──────────────────────────────────────────────────────────────┐ │
+│   │                 EXPERIENCE PLANNER                            │ │
+│   │                                                               │ │
+│   │   ┌─────────┐   ┌─────────┐   ┌─────────┐                   │ │
+│   │   │  STYLE  │ + │ CONTEXT │ + │ INTENT  │ = Experience Plan  │ │
+│   │   │ (stable)│   │(session)│   │ (goal)  │                   │ │
+│   │   └─────────┘   └─────────┘   └─────────┘                   │ │
+│   │                                                               │ │
+│   └──────────────────────────────────────────────────────────────┘ │
+│          │                                                          │
+│          ▼                                                          │
+│   ┌──────────────────────────────────────────────────────────────┐ │
+│   │                      ENGINE                                   │ │
+│   │                                                               │ │
+│   │   ┌────────────────┐         ┌────────────────┐             │ │
+│   │   │  Data Resolver │────────►│    Renderer    │──► UI       │ │
+│   │   └────────────────┘         └────────────────┘             │ │
+│   │                                                               │ │
+│   └──────────────────────────────────────────────────────────────┘ │
+│                                                                     │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
 ## Structure
@@ -21,115 +48,152 @@ Domains define the architecture of Wegoby's adaptive system. Each domain has a s
 domains/
 ├── README.md              # This file
 │
-├── persona/               # WHO the user is
+├── style/                 # STABLE preferences
 │   ├── README.md
-│   ├── schema.json        # Deep 5-level model
-│   ├── baseline.json      # Default assumptions
-│   ├── onboarding.md      # Miniapp questions
-│   └── research/
+│   ├── schema.json        # User Style per mini-app
+│   ├── policies.json      # Policy definitions
+│   ├── policy-mapper.md   # Natural language → policies
+│   └── baselines/
+│       ├── global.json
+│       └── miniapps/
+│           ├── to-read.json
+│           └── to-eat.json
 │
-├── context/               # WHAT the user prefers
+├── context/               # EPHEMERAL session data
 │   ├── README.md
-│   ├── schema.json        # ContextItem[] definition
-│   ├── layers.md          # The 5 UX layers
-│   └── panel.md           # Context Panel UI
+│   ├── schema.json        # Context Snapshot
+│   ├── sources.md         # How context is collected
+│   └── layers.md          # 5 UX categories
+│
+├── intent/                # WHAT user wants to do
+│   ├── README.md
+│   ├── taxonomy.json      # Intent definitions
+│   └── resolver.md        # Resolution rules
+│
+├── experience/            # THE PLAN
+│   ├── README.md
+│   ├── plan-schema.json   # Experience Plan format
+│   ├── artifact-schema.json # Saved outcomes
+│   ├── blocks.md          # 8 universal blocks
+│   └── block-mapper.md    # Entity × Intent → Blocks
 │
 ├── chat/                  # HOW user talks to AI
 │   ├── README.md
+│   ├── phases.md          # Context-building / Experience-use
+│   ├── capabilities.md    # Use / Evolve
 │   ├── interface.md       # Chat UI spec
-│   ├── modes.md           # Use vs Evolve
 │   └── quick-actions.md   # Per-screen actions
 │
 └── engine/                # HOW UI is rendered
     ├── README.md
+    ├── renderer.md        # Plan → UI
+    ├── data-resolver.md   # Requirements → Entities
+    ├── evolve-api.md      # Structural modifications
     ├── miniapp-anatomy.md # Miniapp structure
-    ├── command-api.md     # AI commands
     ├── widgets/
     └── templates/
 ```
 
 ## Domain Responsibilities
 
-### Persona
-**WHO the user is** — Deep psychological model and baseline assumptions.
+### Style
+**STABLE preferences** — How experiences are presented, consistent over time.
 
-- Stores 5-level persona model
-- Defines baseline assumptions per screen
-- Maps onboarding questions to persona
-- Generates Context items from persona data
+- Policy knobs (density, pace, tone, autonomy, etc.)
+- Baseline hierarchy: Global → Mini-app → User
+- Natural language → enumerated policies mapping
+- Persists across sessions
 
 ### Context
-**WHAT the user prefers** — Natural language preferences for AI.
+**EPHEMERAL session data** — What's relevant right now, this moment.
 
-- 5 layers: Presentation, Cognition, Autonomy, Continuity, Intent
-- Per-screen context items
-- Sources: baseline, onboarding, learned, user-added
-- Visible to user in Context Panel
+- Situational inputs (location, time, constraints, mood)
+- Built via chat or sensors
+- Policy overrides for current session
+- Discarded at session end
+
+### Intent
+**WHAT user wants to do** — The goal of the current interaction.
+
+- Intent taxonomy per mini-app
+- Resolution from route/action/message
+- Required context per intent
+- Only one intent active at a time
+
+### Experience
+**THE PLAN** — The central artifact that defines what to render.
+
+- Experience Plan (goal, policies, stages, blocks, data requirements)
+- Experience Artifacts (saved outcomes, not transcripts)
+- 8 universal blocks (Hero, List, Card, Timeline, Compare, Insight, ActionDock, Empty)
+- Block mapper (Entity × Intent → Blocks)
 
 ### Chat
-**HOW user communicates with AI** — Chat interface and modes.
+**HOW user communicates with AI** — Phases and capabilities.
 
-- Use Mode (pink): AI operates app for user
-- Evolve Mode (purple): AI modifies app structure
+- Phases: Context-building / Experience-use
+- Capabilities: Use (operate) / Evolve (modify)
+- Chat as surface, not artifact
 - Quick actions per screen
-- Chat history
 
 ### Engine
-**HOW UI is rendered** — Runtime and command execution.
+**HOW UI is rendered** — Runtime and rendering.
 
-- Miniapp configuration
-- Screen structure (widgets + layout)
-- Command API for AI
-- Widget and template libraries
+- Data Resolver: Requirements → Entities
+- Renderer: Plan + Data → UI (no smart logic)
+- Evolve API: Structural modification commands
+- Widgets and templates
 
-## Data Flow
+## Core Data Flow
 
 ```
-1. User completes onboarding
-   └─► Persona stores answers
+1. User triggers intent (route, action, message)
+   └─► Intent Resolver determines active intent
 
-2. Persona generates Context items
-   └─► Context merges baseline + onboarding + user-added
+2. Context needed?
+   └─► Yes: Chat enters context-building phase
+   └─► No: Continue to planner
 
-3. User opens chat
-   └─► Chat receives Context for current screen
+3. Experience Planner runs
+   └─► Intent + Style + Context → Experience Plan
 
-4. User sends message
-   └─► Chat AI interprets with Context
-   └─► AI sends command to Engine
+4. Data Resolver fetches
+   └─► Plan's data requirements → Entities
 
-5. Engine executes command
-   └─► UI updates
+5. Renderer produces UI
+   └─► Plan + Data + Tokens → Rendered UI
+
+6. User can save result
+   └─► Experience Plan + Data → Experience Artifact
 ```
 
-## Key Principle
+## Key Principles
 
-**Context is natural language, not config.**
+### 1. Style vs Context
+- **Style** = stable, per-miniapp, adjustable within theme
+- **Context** = ephemeral, per-session, situational
 
-Instead of:
-```json
-{ "presentation.typography.fontSize": "large" }
-```
+### 2. Plans Are Declarative
+Experience Plans declare what to show. The Renderer follows them deterministically with no smart logic.
 
-We use:
-```json
-{ "layer": "presentation", "text": "User prefers large text" }
-```
+### 3. Artifacts, Not Transcripts
+Saved outcomes are Experience Artifacts (stable UI representations), not chat conversations.
 
-This allows:
-- AI to read preferences naturally
-- Users to add freeform preferences
-- Flexibility without schema changes
+### 4. Baseline Works Without Context
+The system works with Style + Baseline alone. Context enhances but isn't required.
 
-## Specifications vs Implementations
+### 5. Universal Blocks, Domain Widgets
+8 universal blocks (Hero, List, Card, etc.) rendered by domain-specific widgets (BookCard, RecipeCard).
 
-- **Specifications** (in this folder): Architecture docs, API contracts, schemas
-- **Implementations** (in projects/): Actual code, tests, builds
+## Mini-app Coexistence
 
-This separation allows:
-- Designing before coding
-- Clear contracts between systems
-- Documentation that lives with specs
+| Aspect | to-read | to-eat | Shared |
+|--------|---------|--------|--------|
+| Character | calm, narrative | practical, decisive | Same policy knobs |
+| Intents | BrowseLibrary, ContinueReading | DecideNow, ScanMenu | Same resolver pattern |
+| Blocks | Hero, List, Card, Insight | Hero, List, Card, Compare | Same block catalog |
+| Context-building | Optional (library-first) | Often needed (decisions) | Same chat phases |
+| Artifacts | Saved books | Saved recipes, menus | Same artifact schema |
 
 ## Related
 

@@ -1,16 +1,16 @@
-# The 5 Context Layers
+# The 5 UX Categories
 
-> **UX Dimensions** — How context items are organized and what each layer means.
+> **Organizing Dimensions** — How style and context items are categorized.
 
 ---
 
 ## Overview
 
-Every context item belongs to one of 5 layers. These layers represent different aspects of the user experience.
+Every style or context item belongs to one of 5 categories. These represent different aspects of the user experience.
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    CONTEXT LAYERS                       │
+│                    UX CATEGORIES                        │
 │                                                         │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
 │  │Presentation │  │  Cognition  │  │  Autonomy   │     │
@@ -18,12 +18,14 @@ Every context item belongs to one of 5 layers. These layers represent different 
 │  └─────────────┘  └─────────────┘  └─────────────┘     │
 │                                                         │
 │       ┌─────────────┐       ┌─────────────┐            │
-│       │ Continuity  │       │   Intent    │            │
+│       │ Continuity  │       │  Relevance  │            │
 │       │ (temporal)  │       │  (content)  │            │
 │       └─────────────┘       └─────────────┘            │
 │                                                         │
 └─────────────────────────────────────────────────────────┘
 ```
+
+Note: The category previously called "Intent" is now "Relevance" to avoid confusion with the Intent Resolver (which determines what the user wants to do).
 
 ---
 
@@ -111,16 +113,15 @@ Every context item belongs to one of 5 layers. These layers represent different 
 
 ---
 
-## 5. Intent
+## 5. Relevance
 
-**Focus**: Content matching — What's relevant to the user
+**Focus**: Content matching — What's relevant to the user right now
 
 ### What It Covers
-- User goals
+- Content filters and restrictions
 - Interests and preferences
-- Constraints and restrictions
-- Current task context
 - Domain-specific needs
+- Current situational constraints
 
 ### Example Items
 | Item | Effect |
@@ -128,33 +129,35 @@ Every context item belongs to one of 5 layers. These layers represent different 
 | "User follows vegetarian diet" | Filter out meat recipes |
 | "Reading motivation: Connecting with characters" | Character-driven stories |
 | "User prefers quick meals under 30 minutes" | Fast recipes |
-| "User is exploring available miniapps" | Discovery mode |
+| "User is at a restaurant" | Show menu-focused UI |
+
+Note: This category is about content filtering and matching, not about user goals (which are handled by the Intent Resolver).
 
 ---
 
-## Layer Selection Guide
+## Category Selection Guide
 
-When creating a context item, choose the layer based on:
+When creating a style or context item, choose the category based on:
 
-| If the item is about... | Use Layer |
-|-------------------------|-----------|
+| If the item is about... | Use Category |
+|-------------------------|--------------|
 | How things **look** | Presentation |
 | How things are **explained** | Cognition |
 | Who is **in control** | Autonomy |
 | How **state/time** is managed | Continuity |
-| What the user **wants/needs** | Intent |
+| What content is **relevant** | Relevance |
 
 ---
 
-## Cross-Layer Examples
+## Cross-Category Examples
 
-Some preferences might seem to fit multiple layers. Here's guidance:
+Some preferences might seem to fit multiple categories. Here's guidance:
 
 | Preference | Could be... | Should be | Why |
 |------------|-------------|-----------|-----|
 | "User prefers dark mode" | Presentation | **Presentation** | Visual appearance |
-| "User is a beginner" | Cognition or Intent | **Cognition** | Affects how content is explained |
-| "User follows vegetarian diet" | Cognition or Intent | **Intent** | Content constraint |
+| "User is a beginner" | Cognition or Relevance | **Cognition** | Affects how content is explained |
+| "User follows vegetarian diet" | Cognition or Relevance | **Relevance** | Content filter |
 | "Save progress automatically" | Autonomy or Continuity | **Continuity** | About persistence |
 | "Don't auto-play videos" | Presentation or Autonomy | **Autonomy** | User control issue |
 

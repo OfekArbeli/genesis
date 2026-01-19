@@ -1,0 +1,75 @@
+{
+  "$schema": "../../schema.json",
+  "id": "to-read",
+  "name": "to-read Baseline",
+  "description": "Calm, narrative-oriented experience for reading and reflection",
+  "inheritsFrom": "global",
+  "character": {
+    "essence": "calm, narrative, reflective",
+    "metaphor": "A quiet library corner on a rainy afternoon"
+  },
+  "policies": {
+    "density": "low",
+    "structure": "loose",
+    "verbosity": "normal",
+    "autonomy": "user-led",
+    "ctaStrength": "soft",
+    "pace": "calm",
+    "chunking": "large",
+    "useHistory": true,
+    "noveltyBias": "medium",
+    "tone": "warm",
+    "confidence": "cautious"
+  },
+  "naturalLanguageItems": [
+    {
+      "category": "presentation",
+      "text": "Distraction-free reading environment",
+      "source": "baseline"
+    },
+    {
+      "category": "cognition",
+      "text": "Story unfolds at a comfortable pace",
+      "source": "baseline"
+    },
+    {
+      "category": "cognition",
+      "text": "No pressure to finish quickly",
+      "source": "baseline"
+    },
+    {
+      "category": "autonomy",
+      "text": "User freely explores library without interruption",
+      "source": "baseline"
+    },
+    {
+      "category": "continuity",
+      "text": "Reading position bookmarked automatically",
+      "source": "baseline"
+    }
+  ],
+  "constraints": {
+    "description": "to-read should always feel calm - these policies have restricted ranges",
+    "rangeRestrictions": {
+      "pace": ["normal", "calm"],
+      "density": ["low", "medium"],
+      "ctaStrength": ["soft", "clear"]
+    }
+  },
+  "screenOverrides": {
+    "library": {
+      "policies": {
+        "structure": "guided"
+      },
+      "note": "Library benefits from some structure for discovery"
+    },
+    "reading": {
+      "policies": {
+        "density": "low",
+        "structure": "loose",
+        "autonomy": "user-led"
+      },
+      "note": "Reading is fully immersive and user-controlled"
+    }
+  }
+}
