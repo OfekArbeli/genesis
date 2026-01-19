@@ -1,75 +1,142 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Context",
-  "description": "User's personalized preferences as natural language items across 5 UX dimensions",
+  "title": "ContextSnapshot",
+  "description": "Ephemeral session context - what's relevant right now",
   "type": "object",
-  "required": ["userId", "version", "pages"],
+  "required": ["sessionId", "timestamp", "situation"],
   "properties": {
+    "sessionId": {
+      "type": "string",
+      "description": "Unique session identifier"
+    },
     "userId": {
       "type": "string",
-      "description": "Unique user identifier"
+      "description": "User identifier"
     },
-    "version": {
+    "miniappId": {
+      "type": "string",
+      "description": "Current mini-app",
+      "pattern": "^to-[a-z]+$"
+    },
+    "timestamp": {
       "type": "string",
       "format": "date-time",
-      "description": "Last update timestamp"
+      "description": "When this snapshot was created"
     },
-    "pages": {
+    "situation": {
+      "$ref": "#/definitions/Situation"
+    },
+    "constraints": {
+      "$ref": "#/definitions/Constraints"
+    },
+    "mood": {
+      "$ref": "#/definitions/Mood"
+    },
+    "domain": {
       "type": "object",
-      "description": "Context items organized by page/screen",
-      "additionalProperties": {
-        "$ref": "#/definitions/PageContext"
+      "description": "Mini-app specific context data",
+      "additionalProperties": true
+    },
+    "naturalItems": {
+      "type": "array",
+      "description": "Natural language context statements",
+      "items": {
+        "type": "string"
       }
+    },
+    "policyOverrides": {
+      "type": "object",
+      "description": "Temporary policy overrides derived from session context",
+      "properties": {
+        "density": { "type": "string", "enum": ["low", "medium", "high"] },
+        "structure": { "type": "string", "enum": ["loose", "guided"] },
+        "verbosity": { "type": "string", "enum": ["minimal", "normal", "detailed"] },
+        "autonomy": { "type": "string", "enum": ["system-led", "shared", "user-led"] },
+        "ctaStrength": { "type": "string", "enum": ["soft", "clear", "urgent"] },
+        "pace": { "type": "string", "enum": ["fast", "normal", "calm"] },
+        "chunking": { "type": "string", "enum": ["small", "medium", "large"] },
+        "useHistory": { "type": "boolean" },
+        "noveltyBias": { "type": "string", "enum": ["low", "medium", "high"] },
+        "tone": { "type": "string", "enum": ["neutral", "warm", "playful"] },
+        "confidence": { "type": "string", "enum": ["cautious", "balanced", "assertive"] }
+      }
+    },
+    "buildMethod": {
+      "type": "string",
+      "enum": ["chat", "automatic", "user-input", "mixed"],
+      "description": "How this context was built"
     }
   },
   "definitions": {
-    "PageContext": {
+    "Situation": {
       "type": "object",
-      "description": "Context for a specific page/screen",
-      "required": ["pageName", "items"],
+      "description": "Environmental and situational factors",
       "properties": {
-        "pageName": {
+        "location": {
           "type": "string",
-          "description": "Human-readable page name"
+          "enum": ["home", "restaurant", "commute", "work", "outdoors", "unknown"]
         },
-        "items": {
+        "timeOfDay": {
+          "type": "string",
+          "enum": ["morning", "afternoon", "evening", "night"]
+        },
+        "dayType": {
+          "type": "string",
+          "enum": ["weekday", "weekend", "holiday"]
+        },
+        "deviceType": {
+          "type": "string",
+          "enum": ["mobile", "tablet", "desktop"]
+        }
+      }
+    },
+    "Constraints": {
+      "type": "object",
+      "description": "Limitations and requirements for this session",
+      "properties": {
+        "time": {
+          "type": "string",
+          "description": "Time available (e.g., '30min', '1 hour', 'no limit')"
+        },
+        "budget": {
+          "type": "string",
+          "enum": ["cheap", "moderate", "splurge", "unspecified"]
+        },
+        "energy": {
+          "type": "string",
+          "enum": ["tired", "normal", "energetic"]
+        },
+        "social": {
+          "type": "string",
+          "enum": ["alone", "with-partner", "with-family", "group"]
+        },
+        "custom": {
           "type": "array",
-          "description": "List of context items for this page",
-          "items": {
-            "$ref": "#/definitions/ContextItem"
-          }
+          "items": { "type": "string" },
+          "description": "Any other constraints mentioned"
         }
       }
     },
-    "ContextItem": {
+    "Mood": {
       "type": "object",
-      "description": "A single preference or context statement",
-      "required": ["layer", "text", "isBaseline"],
+      "description": "User's current disposition",
       "properties": {
-        "layer": {
+        "adventurousness": {
           "type": "string",
-          "enum": ["presentation", "cognition", "autonomy", "continuity", "intent"],
-          "description": "Which UX dimension this item belongs to"
+          "enum": ["low", "medium", "high"],
+          "default": "medium"
         },
-        "text": {
+        "decisiveness": {
           "type": "string",
-          "description": "Natural language description of the preference"
+          "enum": ["want-options", "want-recommendation"],
+          "default": "want-recommendation"
         },
-        "isBaseline": {
-          "type": "boolean",
-          "description": "true = system-defined (locked), false = user-added (editable)"
-        },
-        "source": {
+        "urgency": {
           "type": "string",
-          "enum": ["baseline", "onboarding", "learned", "user-added"],
-          "description": "Where this context item originated"
+          "enum": ["relaxed", "normal", "urgent"],
+          "default": "normal"
         }
       }
-    },
-    "Layer": {
-      "type": "string",
-      "enum": ["presentation", "cognition", "autonomy", "continuity", "intent"],
-      "description": "The 5 UX dimensions for organizing context"
     }
   }
 }

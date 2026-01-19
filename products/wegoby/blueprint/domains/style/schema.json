@@ -1,0 +1,130 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UserStyle",
+  "description": "User's stable style preferences per mini-app",
+  "type": "object",
+  "required": ["userId", "miniappId", "version", "policies"],
+  "properties": {
+    "userId": {
+      "type": "string",
+      "description": "Unique user identifier"
+    },
+    "miniappId": {
+      "type": "string",
+      "description": "Mini-app identifier (to-read, to-eat, etc.)",
+      "pattern": "^to-[a-z]+$"
+    },
+    "version": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "policies": {
+      "$ref": "#/definitions/PolicySet"
+    },
+    "naturalLanguageItems": {
+      "type": "array",
+      "description": "Human-readable preference statements (input layer)",
+      "items": {
+        "$ref": "#/definitions/StyleItem"
+      }
+    },
+    "sources": {
+      "type": "object",
+      "description": "Which policies came from which source",
+      "additionalProperties": {
+        "type": "string",
+        "enum": ["baseline", "onboarding", "learned", "user-set"]
+      }
+    }
+  },
+  "definitions": {
+    "PolicySet": {
+      "type": "object",
+      "description": "Enumerated policy values for deterministic rendering",
+      "properties": {
+        "density": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "default": "medium"
+        },
+        "structure": {
+          "type": "string",
+          "enum": ["loose", "guided"],
+          "default": "guided"
+        },
+        "verbosity": {
+          "type": "string",
+          "enum": ["minimal", "normal", "detailed"],
+          "default": "normal"
+        },
+        "autonomy": {
+          "type": "string",
+          "enum": ["system-led", "shared", "user-led"],
+          "default": "shared"
+        },
+        "ctaStrength": {
+          "type": "string",
+          "enum": ["soft", "clear", "urgent"],
+          "default": "clear"
+        },
+        "pace": {
+          "type": "string",
+          "enum": ["fast", "normal", "calm"],
+          "default": "normal"
+        },
+        "chunking": {
+          "type": "string",
+          "enum": ["small", "medium", "large"],
+          "default": "medium"
+        },
+        "useHistory": {
+          "type": "boolean",
+          "default": true
+        },
+        "noveltyBias": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "default": "medium"
+        },
+        "tone": {
+          "type": "string",
+          "enum": ["neutral", "warm", "playful"],
+          "default": "warm"
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["cautious", "balanced", "assertive"],
+          "default": "balanced"
+        }
+      }
+    },
+    "StyleItem": {
+      "type": "object",
+      "description": "Natural language preference statement",
+      "required": ["category", "text", "source"],
+      "properties": {
+        "category": {
+          "type": "string",
+          "enum": ["presentation", "cognition", "autonomy", "continuity", "relevance"],
+          "description": "Which UX dimension this affects"
+        },
+        "text": {
+          "type": "string",
+          "description": "Human-readable preference"
+        },
+        "source": {
+          "type": "string",
+          "enum": ["baseline", "onboarding", "learned", "user-set"]
+        },
+        "derivedPolicies": {
+          "type": "array",
+          "description": "Which enumerated policies this maps to",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

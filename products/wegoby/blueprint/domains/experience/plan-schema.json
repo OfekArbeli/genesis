@@ -1,0 +1,240 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ExperiencePlan",
+  "description": "Declarative specification of what to render and how",
+  "type": "object",
+  "required": ["id", "version", "intent", "goal", "policies", "stages", "renderTarget"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique plan identifier"
+    },
+    "version": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When this plan was generated"
+    },
+    "intent": {
+      "type": "string",
+      "description": "Which intent triggered this plan"
+    },
+    "goal": {
+      "type": "string",
+      "description": "Human-readable goal of this experience"
+    },
+    "miniapp": {
+      "type": "string",
+      "description": "Mini-app context",
+      "pattern": "^to-[a-z]+$"
+    },
+    "policies": {
+      "$ref": "#/definitions/ResolvedPolicies"
+    },
+    "contextSnapshot": {
+      "type": "object",
+      "description": "Snapshot of context at plan creation time",
+      "additionalProperties": true
+    },
+    "dataRequirements": {
+      "type": "array",
+      "description": "Data needed to render this plan",
+      "items": {
+        "$ref": "#/definitions/DataRequirement"
+      }
+    },
+    "stages": {
+      "type": "array",
+      "description": "Sequential stages of the experience",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/Stage"
+      }
+    },
+    "renderTarget": {
+      "type": "string",
+      "enum": ["screen", "chat", "hybrid"],
+      "description": "Where this experience renders"
+    },
+    "actions": {
+      "type": "array",
+      "description": "Available user actions",
+      "items": {
+        "$ref": "#/definitions/Action"
+      }
+    },
+    "transitions": {
+      "type": "object",
+      "description": "What happens on specific events",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional plan metadata",
+      "properties": {
+        "generatedBy": {
+          "type": "string",
+          "enum": ["planner", "template", "user"]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "cacheable": {
+          "type": "boolean"
+        },
+        "ttl": {
+          "type": "number",
+          "description": "Cache TTL in seconds"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ResolvedPolicies": {
+      "type": "object",
+      "description": "Fully resolved policy values (no inheritance)",
+      "properties": {
+        "density": { "type": "string", "enum": ["low", "medium", "high"] },
+        "structure": { "type": "string", "enum": ["loose", "guided"] },
+        "verbosity": { "type": "string", "enum": ["minimal", "normal", "detailed"] },
+        "autonomy": { "type": "string", "enum": ["system-led", "shared", "user-led"] },
+        "ctaStrength": { "type": "string", "enum": ["soft", "clear", "urgent"] },
+        "pace": { "type": "string", "enum": ["fast", "normal", "calm"] },
+        "chunking": { "type": "string", "enum": ["small", "medium", "large"] },
+        "useHistory": { "type": "boolean" },
+        "noveltyBias": { "type": "string", "enum": ["low", "medium", "high"] },
+        "tone": { "type": "string", "enum": ["neutral", "warm", "playful"] },
+        "confidence": { "type": "string", "enum": ["cautious", "balanced", "assertive"] }
+      },
+      "required": ["density", "structure", "verbosity", "autonomy", "pace", "tone", "confidence"]
+    },
+    "DataRequirement": {
+      "type": "object",
+      "description": "Data needed from Data Resolver",
+      "required": ["key", "type"],
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Reference key used in blocks"
+        },
+        "type": {
+          "type": "string",
+          "description": "Entity type (Book, Recipe, etc.)"
+        },
+        "query": {
+          "type": "object",
+          "description": "Query parameters",
+          "properties": {
+            "id": { "type": "string" },
+            "filters": { "type": "object" },
+            "sort": { "type": "string" },
+            "limit": { "type": "number" }
+          }
+        },
+        "required": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "Stage": {
+      "type": "object",
+      "description": "A single stage of the experience",
+      "required": ["id", "blocks"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Stage identifier"
+        },
+        "title": {
+          "type": "string",
+          "description": "Optional stage title"
+        },
+        "condition": {
+          "type": "string",
+          "description": "When to show this stage (expression)"
+        },
+        "blocks": {
+          "type": "array",
+          "description": "Blocks in this stage",
+          "items": {
+            "$ref": "#/definitions/BlockInstance"
+          }
+        },
+        "renderTarget": {
+          "type": "string",
+          "enum": ["screen", "chat", "hybrid"],
+          "description": "Override for this stage"
+        }
+      }
+    },
+    "BlockInstance": {
+      "type": "object",
+      "description": "A configured block instance",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["Hero", "List", "Card", "Timeline", "Compare", "Insight", "ActionDock", "Empty"],
+          "description": "Block type"
+        },
+        "id": {
+          "type": "string",
+          "description": "Instance identifier"
+        },
+        "data": {
+          "type": "string",
+          "description": "Data key from dataRequirements"
+        },
+        "props": {
+          "type": "object",
+          "description": "Block-specific properties",
+          "additionalProperties": true
+        },
+        "policyOverrides": {
+          "type": "object",
+          "description": "Per-block policy overrides"
+        },
+        "condition": {
+          "type": "string",
+          "description": "When to render this block"
+        }
+      }
+    },
+    "Action": {
+      "type": "object",
+      "description": "Available user action",
+      "required": ["id", "label"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["primary", "secondary", "destructive"]
+        },
+        "intent": {
+          "type": "string",
+          "description": "Intent to trigger on action"
+        },
+        "command": {
+          "type": "object",
+          "description": "Engine command to execute"
+        },
+        "condition": {
+          "type": "string",
+          "description": "When this action is available"
+        }
+      }
+    }
+  }
+}

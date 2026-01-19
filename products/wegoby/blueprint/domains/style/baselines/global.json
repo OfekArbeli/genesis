@@ -1,0 +1,48 @@
+{
+  "$schema": "../schema.json",
+  "id": "global",
+  "name": "Wegoby Global Baseline",
+  "description": "Default experience for an average Wegoby user. All mini-apps inherit from this.",
+  "policies": {
+    "density": "medium",
+    "structure": "guided",
+    "verbosity": "normal",
+    "autonomy": "shared",
+    "ctaStrength": "clear",
+    "pace": "normal",
+    "chunking": "medium",
+    "useHistory": true,
+    "noveltyBias": "medium",
+    "tone": "warm",
+    "confidence": "balanced"
+  },
+  "naturalLanguageItems": [
+    {
+      "category": "presentation",
+      "text": "Clean, modern interface with clear visual hierarchy",
+      "source": "baseline"
+    },
+    {
+      "category": "cognition",
+      "text": "Balanced information density, not overwhelming",
+      "source": "baseline"
+    },
+    {
+      "category": "autonomy",
+      "text": "AI suggests, user decides",
+      "source": "baseline"
+    },
+    {
+      "category": "continuity",
+      "text": "Progress saved automatically across sessions",
+      "source": "baseline"
+    }
+  ],
+  "constraints": {
+    "description": "These represent Wegoby's product principles - cannot be fully overridden",
+    "immutable": [
+      "useHistory"
+    ],
+    "rangeRestrictions": {}
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ExperienceArtifact",
+  "description": "A saved outcome from an Experience Plan - stable UI representation",
+  "type": "object",
+  "required": ["id", "type", "userId", "miniapp", "createdAt", "plan", "data"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique artifact identifier"
+    },
+    "type": {
+      "type": "string",
+      "description": "Artifact type",
+      "enum": ["recipe", "book", "menu", "meal-plan", "reading-note", "custom"]
+    },
+    "userId": {
+      "type": "string",
+      "description": "Owner user ID"
+    },
+    "miniapp": {
+      "type": "string",
+      "description": "Source mini-app",
+      "pattern": "^to-[a-z]+$"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "title": {
+      "type": "string",
+      "description": "Display title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description"
+    },
+    "thumbnail": {
+      "type": "string",
+      "description": "Thumbnail image URL"
+    },
+    "plan": {
+      "$ref": "#/definitions/FrozenPlan"
+    },
+    "data": {
+      "type": "object",
+      "description": "Resolved data at save time",
+      "additionalProperties": true
+    },
+    "source": {
+      "$ref": "#/definitions/ArtifactSource"
+    },
+    "sharing": {
+      "$ref": "#/definitions/SharingSettings"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "definitions": {
+    "FrozenPlan": {
+      "type": "object",
+      "description": "Experience Plan snapshot at save time",
+      "properties": {
+        "intent": { "type": "string" },
+        "goal": { "type": "string" },
+        "policies": { "type": "object" },
+        "stages": { "type": "array" },
+        "renderTarget": { "type": "string" }
+      }
+    },
+    "ArtifactSource": {
+      "type": "object",
+      "description": "How this artifact was created",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["generated", "imported", "scanned", "manual"]
+        },
+        "originalIntent": {
+          "type": "string",
+          "description": "Intent that created this"
+        },
+        "sourceUrl": {
+          "type": "string",
+          "description": "If imported from URL"
+        },
+        "scanImage": {
+          "type": "string",
+          "description": "If scanned from photo"
+        }
+      }
+    },
+    "SharingSettings": {
+      "type": "object",
+      "description": "Sharing and visibility settings",
+      "properties": {
+        "visibility": {
+          "type": "string",
+          "enum": ["private", "household", "public"]
+        },
+        "sharedWith": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "User IDs with access"
+        }
+      }
+    }
+  }
+}
